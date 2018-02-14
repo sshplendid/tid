@@ -1,4 +1,4 @@
-#MongoDB 시작하기
+# MongoDB 시작하기
 
 ## 사용자 설정
 사용자 계정은 `db.system.users` 컬렉션에 저장됨.
