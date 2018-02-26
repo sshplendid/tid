@@ -127,3 +127,4 @@ strict mode 적용시, `this`는 실행 컨텍스트에 들어갈때 할당된�
     new MyObject().test(); 
 
 
+https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/this
