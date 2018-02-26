@@ -35,9 +35,9 @@ strict mode 적용시, `this`는 실행 컨텍스트에 들어갈때 할당된�
        "use strict"; // strict mode
        return this;
     }
-
-   console.log(bar() === undefined); // true, bar를 단독으로 호출했다.
-   console.log(window.bar() === window); // true, window객체의 메서드로서 호출
+    
+    console.log(bar() === undefined); // true, bar를 단독으로 호출했다.
+    console.log(window.bar() === window); // true, window객체의 메서드로서 호출
 
 ### 객체의 메서드
 
