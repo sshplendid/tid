@@ -1,7 +1,4 @@
-// app.js
-// 메인 파일, 메인 애플리케이션, 엔트리 애플리케이션, 엔트리 파일...
-// 최초 진입점이 되는 애플리케이션 ex) Main.java
-
+// app_static.js
 
 // express 모듈을 불러온다.
 const express = require('express');
@@ -14,6 +11,9 @@ const port = 3000;
  * express를 실행하면 애플리케이션을 리턴한다.
  */
 var app = express();
+
+// 정적인 파일이 있는 디렉토리를 지정
+app.use(express.static('public'));
 
 /**
  * root(/)로 접속하면 아래와 같이 'Hello, express!'를 출력한다.
@@ -32,8 +32,30 @@ app.get('/whoami', (req, res) => {
 });
 
 app.get('/h1', (req, res) => {
-    res.send('<h1>Hello, express!</h1>');
+    res.send('<h1>Hello, express!</h1><img src="/Penguins.jpg" />');
 });
+
+app.get('/dynamic', (req, res) => {
+	var li = '<li>dynamic</li>';
+	var lis = '';
+	for(var i = 0; i < 5; i++) 
+		lis += li;
+	var output = `
+	<html>
+		<head>
+			<meta charset="utf-8" />
+		</head>
+		<body>
+			<h1>Hello, Dynamic!</h1>
+			<ul>
+				${lis}
+			</ul>
+			${new Date()}
+		</body>
+	</html>`; // grave accent
+    res.send(output);
+});
+
 
 /**
  * app에는 listen이라는 메소드가 있음.
