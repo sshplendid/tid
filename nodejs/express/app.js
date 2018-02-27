@@ -15,6 +15,9 @@ var app = express();
 // 정적인 파일이 있는 디렉토리를 지정
 app.use(express.static('public'));
 
+app.set('view engine', 'jade'); // Template Engine: Jade 사용
+app.set('views', './views');    // 템플릿 파일의 위치 설정
+
 /**
  * root(/)로 접속하면 아래와 같이 'Hello, express!'를 출력한다.
  * 우리는 get을 라우트(Route), get이 하는 일을 라우팅(Routing)이라고 부름.
@@ -56,6 +59,16 @@ app.get('/dynamic', (req, res) => {
     res.send(output);
 });
 
+/**
+ * Jade Template Engine 을 사용한 응답
+ * /template 요청을 받으면 시간과 제목을 포함해서 'temp' 템플릿을 호출한다.
+ */
+app.get('/template', (req, res) => {
+	var document = {};
+	document['_time'] = new Date();
+	document['_title'] = '제목입니다';
+	res.render('temp', document);
+});
 
 /**
  * app에는 listen이라는 메소드가 있음.
