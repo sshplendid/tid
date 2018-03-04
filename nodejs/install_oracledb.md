@@ -11,8 +11,8 @@
 ### git
 
     ## proxy 설정
-    git config --global http.proxy http://proxy.adress.is.here
-    git config --global https.proxy http://proxy.adress.is.here
+    git config --global http.proxy http://proxy.address.is.here
+    git config --global https.proxy http://proxy.address.is.here
     
     # SSL 인증서 체크여부 false
     git config --global http.sslVerify false
@@ -26,8 +26,8 @@
     
     npm config set cafile="인증서 위치"
     
-    npm config set http_proxy http://proxy.adress.is.here
-    npm config set https_proxy http://proxy.adress.is.here
+    npm config set http_proxy http://proxy.address.is.here
+    npm config set https_proxy http://proxy.address.is.here
     npm config set strict-ssl false
     npm config set registry http://registry.npmjs.org/
 
