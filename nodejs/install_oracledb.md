@@ -10,26 +10,30 @@
 
 ### git
 
-    ## proxy 설정
-    git config --global http.proxy http://proxy.address.is.here
-    git config --global https.proxy http://proxy.address.is.here
-    
-    # SSL 인증서 체크여부 false
-    git config --global http.sslVerify false
-    
-    ### 인증서 위치 설정
-    git config --system http.sslcainfo 인증서 위치
+```sh
+## proxy 설정
+git config --global http.proxy http://proxy.address.is.here
+git config --global https.proxy http://proxy.address.is.here
+
+# SSL 인증서 체크여부 false
+git config --global http.sslVerify false
+
+### 인증서 위치 설정
+git config --system http.sslcainfo 인증서 위치
+```
 
 ### npm
 
-    ## NPM Proxy 설정
-    
-    npm config set cafile="인증서 위치"
-    
-    npm config set http_proxy http://proxy.address.is.here
-    npm config set https_proxy http://proxy.address.is.here
-    npm config set strict-ssl false
-    npm config set registry http://registry.npmjs.org/
+```sh
+## NPM Proxy 설정
+
+npm config set cafile="인증서 위치"
+
+npm config set http_proxy http://proxy.address.is.here
+npm config set https_proxy http://proxy.address.is.here
+npm config set strict-ssl false
+npm config set registry http://registry.npmjs.org/
+```
 
 ## Python 2.7 설치
 
@@ -49,7 +53,9 @@ client version에 따라 [적절한 Visual C++ Redistributable](https://github.c
 
 # 설치
 
-    npm install oracledb
+```sh
+npm install oracledb
+```
 
 만약 `NJS-054: Binary build/Release/oracledb.node was not installed from oracledb-v2.1.2-node-v57-win32-x64.gz`와 같은 오류가 발생하면 `npm install oracle/node-oracledb.git#v2.1.2` 명령을 실행한다.
 
