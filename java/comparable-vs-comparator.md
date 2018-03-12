@@ -111,3 +111,6 @@ public class CompareTest {
 ```
 
 위 테스트 코드는 이미 `Comparable`로 구현된 Fruit 객체를 정렬해야하는 상황 별로 **price** 오름차순, 내림차순으로 정렬하고 있다. 이는 클래스의 비교로직에 영향을 끼치지 않으며 익명 객체가 사용된 코드에만 영향을 미친다.
+
+
+[Java의 Comparable, Comparator](https://brunch.co.kr/@kd4/7)
