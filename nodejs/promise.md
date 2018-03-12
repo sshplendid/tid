@@ -20,21 +20,24 @@ Promise 객체는 비동기 처리환경에서 이벤트의 처리 완료(혹은
 
 아래와 같이 Promise 객체를 만들어보자. 비동기 상황을 표현하기 위해 `setTimeout` API를 사용했다. 랜덤확률에 의해 비동기 동작의 성공, 실패 상황을 분기했다.
 
-    // new
-    var promise = new Promise((resolve, reject) => {
-      setTimeout(() => {
-        var probability = Math.random();
-        if (probability >= 0.5)
-          resolve('async operation success!');
-        else
-          reject(Error('async operation failed ;('));
-      }, 2000);
-    });
+```javascript
+// new
+var promise = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    var probability = Math.random();
+    if (probability >= 0.5)
+      resolve('async operation success!');
+    else
+      reject(Error('async operation failed ;('));
+  }, 2000);
+});
 
-    promise.then(console.log, console.error);
+promise.then(console.log, console.error);
+```
 
 혹은 Promise객체를 리턴하는 함수로 제공할 수 있다.
 
+```javascript
     // return
     var promise2 = (param) => {
       return new Promise((resolve, reject) => {
@@ -49,11 +52,13 @@ Promise 객체는 비동기 처리환경에서 이벤트의 처리 완료(혹은
     };
 
     promise2().then(console.log, console.error);
+```
 
 ### Promise Chainning
 
 `then` API는 다시 pending 상태의 promise 객체를 리턴한다. 이로인해 여러 개의 프로미스를 연결하여 사용할 수 있다.
 
+```javascript
     // promise Chaining
     var promise3 = (param) => {
       return new Promise((resolve, reject) => {
@@ -76,9 +81,11 @@ Promise 객체는 비동기 처리환경에서 이벤트의 처리 완료(혹은
     }).then((result) => {
       console.log('c: ' + result);
     });
+```
 
 체이닝은 아래와 같이 응용가능하다.
 
+```javascript
     // promise chaining2
     var userInfo = '{"name":"John", "age":10}';
     function parseData(data) {
@@ -102,11 +109,13 @@ Promise 객체는 비동기 처리환경에서 이벤트의 처리 완료(혹은
              .then(display)
              .catch((err) => {console.error(err.message);});
     // Welcome, John!
+```
 
 ### Error Handling
 
 위 promise chaining2 예제에서 이름을 Jane을 바꾸면 auth 함수에서 에러가 발생한다. 체인에서 발생한 에러는 `catch` API로 처리한다.
 
+```javascript
     // Error Handling
     userInfo = '{"name":"Jane", "age":10}';
     getData().then(parseData)
@@ -114,6 +123,7 @@ Promise 객체는 비동기 처리환경에서 이벤트의 처리 완료(혹은
              .then(display)
              .catch((err) => {console.error(err.message);});
     // Jane is not an authorized user!
+```
 
 ### Promise.all API
 
@@ -121,6 +131,7 @@ Promise 객체는 비동기 처리환경에서 이벤트의 처리 완료(혹은
 
 아래 코드는 셔츠, 바지, 자켓을 입는 함수이다. 자켓은 셔츠를 입은 후에 착용해야 한다. 이는 셔츠와 바지를 입는 순서는 상관 없다는 의미이다.
 
+```javascript
     // all API
     var body = {jacket:false, shirt:false, pants:false};
     function wearAShirt(body) {
@@ -160,6 +171,7 @@ Promise 객체는 비동기 처리환경에서 이벤트의 처리 완료(혹은
            .then(values => {return wearAJacket(values[0]);})
            .then(howDoILook)
            .catch(() => {console.log('잘못입었네.');});
+```
 
 셔츠와 바지는 all API로 처리하고 자켓은 then API로 처리한다.
 

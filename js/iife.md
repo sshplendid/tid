@@ -10,22 +10,25 @@
 
 아래 함수는 즉시 실행되는 함수 표현이다. 표현 내부의 변수는 외부로부터의 접근이 불가능하다.
 
-    (function() {
-      var aName = 'Barry';
-    })();
-    // IIFE 내부에서 정의된 변수는 외부 범위에서 접근이 불가능하다.
-    aName // Uncaught ReferenceError: aName is not defined
+```javascript
+(function() {
+  var aName = 'Barry';
+})();
+// IIFE 내부에서 정의된 변수는 외부 범위에서 접근이 불가능하다.
+aName // Uncaught ReferenceError: aName is not defined
+```
 
 IIFE를 변수에 할당하면 IIFE 자체는 저장되지 않고, 함수가 실행된 결과만 저장된다.
 
-    var result = (function () {
-      var name = 'Barry';
-      return name;
-    })();
-    // 즉시 결과를 생성한다.
-    console.log(result); // Barry;
-    
-    
+```javascript
+var result = (function () {
+  var name = 'Barry';
+  return name;
+})();
+// 즉시 결과를 생성한다.
+console.log(result); // Barry;
+```    
+
 
 
 [IIFE - MDN](https://developer.mozilla.org/en-US/docs/Glossary/IIFE)
