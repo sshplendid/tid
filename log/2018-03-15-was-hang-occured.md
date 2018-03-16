@@ -171,7 +171,7 @@ X-WebLogic-Force-JVMID: -967361583
  WHERE     sample_time > SYSDATE - 2 / 24
        AND SAMPLE_TIME BETWEEN TO_DATE ('20180315 1650', 'YYYYMMDD HH24MI')
                            AND TO_DATE ('20180315 1700', 'YYYYMMDD HH24MI')
-       AND machine IN ('kgcpmap1', 'kgcpmap2')
+       AND machine IN ('machine-1', 'machine-2')
        AND program = 'JDBC Thin Client'
 GROUP BY TO_CHAR (sample_time, 'hh24:mi')
 ORDER BY TO_CHAR (sample_time, 'hh24:mi');
@@ -189,7 +189,7 @@ SELECT DISTINCT SQL_TEXT
                                                         '20180315 1650', 'YYYYMMDD HH24MI')
                                                  AND TO_DATE (
                                                         '20180315 1700', 'YYYYMMDD HH24MI'))
-       AND machine IN ('kgcpmap1', 'kgcpmap2')
+       AND machine IN ('machine-1', 'machine-2')
        AND program = 'JDBC Thin Client'
 ORDER BY SQL_TEXT;
 ```
