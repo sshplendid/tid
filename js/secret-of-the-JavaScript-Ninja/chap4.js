@@ -1,7 +1,8 @@
 // 4 함수를 자유자재로 휘두르기
 
-// 4.13 인자 목록 잘라내기
 
+
+// 4.13 인자 목록 잘라내기
 function multiMaxInvalid(val) {
     return val * Math.max.apply(Math, arguments.slice(1));
 }
@@ -15,3 +16,21 @@ function multiMax(val) {
 }
 
 console.assert(multiMax(3, 1, 2) == 6, '3 * max(1, 2) != 6'); // 테스트 통과
+
+
+
+// 4.15 메서드 오버로딩을 처리하는 함수
+function addMethod(object, name, fn) {
+  var oldFn = object[name];
+  object[name] = function() {
+    if(fn.length == arguments.length) {
+      return fn.apply(this, arguments);
+    } else if (typeof oldFn == 'function')
+    return oldFn.apply(this, arguments);
+  };
+}
+
+var ninja = {};
+addMethod(ninja, 'fn', function(a, b) {console.log('a: ' + a + ', b: ' + b);});
+addMethod(ninja, 'fn', function() {console.log('there is no arguments.');});
+addMethod(ninja, 'fn', function(a) {console.log('a: ' + a);});
