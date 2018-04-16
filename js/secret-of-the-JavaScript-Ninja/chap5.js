@@ -98,3 +98,31 @@
     xhr.send();
   });
 })();
+
+// 5.6 타이머 콜백 내에서 클로저 사용하기
+// 백지 화면에서 실행되게 수정
+(function() {
+  document.body.innerHTML = '';
+  document.body.style = '';
+  var div$ = document.createElement('div');
+  div$.style.backgroundColor = 'green';
+  div$.style.width = '10px';
+  div$.style.height = '10px';
+  div$.style.position = 'absolute';
+  document.body.appendChild(div$);
+
+  function animateIt(el) {
+    var tick = 0;
+
+    var timer = setInterval(function() {
+      if(tick < 100) {
+        el.style.left = el.style.top = tick + 'px';
+        tick++;
+      } else {
+        clearInterval(timer);
+      }
+    }, 10);
+  }
+
+  animateIt(div$);
+})();
