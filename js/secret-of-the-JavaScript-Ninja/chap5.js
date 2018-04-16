@@ -1,0 +1,100 @@
+// 5.1 간단한 클로저
+(function() {
+  var outerValue = 'Ninja';
+
+  function outerFunction() {
+    console.assert(outerValue == 'Ninja', 'I can\'t see the ninja!');
+  }
+
+  outerFunction();
+})();
+
+// 5.2 간단하지 않은 클로저
+(function() {
+  var outerValue = 'Ninja';
+
+  var later;
+
+  function outerFunction() {
+    var innerValue = 'Samurai';
+
+    function innerFunction() {
+      console.assert(outerValue, 'I can\'t see the ninja!');
+      console.assert(innerValue, 'I can\'t see the Samurai!');
+    }
+    later = innerFunction;
+  }
+
+  outerFunction();
+  later();
+})();
+
+// 5.3 클로저가 볼 수 있는 다른 것들
+(function() {
+  var outerValue = 'Ninja';
+  var later;
+
+  function outerFunction() {
+    var innerValue = 'samurai';
+
+    function innerFunction(params) {
+      console.assert(outerValue, `Inner can't see the ninja!`);
+      console.assert(innerValue, `Inner can't see the samurai!`);
+      console.assert(params, `Inner can't see the wakizashi!`);
+      console.assert(tooLate, `Inner can't see the ronin!`);
+    }
+
+    later = innerFunction;
+  }
+  console.assert(!tooLate, `Inner can see the ronin!`);
+
+  var tooLate = 'ronin';
+  outerFunction();
+
+  later('wakizashi');
+
+
+// 5.4 클로저를 이용해서 private 변수와 같은 효과를 내기
+(function() {
+  function Ninja() {
+    var feints = 0;
+
+    this.getFeints = function() {
+      return feints;
+    };
+
+    this.feint = function() {
+      feints++;
+    };
+  }
+
+  var ninja = new Ninja();
+
+  ninja.feint();
+
+  console.assert(ninja.getFeints() == 1, '생성자 내부에 있는 feints 변수의 값을 얻을 수 있다.');
+  console.assert(ninja.feints === undefined, '하지만 변수에 접근할 수는 없다.');
+})();  
+
+// 5.5 Ajax 요청용 콜백에서 클로저 사용하기
+// jQuery를 사용하지 않는 방법으로 코드를 수정함
+(function() {
+  var div$ = document.createElement('div');
+  var button$ = document.createElement('button');
+  button$.innerHTML = 'request';
+  document.body.appendChild(button$);
+  document.body.appendChild(div$);
+
+  button$.addEventListener('click', function() {
+    var url = 'https://www.w3schools.com/js/demo_get.asp';
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+      if(this.readyState == 4 && this.status == 200) {
+        div$.innerHTML = this.responseText;
+        console.log(this.responseText);
+      }
+    };
+    xhr.open('GET', url);
+    xhr.send();
+  });
+})();
