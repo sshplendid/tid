@@ -151,16 +151,22 @@
   document.body.innerHTML = '';
   document.body.style = '';
   var button$ = document.createElement('button');
+  button$.innerHTML = 'test';
   document.body.appendChild(button$);
 
   var button = {
     clicked: false,
     click: function() {
       this.clicked = true;
+      button$.innerHTML = this.clicked;
       console.assert(button.clicked, '버튼이 클릭되지 않음!'); // 테스트는 실패한다.
     }
   };
-
+  function bind(context, func) {
+    return function() {
+      context[func].call(context);
+    };
+  }
   var el = document.querySelector('button');
-  el.addEventListener('click', function() {button.click.call(button)}, false);
+  el.addEventListener('click', bind(button, 'click'), false);
 })();
