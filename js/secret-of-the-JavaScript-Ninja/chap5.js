@@ -126,3 +126,22 @@
 
   animateIt(div$);
 })();
+
+// 5.7 특정 콘텍스트를 함수에 바인딩하기
+(function() {
+  document.body.innerHTML = '';
+  document.body.style = '';
+  var button$ = document.createElement('button');
+  document.body.appendChild(button$);
+
+  var button = {
+    clicked: false,
+    click: function() {
+      this.clicked = true;
+      console.assert(button.clicked, '버튼이 클릭되지 않음!'); // 테스트는 실패한다.
+    }
+  };
+
+  var el = document.querySelector('button');
+  el.addEventListener('click', button.click, false);
+})();
