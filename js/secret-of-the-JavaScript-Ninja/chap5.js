@@ -132,6 +132,7 @@
   document.body.innerHTML = '';
   document.body.style = '';
   var button$ = document.createElement('button');
+  button$.innerHTML = '이 테스트는 실패한다.';
   document.body.appendChild(button$);
 
   var button = {
@@ -151,7 +152,7 @@
   document.body.innerHTML = '';
   document.body.style = '';
   var button$ = document.createElement('button');
-  button$.innerHTML = 'test';
+  button$.innerHTML = '이 테스트는 성공한다.';
   document.body.appendChild(button$);
 
   var button = {
