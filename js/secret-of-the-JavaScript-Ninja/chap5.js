@@ -175,9 +175,10 @@
   
 // 5.9 Prototype 라이브러리를 이용한 함수-바인딩 코드 예제
 Function.prototype.bind = function() {
-  var fn = this, args = Array.prototype.slice.call(arguments), object = args.shift();
-  console.log(args);
-  console.log(args.concat(Array.prototype.slice.call(arguments)));
+  var fn = this
+    , args = Array.prototype.slice.call(arguments)
+    , object = args.shift();
+  
   return function() {
     return fn.apply(object, args.concat(Array.prototype.slice.call(arguments)));
   };
@@ -193,3 +194,42 @@ console.assert(!myFunction(), '콘텍스트가 아직 설정되지 않음');
 var aFunction = myFunction.bind(myObject);
 console.assert(aFunction(), '콘텍스트가 설정됨');
   
+// 5.10 네이티브 함수에 대해 인자를 부분적으로 적용하기
+(function() {
+  String.prototype.csv = String.prototype.split.partial(/,\s*/);
+
+  var results = 'Mugan, Jin, Fuu'.csv();
+
+  console.assert(results[0] === 'Mugan'
+    && results[1] === 'Jin'
+    && results[2] === 'Fuu', '텍스트를 적절하게 분리하지 못함'
+  );
+})();
+
+// 5.11 첫 번째 인자를 채워주는 curry 함수의 예
+Function.prototype.curry = function() {
+  var fn = this
+    , args = Array.prototype.slice.call(arguments);
+  return function() {
+    return fn.apply(this, args.concat(Array.prototype.slice.call(arguments)));
+  }
+};
+
+
+// 5.12 좀 더 복잡한 "부분"함수
+Function.prototype.partial = function() {
+  var fn = this
+    , args = Array.prototype.slice.call(arguments);
+
+  return function() {
+    var arg = 0;
+
+    for(var i = 0; i < args.length && arg < arguments.length; i++) {
+      if(args[i] == undefined) {
+        args[i] = arguments[arg++];
+      }
+    }
+
+    return fn.apply(this, args);
+  };
+};
