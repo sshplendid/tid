@@ -160,7 +160,7 @@
     click: function() {
       this.clicked = true;
       button$.innerHTML = this.clicked;
-      console.assert(button.clicked, '버튼이 클릭되지 않음!'); // 테스트는 실패한다.
+      console.assert(button.clicked, '버튼이 클릭되지 않음!'); // 테스트는 한다.
     }
   };
   function bind(context, func) {
