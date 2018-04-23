@@ -171,3 +171,25 @@
   var el = document.querySelector('button');
   el.addEventListener('click', bind(button, 'click'), false);
 })();
+
+  
+// 5.9 Prototype 라이브러리를 이용한 함수-바인딩 코드 예제
+Function.prototype.bind = function() {
+  var fn = this, args = Array.prototype.slice.call(arguments), object = args.shift();
+  console.log(args);
+  console.log(args.concat(Array.prototype.slice.call(arguments)));
+  return function() {
+    return fn.apply(object, args.concat(Array.prototype.slice.call(arguments)));
+  };
+};
+
+var myObject = {};
+function myFunction() {
+  return this === myObject;
+}
+
+console.assert(!myFunction(), '콘텍스트가 아직 설정되지 않음');
+
+var aFunction = myFunction.bind(myObject);
+console.assert(aFunction(), '콘텍스트가 설정됨');
+  
