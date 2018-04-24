@@ -233,3 +233,23 @@ Function.prototype.partial = function() {
     return fn.apply(this, args);
   };
 };
+
+// 5.13 함수를 위한 memoization 메서드
+Function.prototype.memoized = function(key) {
+  this._values = this._values || {}; // __values가 없으면 새로운 객체를 생성한다.
+  return this._values[key] || (this._values[key] = this.apply(this, arguments));
+};
+
+function isPrime(num) {
+  var prime = num != 1;
+  for(var i = 2; i < num; i++) {
+    if(num%i == 0) {
+      prime = false;
+      break;
+    }
+    return prime;
+  }
+}
+
+console.assert(isPrime.memoized(5), '함수는 동작하지 않고 5는 소수가 아님.');
+console.assert(isPrime._values[5], '결과가 캐싱됨.');
