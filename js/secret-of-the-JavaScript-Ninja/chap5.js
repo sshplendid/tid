@@ -217,22 +217,83 @@ Function.prototype.curry = function() {
 
 
 // 5.12 좀 더 복잡한 "부분"함수
-Function.prototype.partial = function() {
-  var fn = this
-    , args = Array.prototype.slice.call(arguments);
+// 인자의 개수를 처음 partial메서드를 호출할 때 지정해야 함. (값이 없는 경우 undefined로)
+(function() {
+  'use strict';
+  
+  Function.prototype.partial = function() {
+    var fn = this
+      , args = Array.prototype.slice.call(arguments);
 
-  return function() {
-    var arg = 0;
+    return function() {
+      var arg = 0;
 
-    for(var i = 0; i < args.length && arg < arguments.length; i++) {
-      if(args[i] == undefined) {
-        args[i] = arguments[arg++];
+      for(var i = 0; i < args.length && arg < arguments.length; i++) {
+        if(args[i] == undefined) {
+          args[i] = arguments[arg++];
+        }
       }
-    }
 
-    return fn.apply(this, args);
+      return fn.apply(this, args);
+    };
   };
-};
+
+  // 테스트
+  function sum() {
+    var total = 0;
+    for(var i = 0; i < arguments.length; i++) {
+      total += arguments[i];
+    }
+    return total;
+  }
+
+  var add1 = sum.partial(1, undefined);
+  var add12 = sum.partial(1,2, undefined, undefined);
+
+  console.assert(sum(1,2) == 3, 'sum(1,2) malfunctioned => ' + sum(1,2));
+  console.assert(sum(1,2,3,4,5,6,7,8,9,10) == 55, 'sum(1...10) malfunctioned => ' + sum(1,2,3,4,5,6,7,8,9,10));
+  console.assert(add1() === 1, 'add1 malfunctioned => ' + add1());
+  console.assert(add1(3) === 4, 'add1 malfunctioned => ' + add1(3));
+  console.assert(add12(1,2) === 6, 'add12 malfunctioned => ' + add12(1,2));
+})();
+
+// 5.12 (추가) arguments의 요소가 undefined거나 매개변수 목록에 없는 인자를 추가해야 하는 경우
+// 최초 인자의 수에 관계없이 동적으로 추가 가능하다.
+(function() {
+  'use strict';
+  
+  Function.prototype.partial = function() {
+    var fn = this;
+    var args = Array.prototype.slice.call(arguments);
+
+    return function() {
+      var arg = 0;
+      for(var i = 0; i < args.length || arg < arguments.length; i++) {
+        args[i] = args[i] || arguments[arg++];
+      }
+
+      return fn.apply(this, args);
+    }
+  };
+
+  // 테스트
+  function sum() {
+    var total = 0;
+    for(var i = 0; i < arguments.length; i++) {
+      total += arguments[i];
+    }
+    return total;
+  }
+
+  var add1 = sum.partial(1);
+  var add12 = sum.partial(1,2);
+
+  console.assert(sum(1,2) == 3, 'sum(1,2) malfunctioned => ' + sum(1,2));
+  console.assert(sum(1,2,3,4,5,6,7,8,9,10) == 55, 'sum(1...10) malfunctioned => ' + sum(1,2,3,4,5,6,7,8,9,10));
+  console.assert(add1() === 1, 'add1 malfunctioned => ' + add1());
+  console.assert(add1(3) === 4, 'add1 malfunctioned => ' + add1(3));
+  console.assert(add12(1,2) === 6, 'add12 malfunctioned => ' + add12(1,2));
+})();
 
 // 5.13 함수를 위한 memoization 메서드
 Function.prototype.memoized = function(key) {
