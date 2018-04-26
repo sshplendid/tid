@@ -314,3 +314,42 @@ function isPrime(num) {
 
 console.assert(isPrime.memoized(5), '함수는 동작하지 않고 5는 소수가 아님.');
 console.assert(isPrime._values[5], '결과가 캐싱됨.');
+
+  
+// 5.14 클로저를 이용한 메모이징(memoizing) 함수 기법
+(function() {
+  'use strict';
+
+  Function.prototype.memoized = function(key) {
+    this._values = this._values || {};
+    return this._values[key] || (this._values[key] = this.apply(this, arguments));
+  };
+
+  Function.prototype.memoize = function() {
+    var fn = this;
+    return function() {
+      return fn.memoized.apply(fn, arguments);
+    };
+  };
+
+  var isPrime = (function(num) {
+    if(num == 1)
+      return false;
+
+    var result = true;
+    for(let i = 2; i < num; i++) {
+      if(num%i == 0) {
+        result = false;
+        break;
+      }
+    }
+    return result;
+  }).memoize();
+
+  console.assert(!isPrime(1), '1은 소수가 아니다');
+  console.assert(isPrime(2), '2는 소수');
+  console.assert(isPrime(3), '3은 소수');
+  console.assert(!isPrime(4), '4는 소수가 아니다');
+  console.assert(isPrime(5), '5는 소수');
+  console.assert(!isPrime(6), '6은 소수가 아니다');
+})();
