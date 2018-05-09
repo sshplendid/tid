@@ -353,3 +353,81 @@ console.assert(isPrime._values[5], '결과가 캐싱됨.');
   console.assert(isPrime(5), '5는 소수');
   console.assert(!isPrime(6), '6은 소수가 아니다');
 })();
+
+  
+// 5.15 새로운 기능을 추가하기 위해 이전 함수 래핑하기
+(function() {
+  'use strict';
+
+  // 객체의 나이(age)가 0 이하인 경우 오류가 나는 메서드
+  function getAge() {
+    if(this.age <= 0) {
+      throw new Error('Is he or she a witch?');
+    }
+    this.age += 1;
+    return this.age;
+  }
+
+  var elphaba = {age: -30, grow: getAge};
+  var glinda = {age: 30, grow: getAge};
+
+  console.assert(glinda.grow() == 31, 'glinda is a witch!');
+  // console.assert(elphaba.grow() == -29, 'elphaba is a witch!'); // 테스트는 실패한다.
+
+  function wrap(object, method, wrapper) {
+    var fn = object[method];
+
+    return object[method] = function() {
+      return wrapper.apply(this, [fn.bind(this)].concat(Array.prototype.slice.call(arguments)));
+    };
+  }
+
+  if(elphaba.age < 0) {
+    wrap(elphaba, 'grow', function(original) {
+      return this.age < 0 ? this.age = 0 : original();
+    })
+  }
+  console.assert(elphaba.grow() == 0, 'elphaba is a witch!');
+  elphaba.age = 1;
+  console.assert(elphaba.grow() == 2, 'elphaba is a witch!');
+  console.assert(elphaba.grow() == 3, 'elphaba is a witch!');
+
+  elphaba.age = -1;
+  console.assert(elphaba.grow() == 0, 'elphaba is a witch!');
+})();
+
+
+// 5.17 클로저내의 반복자가 예상한 대로 동작하지 않는 코드
+(function() {
+  'use strict';
+
+  var array = [{}, {}];
+
+  for(var i = 0; i < array.length; i++) {
+    array[i].execute = function() {
+      return 'div #' + i + ' was clicked.';
+    };
+  }
+
+  // console.assert(array[0].execute() === 'div #0 was clicked.', '<> div #0 was clicked.')
+  // console.assert(array[1].execute() === 'div #1 was clicked.', '<> div #0 was clicked.')
+})();
+
+// 5.18 즉시실행함수를 이용해서 반복자를 제대로 다루기
+(function() {
+  'use strict';
+
+  var array = [{}, {}];
+
+  for(var i = 0; i < array.length; i++) {
+    (function(n){
+      array[n].execute = function() {
+        return 'div #' + n + ' was clicked.';
+      };
+    })(i);
+
+  }
+
+  console.assert(array[0].execute() === 'div #0 was clicked.', '<> div #0 was clicked.')
+  console.assert(array[1].execute() === 'div #1 was clicked.', '<> div #0 was clicked.')
+})();
