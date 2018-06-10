@@ -3,7 +3,7 @@
   var outerValue = 'Ninja';
 
   function outerFunction() {
-    console.assert(outerValue == 'Ninja', 'I can\'t see the ninja!');
+    console.(outerValue == 'Ninja', 'I can\'t see the ninja!');
   }
 
   outerFunction();
@@ -19,8 +19,8 @@
     var innerValue = 'Samurai';
 
     function innerFunction() {
-      console.assert(outerValue, 'I can\'t see the ninja!');
-      console.assert(innerValue, 'I can\'t see the Samurai!');
+      console.(outerValue, 'I can\'t see the ninja!');
+      console.(innerValue, 'I can\'t see the Samurai!');
     }
     later = innerFunction;
   }
@@ -38,15 +38,15 @@
     var innerValue = 'samurai';
 
     function innerFunction(params) {
-      console.assert(outerValue, `Inner can't see the ninja!`);
-      console.assert(innerValue, `Inner can't see the samurai!`);
-      console.assert(params, `Inner can't see the wakizashi!`);
-      console.assert(tooLate, `Inner can't see the ronin!`);
+      console.(outerValue, `Inner can't see the ninja!`);
+      console.(innerValue, `Inner can't see the samurai!`);
+      console.(params, `Inner can't see the wakizashi!`);
+      console.(tooLate, `Inner can't see the ronin!`);
     }
 
     later = innerFunction;
   }
-  console.assert(!tooLate, `Inner can see the ronin!`);
+  console.(!tooLate, `Inner can see the ronin!`);
 
   var tooLate = 'ronin';
   outerFunction();
@@ -72,8 +72,8 @@
 
   ninja.feint();
 
-  console.assert(ninja.getFeints() == 1, '생성자 내부에 있는 feints 변수의 값을 얻을 수 있다.');
-  console.assert(ninja.feints === undefined, '하지만 변수에 접근할 수는 없다.');
+  console.(ninja.getFeints() == 1, '생성자 내부에 있는 feints 변수의 값을 얻을 수 있다.');
+  console.(ninja.feints === undefined, '하지만 변수에 접근할 수는 없다.');
 })();  
 
 // 5.5 Ajax 요청용 콜백에서 클로저 사용하기
@@ -139,7 +139,7 @@
     clicked: false,
     click: function() {
       this.clicked = true;
-      console.assert(button.clicked, '버튼이 클릭되지 않음!'); // 테스트는 실패한다.
+      console.(button.clicked, '버튼이 클릭되지 않음!'); // 테스트는 실패한다.
     }
   };
 
@@ -160,7 +160,7 @@
     click: function() {
       this.clicked = true;
       button$.innerHTML = this.clicked;
-      console.assert(button.clicked, '버튼이 클릭되지 않음!'); // 테스트는 한다.
+      console.(button.clicked, '버튼이 클릭되지 않음!'); // 테스트는 한다.
     }
   };
   function bind(context, func) {
@@ -189,10 +189,10 @@ function myFunction() {
   return this === myObject;
 }
 
-console.assert(!myFunction(), '콘텍스트가 아직 설정되지 않음');
+console.(!myFunction(), '콘텍스트가 아직 설정되지 않음');
 
 var aFunction = myFunction.bind(myObject);
-console.assert(aFunction(), '콘텍스트가 설정됨');
+console.(aFunction(), '콘텍스트가 설정됨');
   
 // 5.10 네이티브 함수에 대해 인자를 부분적으로 적용하기
 (function() {
@@ -200,7 +200,7 @@ console.assert(aFunction(), '콘텍스트가 설정됨');
 
   var results = 'Mugan, Jin, Fuu'.csv();
 
-  console.assert(results[0] === 'Mugan'
+  console.(results[0] === 'Mugan'
     && results[1] === 'Jin'
     && results[2] === 'Fuu', '텍스트를 적절하게 분리하지 못함'
   );
@@ -250,11 +250,11 @@ Function.prototype.curry = function() {
   var add1 = sum.partial(1, undefined);
   var add12 = sum.partial(1,2, undefined, undefined);
 
-  console.assert(sum(1,2) == 3, 'sum(1,2) malfunctioned => ' + sum(1,2));
-  console.assert(sum(1,2,3,4,5,6,7,8,9,10) == 55, 'sum(1...10) malfunctioned => ' + sum(1,2,3,4,5,6,7,8,9,10));
-  console.assert(add1() === 1, 'add1 malfunctioned => ' + add1());
-  console.assert(add1(3) === 4, 'add1 malfunctioned => ' + add1(3));
-  console.assert(add12(1,2) === 6, 'add12 malfunctioned => ' + add12(1,2));
+  console.(sum(1,2) == 3, 'sum(1,2) malfunctioned => ' + sum(1,2));
+  console.(sum(1,2,3,4,5,6,7,8,9,10) == 55, 'sum(1...10) malfunctioned => ' + sum(1,2,3,4,5,6,7,8,9,10));
+  console.(add1() === 1, 'add1 malfunctioned => ' + add1());
+  console.(add1(3) === 4, 'add1 malfunctioned => ' + add1(3));
+  console.(add12(1,2) === 6, 'add12 malfunctioned => ' + add12(1,2));
 })();
 
 // 5.12 (추가) arguments의 요소가 undefined거나 매개변수 목록에 없는 인자를 추가해야 하는 경우
@@ -288,11 +288,11 @@ Function.prototype.curry = function() {
   var add1 = sum.partial(1);
   var add12 = sum.partial(1,2);
 
-  console.assert(sum(1,2) == 3, 'sum(1,2) malfunctioned => ' + sum(1,2));
-  console.assert(sum(1,2,3,4,5,6,7,8,9,10) == 55, 'sum(1...10) malfunctioned => ' + sum(1,2,3,4,5,6,7,8,9,10));
-  console.assert(add1() === 1, 'add1 malfunctioned => ' + add1());
-  console.assert(add1(3) === 4, 'add1 malfunctioned => ' + add1(3));
-  console.assert(add12(1,2) === 6, 'add12 malfunctioned => ' + add12(1,2));
+  console.(sum(1,2) == 3, 'sum(1,2) malfunctioned => ' + sum(1,2));
+  console.(sum(1,2,3,4,5,6,7,8,9,10) == 55, 'sum(1...10) malfunctioned => ' + sum(1,2,3,4,5,6,7,8,9,10));
+  console.(add1() === 1, 'add1 malfunctioned => ' + add1());
+  console.(add1(3) === 4, 'add1 malfunctioned => ' + add1(3));
+  console.(add12(1,2) === 6, 'add12 malfunctioned => ' + add12(1,2));
 })();
 
 // 5.13 함수를 위한 memoization 메서드
@@ -312,8 +312,8 @@ function isPrime(num) {
   }
 }
 
-console.assert(isPrime.memoized(5), '함수는 동작하지 않고 5는 소수가 아님.');
-console.assert(isPrime._values[5], '결과가 캐싱됨.');
+console.(isPrime.memoized(5), '함수는 동작하지 않고 5는 소수가 아님.');
+console.(isPrime._values[5], '결과가 캐싱됨.');
 
   
 // 5.14 클로저를 이용한 메모이징(memoizing) 함수 기법
@@ -346,10 +346,88 @@ console.assert(isPrime._values[5], '결과가 캐싱됨.');
     return result;
   }).memoize();
 
-  console.assert(!isPrime(1), '1은 소수가 아니다');
-  console.assert(isPrime(2), '2는 소수');
-  console.assert(isPrime(3), '3은 소수');
-  console.assert(!isPrime(4), '4는 소수가 아니다');
-  console.assert(isPrime(5), '5는 소수');
-  console.assert(!isPrime(6), '6은 소수가 아니다');
+  console.(!isPrime(1), '1은 소수가 아니다');
+  console.(isPrime(2), '2는 소수');
+  console.(isPrime(3), '3은 소수');
+  console.(!isPrime(4), '4는 소수가 아니다');
+  console.(isPrime(5), '5는 소수');
+  console.(!isPrime(6), '6은 소수가 아니다');
+})();
+
+  
+// 5.15 새로운 기능을 추가하기 위해 이전 함수 래핑하기
+(function() {
+  'use strict';
+
+  // 객체의 나이(age)가 0 이하인 경우 오류가 나는 메서드
+  function getAge() {
+    if(this.age <= 0) {
+      throw new Error('Is he or she a witch?');
+    }
+    this.age += 1;
+    return this.age;
+  }
+
+  var elphaba = {age: -30, grow: getAge};
+  var glinda = {age: 30, grow: getAge};
+
+  console.(glinda.grow() == 31, 'glinda is a witch!');
+  // console.(elphaba.grow() == -29, 'elphaba is a witch!'); // 테스트는 실패한다.
+
+  function wrap(object, method, wrapper) {
+    var fn = object[method];
+
+    return object[method] = function() {
+      return wrapper.apply(this, [fn.bind(this)].concat(Array.prototype.slice.call(arguments)));
+    };
+  }
+
+  if(elphaba.age < 0) {
+    wrap(elphaba, 'grow', function(original) {
+      return this.age < 0 ? this.age = 0 : original();
+    })
+  }
+  console.(elphaba.grow() == 0, 'elphaba is a witch!');
+  elphaba.age = 1;
+  console.(elphaba.grow() == 2, 'elphaba is a witch!');
+  console.(elphaba.grow() == 3, 'elphaba is a witch!');
+
+  elphaba.age = -1;
+  console.(elphaba.grow() == 0, 'elphaba is a witch!');
+})();
+
+
+// 5.17 클로저내의 반복자가 예상한 대로 동작하지 않는 코드
+(function() {
+  'use strict';
+
+  var array = [{}, {}];
+
+  for(var i = 0; i < array.length; i++) {
+    array[i].execute = function() {
+      return 'div #' + i + ' was clicked.';
+    };
+  }
+
+  // console.(array[0].execute() === 'div #0 was clicked.', '<> div #0 was clicked.')
+  // console.(array[1].execute() === 'div #1 was clicked.', '<> div #0 was clicked.')
+})();
+
+// 5.18 즉시실행함수를 이용해서 반복자를 제대로 다루기
+(function() {
+  'use strict';
+
+  var array = [{}, {}];
+
+  for(var i = 0; i < array.length; i++) {
+    (function(n){
+      array[n].execute = function() {
+        return 'div #' + n + ' was clicked.';
+      };
+    })(i);
+
+  }
+
+  console.(array[0].execute() === 'div #0 was clicked.', '<> div #0 was clicked.')
+  console.(array[1].execute() === 'div #1 was clicked.', '<> div #0 was clicked.')
 })();
