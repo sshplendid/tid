@@ -5,7 +5,7 @@ Node.js 프로젝트 구조는 java 웹 프로젝트처럼 정형화된 사례�
 원문: [Node Hero - Node.js Project Structure Tutorial](https://blog.risingstack.com/node-hero-node-js-project-structure-tutorial/)
 
 
-## Node.js 프로젝트 구조의 다섯가지 규
+## Node.js 프로젝트 구조의 다섯가지 규칙
 
 ### 1. 파일은 역할이 아닌 기능별로 구성한다.
 아래와 같은 구조를 가진 프로젝트가 있다고 가정해보자.
