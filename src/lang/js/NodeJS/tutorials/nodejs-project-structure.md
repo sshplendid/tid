@@ -1,3 +1,7 @@
+---
+tags: ["NodeJS", "Node Hero", "traslation"]
+---
+
 # 튜토리얼을 통해 배우는 Node.js 프로젝트 구조
 
 Node.js 프로젝트 구조는 java 웹 프로젝트처럼 정형화된 사례가 없는 것 같아 BP사례를 찾아보다 아래 글을 발견해 번역했다.

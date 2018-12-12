@@ -1,4 +1,4 @@
-# 시작하기 - Part 1: 오리엔테이션 & 설치
+# 시작하기 - Part 1: Docker 소개 및 설치
 
 환영합니다! 당신이 Docker에 대해 배우길 원해서 기쁩니다. The *Docker Get Started Tutorial* 튜토리얼은 아래와 같이 진행될 것입니다.
 

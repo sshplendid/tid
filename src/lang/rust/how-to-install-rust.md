@@ -1,12 +1,16 @@
 # Rust 설치하기
 
-## Windows with Chocolatey
+## Rustup을 이용한 설치
+
+## Rust 직접 설치
+
+### Windows with Chocolatey
 
 ```cmd
 > choco install rust
 ```
 
-## Mac OSX with Homebrew
+### Mac OSX with Homebrew
 
 ```bash
 > brew install rust
@@ -21,7 +25,7 @@ rustc 1.29.2 (17a9dc751 2018-10-05)
 
 ## Cargo로 새로운 프로젝트 생성 & 빌드
 
-Cargp는 Rust의 패키지 매니저이다.
+Cargo는 Rust의 패키지 매니저이다.
 
 ```bash
 > cargo new hello

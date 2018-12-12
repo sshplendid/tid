@@ -1,11 +1,15 @@
-# AIX 모니터링 쉘 스크립트
+# AIX 모니터링 명령어들
+
+AIX 자원 모니터링을 위한 셸 스크립트들입니다.
 
 ## Process
+
 ```sh
 echo `ps -ef | grep "java" | wc -l`
 ```
 
 ## CPU 사용량
+
 ```sh
 #!/bin/ksh
 
@@ -46,6 +50,7 @@ echo $avg
 ```
 
 ## 메모리 사용량
+
 ```sh
 #!/bin/ksh
 
@@ -77,8 +82,8 @@ echo $used
 # Job finished...
 ```
 
-
 ## 디스크 사용량
+
 ```sh
 #!/bin/ksh
 # getDiskUsage.sh

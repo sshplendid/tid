@@ -1,9 +1,3 @@
----
-title: "Tagged Template Literals"
-category: [js]
-tags: [javascript, Template literal]
----
-
 # Tagged Template Literals
 
 아래와 같이 태그를 사용하면 템플릿 리터럴을 문자열과 표현식으로 나눠서 파싱할 수 있다.
