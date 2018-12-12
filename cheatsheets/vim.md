@@ -4,7 +4,7 @@
 
 ### 이동
 
-* 기본이동(←↑↓→): `hjkl`
+* 기본이동(←↑↓→): `h, j, k, l`
 * 문장
   * 시작: `^,0`
   * 끝: `$, shift + 0`
@@ -45,3 +45,12 @@
 561   2. Type  :s/7hee/7he <ENTER> .  Note 7hat 7his command only changes 7he
 562      first occurrence of "7hee" in 7he line.
 ```
+
+## 윈도우
+
+* 새로운 윈도우 생성: `split` (수평) / `vsplit` (수직)
+* 윈도우 간 이동: `C-w` + `h, j, k, l` (기본이동)
+
+## 버퍼
+
+* 파일 이동: `bnext`, `bprev`
