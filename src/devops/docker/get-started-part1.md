@@ -75,6 +75,28 @@ Server:
 
 > 퍼미션 에러와 `sudo` 명령어 사용을 위해, 사용자 계정을 `docker` 그룹에 추가하세요.
 
+#### Permisson error를 피하기 위한 `docker` 그룹에 사용자 추가하기
+
+1\. `docker` 그룹을 생성한다.
+
+```sh
+sudo groupadd docker
+```
+
+2\. 사용자를 `docker` 그룹에 추가한다.
+
+```sh
+sudo usermod -aG docker $USER
+```
+
+3\. 그룹권한을 재설정 하기위해 로그아웃 후 다시 접속한다.
+
+4\. `sudo` 명령어 없이 `docker`를 실행하여 권한테스트를 한다.
+
+```sh
+docker run hello-world
+```
+
 ### Docker 설치 테스트하기
 
 1. 설치한 Docker를 간단한 도커 이미지인 hello-world를 통해 테스트합니다.
