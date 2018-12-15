@@ -4,10 +4,10 @@
 
 ## 설치
 
-바이너리는 [릴리즈 페이지](https://github.com/rust-lang-nursery/mdBook/releases)에서 다운로드 받을 수 있다. 그러나 난 이미 Rust를 PC에 설치한 상태이기 때문에 **Cargo**를 통해서 설치했다. 
+바이너리는 [릴리즈 페이지](https://github.com/rust-lang-nursery/mdBook/releases)에서 다운로드 받을 수 있다. 그러나 난 이미 Rust를 PC에 설치한 상태이기 때문에 **Cargo**를 통해서 설치했다.
 
 ```sh
-$ cargo install mdbook
+> cargo install mdbook
 ```
 
 이외에 소스 레파지토리에서 [직접 받아 빌드한 후 사용](https://rust-lang-nursery.github.io/mdBook/cli/index.html)하는 방법도 있다.
@@ -33,9 +33,9 @@ mdbook-test/
 mdbook 보일러 플레이트를 생성하기 위해, `init` 명령어를 사용한다. .gitignore 파일을 생성여부와 책 제목을 묻는데, 책 제목은 소스 설정파일(`book.toml`)에 저장된다.
 
 ```sh
-$ mkdir mdbook-test # mdbook 루트 디렉토리 생성
-$ cd mdbook-test/
-$ mdbook init
+> mkdir mdbook-test # mdbook 루트 디렉토리 생성
+> cd mdbook-test/
+> mdbook init
 
 Do you want a .gitignore to be created? (y/n)
 y
@@ -49,7 +49,7 @@ All done, no errors...
 ### `build`: 소스를 기반으로 책을 렌더링
 
 ```sh
-$ mdbook build
+> mdbook build
 ```
 
 `SUMMARY.md` 파일을 분석해서 책의 목차대로 렌더링한다. 
@@ -57,7 +57,7 @@ $ mdbook build
 기본 디렉토리는 `book/` 이지만 아래와 같이 사용자가 정의한 디렉토리에 빌드할 수 있다.
 
 ```sh
-$ mdbook build path/to/book
+> mdbook build path/to/book
 ```
 
 ### `serve`: 렌더링 된 책 웹에서 보기
@@ -65,7 +65,7 @@ $ mdbook build path/to/book
 `serve` 명령은 `localhost:3000`에서 HTTP를 통해 렌더링 된 책을 볼 수 있게한다.
 
 ```sh
-$ mdbook serve
+> mdbook serve
 
 2018-12-15 10:50:58 [INFO] (mdbook::book): Book building has started
 2018-12-15 10:50:58 [INFO] (mdbook::book): Running the html backend
@@ -82,29 +82,37 @@ $ mdbook serve
 mdbook test
 ```
 
-아래와 같이 코드 블록 3건이 있는데 각각 성공 / 무시 / 실패하는 시나리오이다.
+아래와 같이 코드 블록 3건이 있는데 각각 성공 / 무시 / 무시하는 시나리오이다.
 
-```rust
-fn main() {
-    println!("hello world");
-}
+```md
+    ```rust
+    fn main() {
+        println!("hello world");
+    }
+    ```
 ```
 
-```rust, ignore
-fn main() {
-    println!("hello world");
-}
+```md
+    ```rust, ignore
+    fn main() {
+        println!("hello world");
+    }
+    ```
 ```
 
-```rust
-fn main() {
-  panic!("should panic!"); // should panic
-}
+```md
+    ```rust
+    // ignored
+    fn main() {
+    panic!("should panic!"); // should panic
+    }
+    ```
+```
 
 결과는 아래와 같이 나온다.
 
 ```sh
-$ mdbook test
+> mdbook test
 
 2018-12-15 11:01:47 [INFO] (mdbook::book): Testing file: "D:\\...\\til\\src\\log/mdbook-guide.md"
 2018-12-15 11:01:49 [ERROR] (mdbook::utils): Error: Rustdoc returned an error:
@@ -142,7 +150,7 @@ test result: FAILED. 1 passed; 1 failed; 1 ignored; 0 measured; 0 filtered out
 mathjax-support = true
 ```
 
-기존 MathJax에선 `$$ ... $$`를 사용했다면, mdbook에선 `\\[ ... \\]` 방식으로 표현한다.
+기존 MathJax에선 `>> ... >>`를 사용했다면, mdbook에선 `\\[ ... \\]` 방식으로 표현한다.
 
 아래는 LaTex 커맨드로 작성한 수식이다.
 
@@ -165,7 +173,7 @@ tooken을 발급받았으면 아래와 같이 `.travis.yml` 파일에 deploy 관
 deploy:
   provider: pages
   skip-cleanup: true
-  github-token: $GITHUB_TOKEN
+  github-token: >GITHUB_TOKEN
   local-dir: /your/local/directory/book
   keep-history: false
   on:
