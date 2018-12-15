@@ -44,7 +44,8 @@ Javadump는 JVM / Java 어플리케이션 실행 중의 특정 시점에서 캡�
 ### Javadump 태그
 
 Dump 파일은 아래와 같이 섹션(`SECTION`)으로 구분되어 있다.
-```
+
+```log
 0SECTION       TITLE subcomponent dump routine
 NULL           ===============================
 1TISIGINFO     Dump Event "systhrow" (00040000) Detail "java/lang/OutOfMemoryError" received 
@@ -56,27 +57,31 @@ NULL           -----------------------------------------------------------------
 ```
 
 일반적인 태그는 아래와 같은 규칙을 가지고 있다.
-  * 태그는 최대 15자이다.(빈 부분은 공백으로 채움)
-  * 첫 번째 숫자는 태그 레벨을 나타낸다. 이 숫자는 항상 순서대로 오더링되진 않는다.(2 뒤에 4, 혹은 3 뒤에 1이 나올 수 있다.)
-  * 태그의 두 번째와 세 번째 문자는 덤프 섹션을 식별한다. 아래는 주요 섹션을 나타내고 그 외에도 다른 섹션이 존재한다.
-    * CI: 명령행 인터프리터
-    * CL: 클래스 로더
-    * LK: LOCK
-    * ST: 스토리지(메모리 관리)
-    * TI: 제목
-    * XE: 실행 엔진
-  * 나머지는 고유 문자열이다.
-  * 모든 섹션은 `0SECTION` 태그로 헤드가 지정된다.
-  * `NULL` 태그는 가독성을 위한 태그이다. 정보를 구분하는 용도로 사용한다.
+
+* 태그는 최대 15자이다.(빈 부분은 공백으로 채움)
+* 첫 번째 숫자는 태그 레벨을 나타낸다. 이 숫자는 항상 순서대로 오더링되진 않는다.(2 뒤에 4, 혹은 3 뒤에 1이 나올 수 있다.)
+* 태그의 두 번째와 세 번째 문자는 덤프 섹션을 식별한다. 아래는 주요 섹션을 나타내고 그 외에도 다른 섹션이 존재한다.
+  * CI: 명령행 인터프리터
+  * CL: 클래스 로더
+  * LK: LOCK
+  * ST: 스토리지(메모리 관리)
+  * TI: 제목
+  * XE: 실행 엔진
+* 나머지는 고유 문자열이다.
+* 모든 섹션은 `0SECTION` 태그로 헤드가 지정된다.
+* `NULL` 태그는 가독성을 위한 태그이다. 정보를 구분하는 용도로 사용한다.
 
 ### TITLE, GPINFO, ENVINFO 섹션
+
 #### TITLE
+
 Javadump 파일이 생성된 이벤트 및 기본정보를 나타낸다. 위의 로그가 TITLE 부분이고 `OutOfMemoryErorr`에 의한 이벤트 발생임을 알 수 있다.
 
 #### GPFINO
+
 [GPF](https://en.wikipedia.org/wiki/General_protection_fault)로 인해 dump가 생성되었는지 여부에 따라 컨텐츠가 달라지지만 운영체제에 대한 정보가 일부 표시된다. GPF로 인해 생성된 경우 GPF정보가 제공된다.
 
-```
+```log
 0SECTION       GPINFO subcomponent dump routine
 NULL           ================================
 2XHOSLEVEL     OS Level         : AIX 6.1
@@ -94,7 +99,8 @@ NULL           -----------------------------------------------------------------
 실패한 JRE 레벨에 대한 정보와 JVM 프로세스 및 환경을 호출한 명령에 대한 세부사항을 나타낸다.
 
 아래 로그를 보면 AIX6.1, JRE 1.6 환경에서 어플리케이션을 실행했고 실행할 때의 자바 옵션, 클래스패스도 확인할 수 있다.
-```
+
+```log
 0SECTION       ENVINFO subcomponent dump routine
 NULL           =================================
 1CIJAVAVERSION JRE 1.6.0 AIX ppc64-64 build jvmap6460sr10fp1-20120202_101568 (pap6460sr10fp1-20120321_01(SR10 FP1))
@@ -114,9 +120,10 @@ NULL           =================================
 ```
 
 ### 스토리지 관리(MEMINFO)
+
 MEMINFO 섹션은 Memory에 대한 정보를 제공한다. 제일 먼저 아래 정보를 보면 당시 메모리 사용 현황에 대해서 나온다. 4GB 할당된 상태에서 사용가능한 메모리는 약 44MB 정도였다. 
 
-```
+```log
 0SECTION       MEMINFO subcomponent dump routine
 NULL           =================================
 1STHEAPFREE    Bytes of Heap Space Free: 2CA0EF0 
@@ -124,14 +131,15 @@ NULL           =================================
 ```
 
 아래 덤프는 내부 메모리 섹션(SEGTYPE)이다. 클래스 메모리, JIT 코드 캐시 및 JIT 데이터 캐시등을 포함한다.
-  * segment: 세그먼트 제어 데이터 구조의 주소
-  * start: 세그먼트의 시작 주소
-  * alloc: 현재 할당 주소
-  * end: 세그먼트의 끝 주소
-  * type: 세그먼트 특성을 설명하는 내부 비트 필드
-  * size: 세그먼트의 크기, 아래엔 `bytes`로 표시
-  
-```
+
+* segment: 세그먼트 제어 데이터 구조의 주소
+* start: 세그먼트의 시작 주소
+* alloc: 현재 할당 주소
+* end: 세그먼트의 끝 주소
+* type: 세그먼트 특성을 설명하는 내부 비트 필드
+* size: 세그먼트의 크기, 아래엔 `bytes`로 표시
+
+```log
 1STSEGTYPE     Internal Memory
 NULL           segment          start            alloc            end               type     bytes
 1STSEGMENT     00000100207A0C18 000001002C74D948 000001002C74D948 000001002C75D948  01000040 10000
@@ -168,4 +176,5 @@ NULL
 
 
 ### SHARED CLASSES
+
 ### CLASSES
