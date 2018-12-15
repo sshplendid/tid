@@ -3,3 +3,6 @@ authors = ["SeHun Shin"]
 multilingual = false
 src = "src"
 title = "Shawn is Learning"
+
+[output.html]
+mathjax-support = true
