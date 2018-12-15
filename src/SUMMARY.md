@@ -25,6 +25,7 @@
     - [템플릿 리터럴](./lang/js/tagged-template-literals.md)
   - [Rust](./lang/rust/index.md)
     - [Rust 개발도구 설치하기](./lang/rust/how-to-install-rust.md)
+    - [mdbook 가이드](./log/mdbook-guide.md)
 - [구체수학](./books/concrete-math/index.md)
   - [1장](./books/concrete-math/part1-recursive.md)
 - [미분류](./uncategorized.md)
