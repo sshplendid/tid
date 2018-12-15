@@ -161,7 +161,7 @@ mathjax-support = true
 \\[ x = \frac {-b \pm \sqrt {b^2 - ac}} {a} \\]
 \\[ \sqrt a \\]
 
-만약 인라인으로 작성하고 싶다면, `\\[ ... \\]` 대신 `\\() ... \\)` 로 쓰면 된다. \\( T_1 = 2x \\) 와 같이 렌더링된다.
+만약 인라인으로 작성하고 싶다면, `\\[ ... \\]` 대신 `\\( ... \\)` 로 쓰면 된다. \\( T_1 = 2x \\) 와 같이 렌더링된다.
 
 ## CI
 
@@ -173,7 +173,7 @@ tooken을 발급받았으면 아래와 같이 `.travis.yml` 파일에 deploy 관
 deploy:
   provider: pages
   skip-cleanup: true
-  github-token: >GITHUB_TOKEN
+  github-token: $GITHUB_TOKEN
   local-dir: /your/local/directory/book
   keep-history: false
   on:
