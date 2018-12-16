@@ -43,7 +43,7 @@ Docker CE/EE를 설치합니다.
 1. `docker --version` 명령어를 통해 Docker version을 확인합니다.
 
 ```sh
-docker --version
+$ docker --version
 
 Docker version 18.06.1-ce, build e68fc7a
 ```
@@ -51,7 +51,7 @@ Docker version 18.06.1-ce, build e68fc7a
 2. `docker info` 혹은 `docker version` 명령어로 도커에 대한 디테일한 정보를 확인합니다.
 
 ```sh
-docker info
+$ docker info
 
 Client:
  Version:           18.06.1-ce
@@ -80,13 +80,13 @@ Server:
 1\. `docker` 그룹을 생성한다.
 
 ```sh
-sudo groupadd docker
+$ sudo groupadd docker
 ```
 
 2\. 사용자를 `docker` 그룹에 추가한다.
 
 ```sh
-sudo usermod -aG docker $USER
+$ sudo usermod -aG docker $USER
 ```
 
 3\. 그룹권한을 재설정 하기위해 로그아웃 후 다시 접속한다.
@@ -94,7 +94,7 @@ sudo usermod -aG docker $USER
 4\. `sudo` 명령어 없이 `docker`를 실행하여 권한테스트를 한다.
 
 ```sh
-docker run hello-world
+$ docker run hello-world
 ```
 
 ### Docker 설치 테스트하기
@@ -102,7 +102,7 @@ docker run hello-world
 1. 설치한 Docker를 간단한 도커 이미지인 hello-world를 통해 테스트합니다.
 
 ```sh
-docker run hello-world
+$ docker run hello-world
 
 Unable to find image 'hello-world:latest' locally
 latest: Pulling from library/hello-world
@@ -148,7 +148,7 @@ ubuntu              12.04               5b117edd0b76        20 months ago       
  3. 이미지를 통해 생성된 `hello-world` 컨테이너를 목록에서 확인하세요. 만약 컨테이너가 여전히 구동 중이라면, `--all` 옵션은 필요하지 않습니다.
 
 ```sh
-docker container ls --all
+$ docker container ls --all
 
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
 063b9e26ba47        ubuntu              "/bin/bash"         13 days ago         Up 13 days                              brave_liskov
@@ -159,31 +159,31 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 ```sh
 ## Docker CLI 명령어 목록
 docker
-docker container --help
+$ docker container --help
 
 ## Docker 버전 및 정보 조회
-docker --version
-docker version
-docker info
+$ docker --version
+$ docker version
+$ docker info
 
 ## Docker 이미지 실행하기
-docker run hello-world
+$ docker run hello-world
 
 ## Docker 이미지 목록 조회
-docker image ls
+$ docker image ls
 
 ## Docker 컨테이너 목록 조회 (running, all, all in quiet mode)
-docker container ls
-docker container ls --all
-docker container ls -aq
+$ docker container ls
+$ docker container ls --all
+$ docker container ls -aq
 ```
 
 ## Part 1 결론
 
-Containerization은 CI/CD를 매끄럽게 만든다. 그 예로,
+Containerization은 CI/CD를 매끄럽게 만듭니다. 그 예로,
 
-* 애플리케이션은 시스템 의존성이 없다.
-* 분산 애플리케이션의 어떤 부분도 업데이트될 수 있다.
-* 자원 밀도가 최적화될 수 있다.
+* 애플리케이션은 시스템 의존성이 없습니다.
+* 분산 애플리케이션의 어떤 부분도 업데이트될 수 있습니다.
+* 자원 밀도가 최적화될 수 있습니다.
 
-Docker와 함께, 무거운 VM 호스트를 구동하는 것이 아닌, 애플리케이션 확장이 주된 관심사가 된다.
+Docker와 함께, 무거운 VM 호스트를 구동하는 것이 아닌, 애플리케이션 확장이 주된 관심사가 됩니다.
