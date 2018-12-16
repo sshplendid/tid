@@ -110,8 +110,8 @@ if __name__ == "__main__":
 
 우리는 애플리케이션을 만들 준비가 됐습니다. 여전히 디렉토리 최상위에 있는지 확인해보세요. 여기 `ls` 명령어를 사용해서 나타내보세요.
 
-```bash
-ls
+```sh
+$ ls
 
 total 24
 drwxr-xr-x  5 sshplendid  staff  170 12 15 00:18 .
@@ -125,13 +125,14 @@ drwxr-xr-x  8 sshplendid  staff  272 12 14 21:54 ..
 
 > 역자+ 지금은 제 고양이 이름인 `waltz`라는 이름으로 만들어 보겠습니다.
 
-```bash
+```sh
+$ cd /Volumes/Mango/workspaces/kata/docker
 $ docker build -t waltz .
 ```
 
 빌드한 이미지가 어디에 있나요? 당신의 기기 로컬 Docker 이미지 저장소에 있습니다.
 
-```bash
+```sh
 $ docker image ls
 
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
@@ -152,7 +153,7 @@ ubuntu              12.04               5b117edd0b76        20 months ago       
 
 컨테이너의 80번 포트와 호스트 장비의 4000번 포트를 매핑해서 `-p` 태그와 함께 애플리케이션을 실행합니다.
 
-```bash
+```sh
 $ docker run -p 4000:80 waltz
 ```
 
@@ -164,7 +165,7 @@ $ docker run -p 4000:80 waltz
 
 `curl` 명령어를 사용해서 동일한 내용을 볼 수 있습니다.
 
-```bash
+```sh
 curl http://localhost:4000
 
 <h3>Hello World!</h3><b>Hostname:</b> 3dbbee09f22c<br/><b>Visits:</b> <i>cannot connect to Redis, counter disabled</i>%
@@ -288,7 +289,7 @@ Status: Downloaded newer image for sshplendid/get-started:part2
 
 이 장에서 사용한 기본적인 docker 명령들과 알아두면 좋을 명령어 리스트입니다.
 
-```
+```sh
 docker build -t waltz .    # 현재 디렉토리의 Dockerfile을 이용해서 이미지 생성하기
 docker run -p 4000:80 waltz  # 4000번 포트를 80번 포트와 매핑하여 "waltz" 실행하기
 docker run -d -p 4000:80 waltz              # 위 명령을 백그라운드 모드로 실행하기
