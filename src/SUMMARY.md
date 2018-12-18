@@ -6,6 +6,7 @@
   - [커널](./os/kernel.md)
   - [POSIX](./os/posix.md)
   - [셸](./os/shell.md)
+  - [셸 명령어 목록](./os/shell-commands.md)
   - [AIX 모니터링 명령어](./os/aix-monitoring-commands.md)
 - [Docker 시작하기](./devops/docker/get-started-index.md)
   - [소개 및 설치](./devops/docker/get-started-part1.md)
