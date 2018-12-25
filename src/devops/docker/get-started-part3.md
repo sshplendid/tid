@@ -2,9 +2,9 @@
 
 ## 전제조건
 
-* Docker 1.13 이상 설치
+* [Docker 1.13 이상 설치](https://docs.docker.com/install/)
 * Docker Compose 준비하기. Mac/Windows 용 Docker에 이미 설치되어 있습니다. Linux의 경우 직접 설치해야 합니다. Windows 10에선 *Hyper-V* 없이 Docker Toolbox를 사용하세요.
-* Part 1을 읽고 Part 2에서 컨테이너 생성 방법에 대해서 학습합니다.
+* [Part 1](./get-started-part1.md)을 읽고 [Part 2](./get-started-part2.md)에서 컨테이너 생성 방법에 대해서 학습합니다.
 * `waltz` 이미지를 생성해서 레지스트리에 발행하는 것까지 해봐야 합니다. 이 장에서 공유한 이미지를 사용할 예정입니다.
 * 그 이미지가 배포된 컨테이너로서 작동하는지 확인합니다. `docker run -p 4000:80 사용자명/저장소:태그` 명령을 실행하면, `http://localhost:4000/`으로 접속되는 것을 확인해야 합니다.
 
@@ -47,7 +47,7 @@ services:
       restart_policy:
         condition: on-failure
     ports:
-      - "80:80"
+      - "4000:80"
     networks:
       - webnet
 networks:
@@ -124,10 +124,10 @@ b0eec7357bd9
 
 라운드-로빈 상태에서 각 요청을 로드밸런싱 하기 위해 5개 태스크들 중 하나를 선택합니다. 어느 쪽이던 컨테이너 ID는 바뀝니다. 컨테이너 ID들은 이전 명령인 `docker container ls -q`의 결과와 일치합니다.
 
-> Windows 10 환경에서 실행하기
+> #### Windows 10 환경에서 실행하기
 Windows 10 파워 셸을 이미 `curl`이 사용 가능합니다. 그렇지 않으면 Git BASH나 Windows용 wget을 사용하세요.
 
-> 느린 반응속도
+> #### 느린 반응속도
 네트워크 설정에 따라 응답은 30초까지 걸릴 수 있습니다. 이 것이 도커나 스웜 퍼포먼스를 의미하지 않지만, 나중에 나올 Redis 의존성 때문일 수도 있습니다. 지금은 방문 카운터는 아직 서비스를 추가하지 않았기 때문에 작동하지 않습니다.
 
 ## 애플리케이션 규모 설정하기
@@ -145,11 +145,13 @@ $ docker stack deploy -c docker-compose.yml getstartedlab
 ## 애플리케이션과 스웜 내리기
 
 * `docker stack rm`을 이용해서 애플리케이션 내리기  
+
 ```sh
 $ docker stack rm getstartedlab
 ```
 
 * 스웜 내리기  
+
 ```sh
 $ docker swarm leave --force
 ```

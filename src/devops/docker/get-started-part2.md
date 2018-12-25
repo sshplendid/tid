@@ -2,8 +2,8 @@
 
 ## 전제 조건
 
-* Docker 1.13 이상 설치
-* Part 1 읽기
+* [Docker 1.13 이상 설치](https://docs.docker.com/install/)
+* [Part 1](./get-started-part1.md) 읽기
 * `hello-world` 이미지 실행 가능한 환경인지 테스트
 
 ```sh
