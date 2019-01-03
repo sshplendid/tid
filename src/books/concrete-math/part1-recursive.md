@@ -29,6 +29,22 @@
 \\[ T_0 = 0 \\]
 \\[ T_n = 2T_{n-1} + 1, n \geq 0 \\]
 
+
+#### 코드
+
+```js
+function tower_of_hanoi_recursive(n) {
+    if(n == 0) {
+        return 0;
+    }
+    return 2 * tower_of_hanoi_recursive(n-1) + 1
+}
+
+console.time('하노이의탑-재귀:n=3');
+console.log(tower_of_hanoi_recursive(3));
+console.timeEnd('하노이의탑-재귀:n=3');
+```
+
 ### 점화식 (recurrence formula or recurrence relation)
 
 * 구성요소
@@ -54,9 +70,46 @@
 \\[ ... \\]
 \\[ T_n = 2^n - 1, n > 0 \\]
 
+#### 코드
+
+```js
+function tower_of_hanoi_closed(n) {
+    return Math.pow(2, n) -1;
+}
+
+console.time('하노이의탑-닫힌 형식:n=3');
+console.log(tower_of_hanoi_closed(3));
+console.timeEnd('하노이의탑-닫힌 형식:n=3');
+```
+
 ## 1.2. 평면의 선들
 
 > 칼로 피자를 \\( n \\) 번 자른다고 할 때, 피자 조각이 최대 몇개나 나올까?
+
+<svg version="1.1"
+     baseProfile="full"
+     width="200" height="150"
+     xmlns="http://www.w3.org/2000/svg">
+     <rect width="100%" height="100%" fill="none" />
+     <line x1="95" x2="105" y1="130" y2="10" stroke="black" stroke-width="1" />
+     <text x="50" y="75" font-size="15" text-anchor="middle" fill="black">a</text>
+     <text x="150" y="75" font-size="15" text-anchor="middle" fill="black">b</text>
+     <text x="100" y="140" font-size="15" text-anchor="middle" fill="black">&lt;n=1&gt;</text>
+</svg>
+
+<svg version="1.1"
+     baseProfile="full"
+     width="200" height="150"
+     xmlns="http://www.w3.org/2000/svg">
+     <rect width="100%" height="100%" fill="none" />
+     <line x1="95" x2="105" y1="130" y2="10" stroke="black" stroke-width="1" />
+     <line x1="10" x2="190" y1="60" y2="50" stroke="black" stroke-width="1" />
+     <text x="50" y="25" font-size="15" text-anchor="middle" fill="black">a</text>
+     <text x="150" y="25" font-size="15" text-anchor="middle" fill="black">b</text>
+     <text x="50" y="100" font-size="15" text-anchor="middle" fill="black">c</text>
+     <text x="150" y="100" font-size="15" text-anchor="middle" fill="black">d</text>
+     <text x="100" y="140" font-size="15" text-anchor="middle" fill="black">&lt;n=2&gt;</text>
+</svg>
 
 ## 작은 사례 살펴보기
 
@@ -96,3 +149,97 @@
 * 닫힌 형식의 해는 유한하다.
 * 닫힌 형식은 간단하다.
 * 닫힌 형식의 해가 없는 점화식도 존재한다.
+
+## 1.3. 요세푸스 문제
+
+> 1에서 \\( n \\)까지의 번호가 매겨진 \\( n \\)명의 사람이 원을 형성하며, 오직 한 사람이 남을 때까지 매 **두 번째** 사람이 죽는다.
+
+<svg version="1.1"
+     baseProfile="full"
+     width="200" height="210"
+     xmlns="http://www.w3.org/2000/svg">
+     <circle cx="100" cy="100" r="50" fill="transparent" stroke="black" stroke-width="1" />
+     <line x1="100" x2="100" y1="55" y2="85" stroke="black" stroke-width="1" />
+     <line x1="100" x2="90" y1="55" y2="65" stroke="black" stroke-width="1" />
+     <line x1="100" x2="110" y1="55" y2="65" stroke="black" stroke-width="1" />
+     <text x="100" y="40" font-size="12" text-anchor="middle" fill="black">1</text>
+     <text x="40" y="100" font-size="12" text-anchor="middle" fill="black">4</text>
+     <text x="160" y="100" font-size="12" text-anchor="middle" fill="black">2</text>
+     <text x="100" y="162" font-size="12" text-anchor="middle" fill="black">3</text>
+     <text x="100" y="200" font-size="12" text-anchor="middle" fill="black">&lt;n=4&gt;</text>
+     <text x="100" y="100" font-size="12" text-anchor="middle" fill="black">1부터 시작</text>
+</svg>
+
+### 작은 사례
+
+1부터 \\( n \\)까지의 번호가 매겨진 사람들이 둘러앉아 1부터 시작할 때, 마지막까지 남은 사람의 번호를 \\( J_n \\)이라고 하자.
+
+\\[ J_1 = 1 \\]
+\\[ J_2 = 1 \\]
+\\[ J_3 = 3 \\]
+\\[ J_4 = 1 \\]
+\\[ J_5 = 3 \\]
+
+## 확장해보기
+
+작은 사례를 관찰하면 값에 어떤 규칙이 있음을 알 수 있다. 아래의 표를 보자.
+
+|\\(n\\)|\\(n+1\\)|\\(n+2\\)|...| | | | | |
+|---|---|---|---|---|---|---|---|---|
+|*1*|1| | | | | | | |
+|*2*|1|3| | | | | | |
+|*4*|1|3|5|7| | | | |
+|*8*|1|3|5|7|9|11|13|15|
+
+2의 지수를 기준으로 \\(n\\)이 증가할 때마다 2를 더한 값이 반복된다.
+
+위 결과 값에 모두 1을 더해주면 아래와 같이 2의 배수임을 확인할 수 있다.
+
+|\\(n\\)|\\(n+1\\)|\\(n+2\\)|...| | | | | |
+|---|---|---|---|---|---|---|---|---|
+|*1*|2| | | | | | | |
+|*2*|2|4| | | | | | |
+|*4*|2|4|6|8| | | | |
+|*8*|2|4|6|8|10|12|14|16|
+
+그리고 2를 나누면 1씩 증가하는 순열이 된다.
+
+|\\(n\\)|\\(n+1\\)|\\(n+2\\)|...| | | | | |
+|---|---|---|---|---|---|---|---|---|
+|*1*|1| | | | | | | |
+|*2*|1|2| | | | | | |
+|*4*|1|2|3|4| | | | |
+|*8*|1|2|3|4|5|6|7|8|
+
+이를 수식으로 표현하면 아래와 같이 나타날 수 있을 것이다.
+
+\\[ J_n = 2(n-m) + 1, m = n보다 작거나 같은 2의 지수 \\]
+
+\\(m\\)은 n의 구간마다 값이 달라지기 때문에 아래 코드와 같이 따로 함수를 만들었다.
+
+```js
+function max_of_n(n) {
+    var x = 0;
+    while(n >> ++x) {
+    }
+    return Math.pow(2, --x);
+}
+
+function j(n) {
+    return 2*(n-max_of_n(n)) + 1;
+}
+
+console.log(j(1));
+console.log(j(2));
+console.log(j(3));
+console.log(j(4));
+console.log(j(5));
+console.log(j(6));
+console.log(j(7));
+console.log(j(8));
+console.log(j(9));
+console.log(j(16));
+console.log(j(15));
+```
+
+패턴을 기반으로 점화식의 해를 찾았는데, 책에선 점화식을 정의하는 부분도 있었다.

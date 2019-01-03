@@ -33,7 +33,7 @@
   - [DB](./db/index.md)
     - [Flashback을 이용한 데이터 복원](./db/oracle/oracle-flashback.md)
 - [구체수학](./books/concrete-math/index.md)
-  - [1장](./books/concrete-math/part1-recursive.md)
+  - [1장: 재귀적인 문제들](./books/concrete-math/part1-recursive.md)
 - [미분류](./uncategorized.md)
   - [VIM 인코딩 타입 변경하기](./general/vim-change-encoding-type.md)
   - [VIM 치트시트](./general/vim-cheatsheet.md)
