@@ -9,6 +9,7 @@
   - [링크](./os/link.md)
   - [셸 명령어 목록](./os/shell-commands.md)
   - [AIX 모니터링 명령어](./os/aix-monitoring-commands.md)
+  - [Windows 커맨드라인에서 환경변수 설정](./os/win-cmd-set-env-var.md)
 - [Docker 시작하기](./devops/docker/get-started-index.md)
   - [소개 및 설치](./devops/docker/get-started-part1.md)
   - [컨테이너](./devops/docker/get-started-part2.md)
