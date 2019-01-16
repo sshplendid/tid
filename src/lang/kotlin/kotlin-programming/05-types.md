@@ -24,25 +24,27 @@
 
 코틀린의 최상위 클래스(Java `Object` 보다 상위 클래스)
 
-    ```kotlin
-    // Type check
-    fun getLength(obj: Any): Int {
-        if(obj is String) {
-            return obj.length // `length`는 String의 property, `is` 타입체크가 true일 경우, String 타입으로 스마트 캐스팅
-        }
-        return 0
+```kotlin
+// Type check
+fun getLength(obj: Any): Int {
+    if(obj is String) {
+        return obj.length // `length`는 String의 property, `is` 타입체크가 true일 경우, String 타입으로 스마트 캐스팅
     }
-    ```
+    return 0
+}
+```
 
-    ```kotlin
-    // switch 보다 기능이 많은 when
-    fun cases(obj: Any): String {
-        when(obj) {
-            1 -> return "One"
-            "Hello" -> return "Greeting"
-            is Long -> return "Long"
-        }
+```kotlin
+// switch 보다 기능이 많은 when
+fun cases(obj: Any): String {
+    when(obj) {
+        1 -> return "One"
+        "Hello" -> return "Greeting"
+        is Long -> return "Long"
     }
+}
+```
+
 * `Null` 허용 타입
     ```kotlin
     val a: Int = null  // error
