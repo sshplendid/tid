@@ -6,3 +6,4 @@ title = "Shawn is Learning"
 
 [output.html]
 mathjax-support = true
+theme = "theme/highlight"
