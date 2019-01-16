@@ -18,9 +18,8 @@
     }
     ```
 
+## 기본 형태
 
-
-기본 형태
 ```kotlin
 val name: String = "Shawn"
     get() = field

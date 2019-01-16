@@ -1,6 +1,6 @@
 # 11. 다양한 클래스
 
-## 데이터 클래스
+## `data` 클래스
 
 * Value Object, Data Trasfer Object, ...
 * `data` 키워드로 선언
@@ -63,3 +63,98 @@ fun main(args: Array<String>) {
 ### `copy()`
 
 * 객체를 복사
+
+## `enum` 클래스
+
+* 열거형 타입
+* `enum` 예약어로 생성
+* `name`, `ordinal` 내장 프로퍼티가 존재
+
+### 기본형태
+
+```kotlin
+enum class Direction {
+    NORTH, SOUTH WEST, EAST
+}
+
+fun main(args: Array<String>) {
+    val direction: Direction = Direction.NORTH
+    println("${direction.name} ... ${direction.ordinal}")
+}
+```
+
+### 개발자 임의 데이터 타입
+
+```kotlin
+enum class Direction(val no: Int) {
+    NORTH(0), SOUTH(1), WEST(2), EAST(3)
+}
+```
+
+### 익명 클래스 이용
+
+* 각 원소는 enum 클래스의 서브타입
+* 열거상수는 객체
+* 이름 없는 클래스를 직접 정의
+* enum 상수 영역과 클래스 바디영역을 구분하기 위해 세미콜론(`;`)을 사용해야 함
+
+```kotlin
+enum class Direction(val no: Int) {
+    NORTH {
+        override val bar: Int = 10
+        override fun foo() { println("North foo...") }
+    },
+    SOUTH {
+        override val bar: Int = 20
+        override fun foo() { println("South foo...") }
+    }; // <-- 세미콜론으로 구분
+    absract val bar: Int
+    abstract fun foo()
+}
+```
+
+## `sealed` 클래스
+
+* `sealed` 예약어로 선언
+* enum 클래스와 유사함
+* vs class: sealed class는 인스턴스 생성이 불가능
+* vs abstract class
+  * abstract: 어디에서나 선언 가능
+  * sealed: sealed class가 선언된 그 file 내에서만 선언 가능
+* 내가 선언한 클래스만 사용해라!
+
+### `enum` vs `sealed`
+
+* enum: data, function 추가 가능
+  * enum class에서 정의한 data, function만...
+  * 모든 enum 상수가 동일 변수, 함수를 가지고 있음
+* sealed: 상수(하위 class) 별 다양한 변수, 함수 가능
+
+### 기본 형태
+
+```kotlin
+sealed class Shape {
+    class Circle(val radius: Double): Shape()
+    class Rect(val width: Int, val height: Int): Shape()
+}
+
+class Triangle(val bottom: Int, val height: Int): Shape()
+```
+
+## Nested 클래스
+
+* 특정 클래스 내에 선언된 클래스를 지칭 -> 예약어가 없다
+* Outer 클래스의 멤버에 접근할 수 없다.
+  * Nested 클래스에서 Outer 클래스의 멤버에 접근하려면 `inner` 클래스를 선언해야 한다.
+    * inner 클래스는 외부에서 객체 생성이 불가
+    * 외부에서 이용하려면 outer 클래스에서 인스턴스를 생성해줘야 함
+
+## 클래스 별 특징
+
+|특징|nested|`inner`|`object`|`companion object`|
+|---|:---:|:---:|:---:|:---:|
+|예약어|x|o|o|o|
+|outer 멤버 접근|x|o|o|-|
+|outer에서 접근|o|o|△<br/>`private`|-|
+|외부 접근|o|x|x|-|
+|타입|class|class|`Any`|-|

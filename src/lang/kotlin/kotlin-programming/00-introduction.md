@@ -1,10 +1,11 @@
-# 코틀린 프로그래밍 1일차
+# 코틀린 프로그래밍
 
-## 강사 소개
+## 과정 소개
 
-강성윤  
-kkang104@gmail.com  
-http://70.12.113.190:8080
+* 과정 일정: 2019/01/14 ~ 2019/01/17
+* 장소: 멀티캠퍼스
+* 강사: 강성윤(kkang104@gmail.com)
+* 강의자료: http://70.12.113.190:8080
 
 ## 왜 코틀린을 써야하는가
 
@@ -12,11 +13,11 @@ http://70.12.113.190:8080
   * iOS: Objective C, Swift
   * Android: Java, Kotlin
 * Java의 문제
-  * 비교적 구형 문법
+  * (비교적) 구형 문법
   * 유지보수 불편함
 
-2017 Google I/O에서 **안드로이드 공식 언어**로 발표
-> Android first class language
+> 2017 Google I/O에서 **안드로이드 공식 언어**로 발표  
+> **Android first class language**
 
 ## 특징
 
@@ -28,8 +29,8 @@ http://70.12.113.190:8080
 * 크로스 플랫폼 개발
   * Server-side 개발 가능(Spring 5부터 코틀린 지원)
   * Kotlin.js: 브라우져 개발
-  * Kotlin/Native (v1.3부터): 크로스 플랫폼 개발 가능
-* Google의 지원
+  * Kotlin/Native (v1.3부터): without JVM
+* Google의 (전폭적인) 지원
 
 ## 개발환경
 
@@ -37,3 +38,4 @@ http://70.12.113.190:8080
 * Android studio
 * Java 1.8
 * Gradle
+* Eclipse (굳이...?)
