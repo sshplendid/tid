@@ -47,6 +47,8 @@
     - [Null 안정성과 예외](./lang/kotlin/kotlin-programming/15-null-safety-and-exception.md)
     - [클래스 확장](./lang/kotlin/kotlin-programming/16-class-extension.md)
     - [제네릭](./lang/kotlin/kotlin-programming/17-generic.md)
+    - [리플렉션](./lang/kotlin/kotlin-programming/18-reflection.md)
+    - [다양한 기법](./lang/kotlin/kotlin-programming/19-technics.md)
   - [DB](./db/index.md)
     - [Flashback을 이용한 데이터 복원](./db/oracle/oracle-flashback.md)
     - [Block](./db/oracle/block.md)
