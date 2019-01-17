@@ -149,6 +149,18 @@ class Triangle(val bottom: Int, val height: Int): Shape()
     * inner 클래스는 외부에서 객체 생성이 불가
     * 외부에서 이용하려면 outer 클래스에서 인스턴스를 생성해줘야 함
 
+## `inner` 클래스
+
+## `object` 클래스
+
+* 기본적으로 anonymous 클래스
+* `object Foo { }`로 선언시, `Foo`라는 이름을 가진 객체가 생성
+
+### `companion`
+
+* Java class의 static 멤버와 동일
+
+
 ## 클래스 별 특징
 
 |특징|nested|`inner`|`object`|`companion object`|
@@ -156,5 +168,5 @@ class Triangle(val bottom: Int, val height: Int): Shape()
 |예약어|x|o|o|o|
 |outer 멤버 접근|x|o|o|-|
 |outer에서 접근|o|o|△<br/>`private`|-|
-|외부 접근|o|x|x|-|
+|외부 접근|o|x|△<br />상속(Type 명시)|-|
 |타입|class|class|`Any`|-|
