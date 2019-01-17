@@ -49,6 +49,8 @@
     - [제네릭](./lang/kotlin/kotlin-programming/17-generic.md)
     - [리플렉션](./lang/kotlin/kotlin-programming/18-reflection.md)
     - [다양한 기법](./lang/kotlin/kotlin-programming/19-technics.md)
+    - [Java에서 코틀린 사용하기](./lang/kotlin/kotlin-programming/50-calling-kotlin-from-java.md)
+    - [코틀린에서 자바 사용하기](./lang/kotlin/kotlin-programming/40-calling-java-from-kotlin.md)
   - [DB](./db/index.md)
     - [Flashback을 이용한 데이터 복원](./db/oracle/oracle-flashback.md)
     - [Block](./db/oracle/block.md)
