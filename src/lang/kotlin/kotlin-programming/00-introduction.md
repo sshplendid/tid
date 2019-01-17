@@ -39,3 +39,9 @@
 * Java 1.8
 * Gradle
 * Eclipse (굳이...?)
+
+## 참고 소스코드
+
+* [수업 예제코드](https://github.com/sshplendid/KotlinCourseStudy)
+* [안드로이드 with Java, Kotlin 소스코드 비교](https://github.com/sshplendid/AndroidWithKotlinExample)
+* [스프링 부트 with Java, Kotlin 애플리케이션](https://github.com/sshplendid/JavaWithKotlinExample)
