@@ -58,7 +58,7 @@
     - [Flashback을 이용한 데이터 복원](./db/oracle/oracle-flashback.md)
     - [Block](./db/oracle/block.md)
     - [HWM](./db/oracle/high-water-mark.md)
-    - [REDIS tutorial](./db/redis/tutorial.md)
+  - [REDIS tutorial](./db/redis/tutorial.md)
 - [구체수학](./books/concrete-math/index.md)
   - [1장: 재귀적인 문제들](./books/concrete-math/part1-recursive.md)
 - [기록](./log/index.md)
