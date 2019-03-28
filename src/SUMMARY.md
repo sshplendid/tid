@@ -53,6 +53,7 @@
     - [코틀린에서 자바 사용하기](./lang/kotlin/kotlin-programming/40-calling-java-from-kotlin.md)
 - [디자인 패턴](./design-pattern/index.md)
   - [제어 역전 (IoC)](./design-pattern/inversion-of-control.md)
+  - [MVC & Spring MVC](./design-pattern/mvc-spring.md)
 - [DB](./db/index.md)
   - [Oracle](./db/oracle/index.md)
     - [Flashback을 이용한 데이터 복원](./db/oracle/oracle-flashback.md)
@@ -65,4 +66,5 @@
   - [2019년](./log/2019.md)
 - [미분류](./uncategorized.md)
   - [VIM 인코딩 타입 변경하기](./general/vim-change-encoding-type.md)
+  - [MTU](./general/mtu.md)
   - [VIM 치트시트](./general/vim-cheatsheet.md)
