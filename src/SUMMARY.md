@@ -2,6 +2,7 @@
 
 [Shawn is learning](./prelude.md)
 
+- [AWS Cloud](./cloud-aws/00_intro.md)
 - [운영 체제](./os/index.md)
   - [커널](./os/kernel.md)
   - [POSIX](./os/posix.md)
