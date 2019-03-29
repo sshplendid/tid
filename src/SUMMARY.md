@@ -3,6 +3,9 @@
 [Shawn is learning](./prelude.md)
 
 - [AWS Cloud](./cloud-aws/00_intro.md)
+  - [인프라](./cloud-aws/01_infra.md)
+  - [기초](./cloud-aws/02_basic.md)
+  - [IAM](./cloud-aws/03_iam.md)
 - [운영 체제](./os/index.md)
   - [커널](./os/kernel.md)
   - [POSIX](./os/posix.md)
