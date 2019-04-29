@@ -75,3 +75,4 @@
   - [VIM 인코딩 타입 변경하기](./general/vim-change-encoding-type.md)
   - [MTU](./general/mtu.md)
   - [VIM 치트시트](./general/vim-cheatsheet.md)
+  - [동기/비동기, block/Non-block](./general/sync-vs-async-and-block-vs-nonblock.md)
