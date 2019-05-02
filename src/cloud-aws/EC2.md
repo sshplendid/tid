@@ -32,6 +32,17 @@ $ ssh -i ~/.ssh/MyMacbookKeypair.pem ec2-user@13.125.207.77
 $ aws ec2 create-key-pair --key-name MyKeyPair --query 'KeyMaterial' --output text > MyKeyPair.pem
 ```
 
+### EC2 인스턴스 CLI로 생성
+
+```bash
+$ aws ec2 run-instances --profile admin \
+--image-id ami-00dc207f8ba6dc919 --count 1 --instance-type t2.micro \
+--key-name OfficeKeyPair --security-group-ids sg-09175e0acb5baeef8 --subnet-id subnet-04064fc6dc0785aef
+```
+
+
+
+
 #### CLI Cheat Sheet
 
 ```bash
