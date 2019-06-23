@@ -90,7 +90,7 @@ DynamoDB는?
 
 * 파티션 키와 함께 정렬 키를 사용할 경우, 각 항목은 동일한 파티션 키를 가질 수 있다. 단, 정렬 키는 달라야 한다.
 * 정렬 키는 유연한 쿼리를 지원한다.
-* 정렬 키의 쿼리 방식 조사
+* 정렬 키의 쿼리 방식은 [정렬 키 조건 표현식](#정렬_키_조건_표현식)을 참고한다.
 
 ### 보조 인덱스
 
@@ -116,12 +116,168 @@ DynamoDB는?
 aws dynamodb create-table \
     --table-name Member \
     --attribute-definitions \
-        AttributeName=name,AttributeType=속성 타입 \
-        ... \
+        AttributeName=name,AttributeType=S \
+        AttributeName=age,AttributeType=N \
     --key-schema \
-        AttributeName=속성 이름,KeyType=키 타입 \
-        ... \
+        AttributeName=name,KeyType=HASH \
+        AttributeName=age,KeyType=RANGE \
     --provisioned-throughput \
         ReadCapacityUnits=1,WriteCapacityUnits=1 \
     --endpoint-url http://localhost:8000
 ```
+
+생성 결과
+
+```bash
+{
+    "TableDescription": {
+        "AttributeDefinitions": [
+            {
+                "AttributeName": "name",
+                "AttributeType": "S"
+            },
+            {
+                "AttributeName": "age",
+                "AttributeType": "N"
+            }
+        ],
+        "TableName": "Member",
+        "KeySchema": [
+            {
+                "AttributeName": "name",
+                "KeyType": "HASH"
+            },
+            {
+                "AttributeName": "age",
+                "KeyType": "RANGE"
+            }
+        ],
+        "TableStatus": "ACTIVE",
+        "CreationDateTime": 1561194380.277,
+        "ProvisionedThroughput": {
+            "LastIncreaseDateTime": 0.0,
+            "LastDecreaseDateTime": 0.0,
+            "NumberOfDecreasesToday": 0,
+            "ReadCapacityUnits": 1,
+            "WriteCapacityUnits": 1
+        },
+        "TableSizeBytes": 0,
+        "ItemCount": 0,
+        "TableArn": "arn:aws:dynamodb:ddblocal:000000000000:table/Member",
+        "BillingModeSummary": {
+            "BillingMode": "PROVISIONED",
+            "LastUpdateToPayPerRequestDateTime": 0.0
+        }
+    }
+}
+```
+
+### 데이터 쓰기
+
+테이블의 항목을 추가한다. 테이블 생성할 때 없는 속성도 추가 가능하다.
+
+```bash
+aws dynamodb put-item --endpoint-url http://localhost:8000 \
+--table-name Member  \
+--item \
+    '{"name": {"S": "홍길동"}, "age": {"N": "20"}, "email": {"S": "hong@gil.dong"}, "phoneNumber": {"S": "0102224444"}}'
+
+aws dynamodb put-item --endpoint-url http://localhost:8000 \
+--table-name Member  \
+--item \
+    '{"name": {"S": "김갑수"}, "age": {"N": "30"}, "email": {"S": "kapsu@kim.com"}, "phoneNumber": {"S": "01012341234"}}'
+
+aws dynamodb --endpoint-url http://localhost:8000 \
+> put-item --table-name Member \
+> --item '{
+            "name": {
+                "S": "홍길동"
+            },
+            "myOrder": {
+                "N": "1"
+            },
+            "phoneNumber": {
+                "S": "01012341234"
+            },
+            "age": {
+                "N": "30"
+            },
+            "email": {
+                "S": "gildong@daum.com"
+            }
+        }'
+```
+
+### 데이터 읽기
+
+항목 단 건을 기본 키로 조회한다. 만약 파티션 키와 정렬 키 조합의 테이블이라면 두 키 모두 파라미터에 넣어줘야 한다.
+
+```bash
+aws dynamodb get-item --endpoint-url http://localhost:8000 \
+--table-name Member \
+--key '{"name": {"S": "홍길동"}, "age": {"N": "20"}}'
+
+{
+    "Item": {
+        "name": {
+            "S": "홍길동"
+        },
+        "phoneNumber": {
+            "S": "0102224444"
+        },
+        "age": {
+            "N": "20"
+        },
+        "email": {
+            "S": "hong@gil.dong"
+        }
+    }
+}
+```
+
+만약 강력한 읽기 일관성(Strongly Consistency Read)을 사용하려면 `--consistent-read` 옵션을 추가한다.
+
+### 데이터 수정하기
+
+```bash
+aws dynamodb update-item --endpoint-url http://localhost:8000 \
+    --table-name Member \
+    --key '{"name": {"S": "홍길동"}, "age": {"N": "20"}}' \
+    --update-expression "SET age = :newage, email = :newemail ADD myOrder :o" \
+    --expression-attribute-values '{":newage":{"N":"21"}, ":newemail": {"S": "gildong@hong.com"}, ":o": {"N": "1"} }' \
+    --return-values ALL_NEW
+```
+
+### 데이터 쿼리
+
+#### 키 조건 표현식
+
+* 파티션 키는 등식 조건으로 지정해야 한다.
+* 정렬 키는 아래의 비교연산자를 사용할 수 있다.
+
+|표현식|의미|
+|:---:|:---:
+|a = b|속성 a가 값 b와 같을 때 true|
+|a < b|속성 a가 값 b보다 작을 때 true|
+|a <= b|속성 a가 값 b보다 작거나 같을 때 true|
+|a > b|속성 a가 값 b 클 때 true|
+|a >= b|속성 a가 값 b보다 크거나 같을 때 true|
+|a between b and c|속성 a가 값 b보다 크거나 같고 c보다 작을 때 true|
+|begins_with(a, substr)|속성 a가 substr로 시작할 때 true|
+
+```bash
+aws dynamodb --endpoint-url http://localhost:8000 \
+query --table-name Member \
+--key-condition-expression "#nm= :qname and age= :age" \
+--expression-attribute-names '{"#nm":"name"}' \
+--expression-attribute-values  '{":qname":{"S":"홍길동"}, ":age": {"N": "20"}}'
+
+aws dynamodb --endpoint-url http://localhost:8000 \
+query --table-name Member \
+--key-condition-expression "#nm= :qname and age>= :age" \
+--projection-expression "#nm, phoneNumber"  --expression-attribute-names '{"#nm":"name"}' \
+--expression-attribute-values  '{":qname":{"S":"홍길동"}, ":age": {"N": "20"}}'
+```
+
+* 위 명령에서 `name`은 DynamoDB 예약어이기 때문에 `#nm`으로 대체했다.
+* projection-expression 파라미터로 원하는 속성만 조회할 수 있다.
