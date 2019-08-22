@@ -175,6 +175,7 @@ aws dynamodb create-table \
 ### 데이터 쓰기
 
 테이블의 항목을 추가한다. 테이블 생성할 때 없는 속성도 추가 가능하다.
+만약 동일한 키가 존재하는 경우, 데이터를 덮어쓴다.
 
 ```bash
 aws dynamodb put-item --endpoint-url http://localhost:8000 \

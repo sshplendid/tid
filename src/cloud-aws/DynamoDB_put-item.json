@@ -1,0 +1,38 @@
+[
+    {
+        "name": {"S": "김갑수"}, 
+        "age": {"N": "30"}, 
+        "email": {"S": "kapsu@kim.com"}, 
+        "phoneNumber": {"S": "01012341234"}
+    },
+    {
+        "name": {"S": "김갑수"}, 
+        "age": {"N": "40"}, 
+        "email": {"S": "iamkapsu@kim.net"}, 
+        "phoneNumber": {"S": "01043214321"}
+    },
+    {
+        "name": {"S": "Jane"}, 
+        "age": {"N": "40"}, 
+        "email": {"S": "jane@gmail.com"}, 
+        "phoneNumber": {"S": "01099992222"}
+    },
+    {
+        "name": {"S": "Kate"}, 
+        "age": {"N": "50"}, 
+        "email": {"S": "kate@gmail.com"}, 
+        "phoneNumber": {"S": "01098769876"}
+    },
+    {
+        "name": {"S": "Watson"}, 
+        "age": {"N": "60"}, 
+        "email": {"S": "watson@gmail.com"}, 
+        "phoneNumber": {"S": "01075752222"}
+    },
+    {
+        "name": {"S": "홍길동"}, 
+        "age": {"N": "20"}, 
+        "email": {"S": "hong@gil.dong"}, 
+        "phoneNumber": {"S": "0102224444"}
+    }
+]
