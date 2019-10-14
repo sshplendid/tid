@@ -3,8 +3,9 @@
 [Shawn is learning](./prelude.md)
 
 - [AWS Cloud](./cloud-aws/INTRO.md)
-  - [IAM](./cloud-aws/IAM.md)
   - [EC2](./cloud-aws/EC2.md)
+  - [ELB](./cloud-aws/ELB.md)
+  - [IAM](./cloud-aws/IAM.md)
   - [VPC](./cloud-aws/VPC.md)
   - [DynamoDB](./cloud-aws/DynamoDB.md)
 - [운영 체제](./os/index.md)
