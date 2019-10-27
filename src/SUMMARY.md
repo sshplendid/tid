@@ -3,6 +3,7 @@
 [Shawn is learning](./prelude.md)
 
 - [AWS Cloud](./cloud-aws/INTRO.md)
+  - [자격증 공부](./cloud-aws/cert-developer-asso.md)
   - [EC2](./cloud-aws/EC2.md)
   - [ELB](./cloud-aws/ELB.md)
   - [IAM](./cloud-aws/IAM.md)
