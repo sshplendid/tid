@@ -1,5 +1,31 @@
 # AWS 개발자 associate
 
+## [Udemy - Ultimate AWS Certified Developer Associate 2019 - NEW!](https://www.udemy.com/course/aws-certified-developer-associate-dva-c01/)
+
+- [x] Course Introduction - AWS Certified Developer Associate, 7개의 강의, 15:38
+- [x] Code & Slides Download, 1개의 강의, 00:17
+- [x] AWS Fundamentals: IAM + EC2, 19개의 강의, 01:33:46
+- [ ] AWS Fundamentals: ELB + ASG + EBS, 6개의 강의, 42:47
+- [ ] AWS Fundamentals: Route 53 + RDS + ElastiCache + VPC, 9개의 강의, 50:14
+- [ ] AWS Fundamentals: Amazon S3, 10개의 강의, 49:44
+- [ ] AWS CLI, SDK, IAM Roles & Policies, 14개의 강의, 58:54
+- [ ] AWS Elastic Beanstalk, 8개의 강의, 56:16
+- [ ] AWS CICD: CodeCommit, CodePipeline, CodeBuild, CodeDeploy, 13개의 강의, 01:40:35
+- [ ] AWS CloudFormation, 12개의 강의, 59:37
+- [ ] AWS Monitoring & Audit: CloudWatch, X-Ray and CloudTrail, 12개의 강의, 57:55
+- [ ] AWS Integration & Messaging: SQS, SNS & Kinesis, 15개의 강의, 01:30:08
+- [ ] AWS Serverless: Lambda, 14개의 강의, 01:19:34
+- [ ] AWS Serverless: DynamoDB, 15개의 강의, 01:18:51
+- [ ] AWS Serverless: API Gateway & Cognito, 12개의 강의, 53:12
+- [ ] AWS Serverless: SAM - Serverless Application Model, 9개의 강의, 38:46
+- [ ] ECS, ECR & Fargate - Docker in AWS, 13개의 강의, 01:23:01
+- [ ] AWS Security & Encryption: KMS, Encryption SDK, SSM Parameter Store, IAM & STS, 11개의 강의, 01:10:01
+- [ ] AWS Other Services, 7개의 강의, 19:14
+- [ ] AWS Final Cleanup, 2개의 강의, 03:19
+- [ ] Preparing for the Exam - AWS Certified Developer Associate, 5개의 강의, 21:52
+- [ ] Congratulations - AWS Certified Developer Associate, 2개의 강의, 05:12
+
+
 ## 백서 목록
 
 - [ ] [AWS 백서](https://aws.amazon.com/ko/whitepapers/)
