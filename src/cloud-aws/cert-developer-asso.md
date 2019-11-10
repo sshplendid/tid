@@ -1,16 +1,16 @@
-# AWS 개발자 associate
+# AWS certified developer associate
 
 ## [Udemy - Ultimate AWS Certified Developer Associate 2019 - NEW!](https://www.udemy.com/course/aws-certified-developer-associate-dva-c01/)
 
 - [x] Course Introduction - AWS Certified Developer Associate, 7개의 강의, 15:38
 - [x] Code & Slides Download, 1개의 강의, 00:17
 - [x] AWS Fundamentals: IAM + EC2, 19개의 강의, 01:33:46
-- [ ] AWS Fundamentals: ELB + ASG + EBS, 6개의 강의, 42:47
-- [ ] AWS Fundamentals: Route 53 + RDS + ElastiCache + VPC, 9개의 강의, 50:14
-- [ ] AWS Fundamentals: Amazon S3, 10개의 강의, 49:44
-- [ ] AWS CLI, SDK, IAM Roles & Policies, 14개의 강의, 58:54
-- [ ] AWS Elastic Beanstalk, 8개의 강의, 56:16
-- [ ] AWS CICD: CodeCommit, CodePipeline, CodeBuild, CodeDeploy, 13개의 강의, 01:40:35
+- [x] AWS Fundamentals: ELB + ASG + EBS, 6개의 강의, 42:47
+- [x] AWS Fundamentals: Route 53 + RDS + ElastiCache + VPC, 9개의 강의, 50:14
+- [x] AWS Fundamentals: Amazon S3, 10개의 강의, 49:44
+- [x] AWS CLI, SDK, IAM Roles & Policies, 14개의 강의, 58:54
+- [x] AWS Elastic Beanstalk, 8개의 강의, 56:16
+- [x] AWS CICD: CodeCommit, CodePipeline, CodeBuild, CodeDeploy, 13개의 강의, 01:40:35
 - [ ] AWS CloudFormation, 12개의 강의, 59:37
 - [ ] AWS Monitoring & Audit: CloudWatch, X-Ray and CloudTrail, 12개의 강의, 57:55
 - [ ] AWS Integration & Messaging: SQS, SNS & Kinesis, 15개의 강의, 01:30:08
