@@ -74,7 +74,9 @@
   - [2019년](./log/2019.md)
   - [2019년 16주차](./log/2019-W16.md)
   - [AWS Summit Seoul 2019](./log/2019-04-17-aws-summit.md)
+  - [IE 10 이하 테스트](./log/2019-11-18-test-on-ie.md)
 - [미분류](./uncategorized.md)
   - [VIM 인코딩 타입 변경하기](./general/vim-change-encoding-type.md)
   - [MTU](./general/mtu.md)
   - [VIM 치트시트](./general/vim-cheatsheet.md)
+
