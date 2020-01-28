@@ -17,6 +17,7 @@
   - [셸 명령어 목록](./os/shell-commands.md)
   - [AIX 모니터링 명령어](./os/aix-monitoring-commands.md)
   - [Windows 커맨드라인에서 환경변수 설정](./os/win-cmd-set-env-var.md)
+  - [hostid](./os/hostid.md)
 - [Docker 시작하기](./devops/docker/get-started-index.md)
   - [소개 및 설치](./devops/docker/get-started-part1.md)
   - [컨테이너](./devops/docker/get-started-part2.md)
@@ -81,4 +82,4 @@
   - [VIM 인코딩 타입 변경하기](./general/vim-change-encoding-type.md)
   - [MTU](./general/mtu.md)
   - [VIM 치트시트](./general/vim-cheatsheet.md)
-
+  - [일렉트론 앱 패키징](./lang/nodejs/packaging-with-electron-packager.md)
