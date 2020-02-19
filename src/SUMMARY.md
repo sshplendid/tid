@@ -10,7 +10,7 @@
   - [DynamoDB](./cloud-aws/DynamoDB.md)
   - [자격증 공부](./cloud-aws/cert-developer-asso.md)
 - [Spring Reference](./books/spring/overview.md)
-  - [1. IoC Container](./books/spring/core-01-ioc-container.md)
+  - [Core - 1. IoC Container](./books/spring/core-01-ioc-container.md)
 - [운영 체제](./os/index.md)
   - [커널](./os/kernel.md)
   - [POSIX](./os/posix.md)
