@@ -276,7 +276,29 @@ context.refresh();
 |Initialization method|[빈 인스턴스화 콜백]()|
 |Destruction method|[빈 파괴 콜백]()|
 
-특정 빈을 생성하는 방법에 대한 정보를 포함한 빈 정의 외에도, `ApplicationContext` 구현체는 (사용자에 의해) 컨테이너 외부에서 생성된 객체 등록도 허용한다. 
+특정 빈을 생성하는 방법에 대한 정보를 포함한 빈 정의 외에도, `ApplicationContext` 구현체는 (사용자에 의해) 컨테이너 외부에서 생성된 객체 등록도 허용한다. 이 것은 ApplicationContext의 BeanFactory를 `getBeanFactory()` 메서드가 반환하는 `DefaultListableBeanFactory`객체를 통해 접근함으로써 처리된다. `DefaultListableBeanFactory`는 `registerSingleton(..)` 메서드와 `registerBeanDefinition(..)` 메서드를 통해 빈 등록을 지원한다. 그러나 일반적으로 애플리케이션은 일반적인 빈 정의 메타데이터를 통해 정의된 빈들과 단독으로 동작한다.
+
+> 빈 메타데이터와 수동으로 공급된 싱글턴 인스턴스는 컨테이너가 오토와이어링(autowiring) 단계와 기타 검사 단계에서 적절하기 추론하기 위해서 가능한 빨리 등록되어야 한다. 반면에 기존 메타데이터와 싱글턴 인스턴스를 오버라이딩한 것은 어느정도 지원되는 반면에, 런타임에서의 신규 빈 등록은 공식적으로 지원되지 않고 동시 접근 예외(concurrent access exception)와 빈 컨테이너의 모순된 상태를 유발할 수 있다. 
+
+
+#### 1.3.1. 빈 네이밍
+
+모든 빈은 하나 이상의 식별값을 가지고 있다. 이 식별값들은 빈의 호스트 컨테이너 내에서 유일해야 한다. 빈은 보통 유일한 식별값을 가지고 있다. 그렇지만 만약 하나 이상의 식별값이 필요한 경우, 추가적으로 별칭(alias)을 가질 수 있다.
+
+XML 기반의 설정 메타데이터에서 빈 식별값으로 `id` 속성이나 `name` 속성, 혹은 두 속성 모두 사용했을 것이다. `id` 속성은 정확히 하나의 id만을 명시하게 한다. 관습적으로, id 값은 문자+숫자(alphanumeric, e.g. 'myBean', 'someService' 등)로 명명한다. 그러나 특별한 문자를 포함하는 것도 가능하다. 만약 빈에 대한 다른 별칭(alias)를 도입하길 원한다면, 빈의 `name` 속성에 명시할 수 있다. 이는 쉼표(,), 세미콜론(;) 혹은 공백문자(whitespace)로 구분한다. 스프링 3.1 버전 이전에는 `id` 속성은 입력 가능한 문자를 제한하는 `xsd:ID` 타입으로 정의되었다. 3.1 버전부터, `xsd:string` 타입으로 정의되었다. 더이상 XML 파서를 사용하지 않더라도 빈의 `id` 유일성은 컨테이너에 의해 강요된다.
+
+빈의 `id` 속성이나 `name` 속성을 지정할 필요는 없다. 만약 명시적으로 지정하지 않는 경우, 컨테이너는 빈의 유일한 명칭을 생성한다. 그러나 만약 `ref` 요소나 서비스 로케이터 스타일의 룩업 방식을 사용해서 이름으로 빈을 참조하려면, 빈의 이름을 지정해야 한다. 이름을 제공하지 않는 이유는 [inner beans](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/core.html#beans-inner-beans)와 [autowiring collaborators](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/core.html#beans-factory-autowire)와 관련이 있다.
+
+> #### 빈 명명 규칙  
+> 빈을 이름을 명명할 때 인스턴스 필드 이름에 대해 표준 자바 규칙을 사용한다. 빈 이름은 소문자로 시작하고 카멜 케이스를 사용한다. 예를 들어 `accountmanager`, `accountService`, `userDao` 등 처럼 말이다.  
+> 빈 명명은 지속적으로 설정에 대한 가독성과 이해를 쉽게 만든다. 스프링 AOP를 사용할 때도, 이름으로 관련된 빈들에 대한 어드바이스를 적용하는데 도움을 준다.
+
+> 클래스패스를 컴포넌트 스캔하면, 스프링은 이름이 없는 컴포넌트들에 대한 빈 이름을 앞서 기술한 것과 같이 생성한다.: 근본적으로, 클래스 이름을 획득하여 첫 번째 문자열을 소문자로 변환한다. 그러나 드물게 클래스 명의 첫 번째와 두 번째 문자 모두 대문자인 특별한 경우엔 원래의 케이스가 유지된다. 이는 `java.beans.Introspector.decapitalize`에 의해 정의된 규칙과 동일하다. (스프링은 이를 사용한다.)
+
+##### 빈 정의 외부의 빈에 대한 별칭 정하기
+
+
+
 
 > Work In Process
 
