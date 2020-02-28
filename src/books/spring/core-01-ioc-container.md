@@ -450,9 +450,296 @@ public class DefaultServiceLocator {
 
 일반적인 엔터프라이즈 애플리케이션은 하나의 객체로 구성되지 않는다. 심지어 간단한 애플리케이션도 최종 사용자가 보는 것처럼 일관성 있는 애플리케이션으로 보여주려면 서로 상호작용하는 여러 객체를 가지고 있어야 한다. 다음 섹션은 객체가 목표를 달성하기 위해 상호작용하는 완전 실질적인 스탠드-얼론 애플리케이션을 위한 수많은 빈 정의 방법을 설명한다.
 
-### 1.4.1. 의존성 주입
+#### 1.4.1. 의존성 주입
 
-의존성 주입은 객체가 그들과 동작하는 다른 객체에 대한 의존성을 정의하는 프로세스이다. 
+의존성 주입은 객체가 그들과 동작하는 다른 객체에 대한 의존성을 정의하는 프로세스이다. 생성자 인자, 팩토리 메서드의 인자, 혹은 팩토리 메서드로부터 반환되거나 생성된 후 인스턴스에 주입될 수도 있다. 그 다음 컨테이너는 빈을 생성할 때 의존성을 주입한다. 이 프로세스는 근본적으로 빈 자신이 인스턴스화 과정이나 클래스의 직접 생성을 이용한 의존 혹은 서비스 로케이터 패턴 등으로 제어하는 방식에서 역전된다. 그래서 제어의 역전(Inversion of Control)이란 이름이다.
+
+DI 원리에 의해 코드는 더 깔끔해지고, 객체가 의존성을 제공받음으로써 디커플링은 더 효과적이다. 객체는 그들의 의존성을 탐색하지 않고 의존할 클래스나 위치도 알지 못한다. 결과적으로, 클래스는 특히 의존성이 인터페이스나 추상 클래스 기반이면 더 테스트하기 쉬워지고, 유닛 테스트에서 사용되는 스텁(stub)이나 목(mock) 구현체를 허용한다.
+
+의존성 주입엔 두 가지 방법이 있다.: [생성자 기반 의존성 주입](#생성자-기반-의존성-주입)입 [세터 기반 의존성 주입](#세터-기반-의존성-주입)
+
+##### 생성자 기반 의존성 주입
+
+생성자 기반 의존성 주입은 컨테이너가 의존성을 나타내는 여러 인자를 가진 생성자를 호출함으로 써 동작한다. 빈을 생성하기 위한 특정한 인자를 가진 `static` 메서드를 호출하는 것과 거의 동등하고, 이 주제는 생성자의 인자와 `static` 팩토리 메서드를 유사하게 다룬다. 다음 예제는 생성자로 의존성 주입만이 가능한 클래스를 보여준다.:
+
+```java
+public class SimpleMovieLister {
+
+    // the SimpleMovieLister has a dependency on a MovieFinder
+    private MovieFinder movieFinder;
+
+    // a constructor so that the Spring container can inject a MovieFinder
+    public SimpleMovieLister(MovieFinder movieFinder) {
+        this.movieFinder = movieFinder;
+    }
+
+    // business logic that actually uses the injected MovieFinder is omitted...
+}
+```
+
+이 클래스엔 특별한게 없다. 이는 특정 컨테이너에 종속되거나, 특정 인터페이스, 기본 클래스, 어노테이션이 없는 POJO(Plain Old Java Object)이다.
+
+###### 생성자 인자 결정
+
+생성자 인자 결정 방식은 인자의 타입을 사용함으로써 발생한다. 만약 빈 정의의 생성자 인자가 잠재적으로 모호한 경우가 아니라면, 빈 정의에 의해 정의된 생성자 인자가 정의되는 순서는 빈이 인스턴스화할 때 해당 인자가 적절한 생성자에 의해 제공되는 순서이다. 다음 클래스를 살펴보자.:
+
+```java
+package x.y;
+
+public class ThingOne {
+
+    public ThingOne(ThingTwo thingTwo, ThingThree thingThree) {
+        // ...
+    }
+}
+```
+
+`ThingTwo`와 `ThingThree` 클래스가 상속과 관련된 것이 없고, 잠재적으로 모호함이 없다고 가정하자. 그럼련 다음 설정은 제대로 동작할 것이다. 그리고 특정 생성자 인자의 순서나 타입을 명시적으로 `<constructor-arg/>` 요소에 명시할 필요가 없다.
+
+```xml
+<beans>
+    <bean id="beanOne" class="x.y.ThingOne">
+        <constructor-arg ref="beanTwo"/>
+        <constructor-arg ref="beanThree"/>
+    </bean>
+
+    <bean id="beanTwo" class="x.y.ThingTwo"/>
+
+    <bean id="beanThree" class="x.y.ThingThree"/>
+</beans>
+```
+
+타입이 알려진 다른 빈이 참조될 때, (이전 예제의 케이스로) 매칭이 발생한다. `<value>true</value>`와 같은 단순한 타입이 사용될 때, 스프링은 값의 타입을 결정할 수 없고, 도움 없인 매칭 작업을 할 수 없다. 다음 예제를 살펴보자.:
+
+```java
+package examples;
+
+public class ExampleBean {
+
+    // Number of years to calculate the Ultimate Answer
+    private int years;
+
+    // The Answer to Life, the Universe, and Everything
+    private String ultimateAnswer;
+
+    public ExampleBean(int years, String ultimateAnswer) {
+        this.years = years;
+        this.ultimateAnswer = ultimateAnswer;
+    }
+}
+```
+
+**생성자 인자 타입 매칭**
+
+이전 시나리오에서, 명시적으로 생성자의 타입을 `type` 속성으로 명시한다면 컨테이너는 단순한 타입으로 타입 매칭을 사용할 수 있다. 다음의 예제를 보면 알 수 있다.:
+
+```xml
+<bean id="exampleBean" class="examples.ExampleBean">
+    <constructor-arg type="int" value="7500000"/>
+    <constructor-arg type="java.lang.String" value="42"/>
+</bean>
+```
+
+**생성자 인자의 순서**
+
+`index` 속성을  사용해서 생성자 인자의 순서를 명시할 수 있다.:
+
+```xml
+<bean id="exampleBean" class="examples.ExampleBean">
+    <constructor-arg index="0" value="7500000"/>
+    <constructor-arg index="1" value="42"/>
+</bean>
+```
+
+추가로 여러 개의 단순한 값의 모호성을 해결하려면, 순서를 명시하여 생성자가 가진 동일한 두 개 이상의 인자의 모호성을 해결할 수 있다.
+
+> 순서는 0부터 시작한다.
+
+**생성자 인자의 이름**
+
+값을 명확히 설정하기 위해 생성자 파라미터 이름을 사용할 수 있다. 다음의 예제를 보자.:
+
+```xml
+<bean id="exampleBean" class="examples.ExampleBean">
+    <constructor-arg name="years" value="7500000"/>
+    <constructor-arg name="ultimateAnswer" value="42"/>
+</bean>
+```
+
+이 작업을 즉시 수행하려면, 코드가 디버그 플래그로 컴파일되어야 스프링이 생성자로부터 파라미터 이름을 찾을 수 있다. 만약 디버그 플래그로 컴파일하길 원치 않으면, [@ConstructorProperties] JDK 어노테이션을 사용해서 명시적으로 생성자 인자에 이름을 붙일 수 있다. 샘플 클래스를 보자.:
+
+```java
+package examples;
+
+public class ExampleBean {
+
+    // Fields omitted
+
+    @ConstructorProperties({"years", "ultimateAnswer"})
+    public ExampleBean(int years, String ultimateAnswer) {
+        this.years = years;
+        this.ultimateAnswer = ultimateAnswer;
+    }
+}
+```
+
+##### 세터 기반 의존성 주입
+
+세터 기반 의존성 주입은 컨테이너가 기본 생성자로 빈을 생성하거나 인자가 없는 `static` 팩토리 메서드로 빈 인스턴스를 생성한 후 세터 메서드를 호출하는 경우에 사용한다.
+
+다음 예제는 순수한 세터 주입을 사용해서 의존성 주입을 해야하만 하는 클래스를 보여준다. 이 클래스는 관습적인 자바 코드이다. 아무런 의존성이 없는 POJO이다.
+
+```java
+public class SimpleMovieLister {
+
+    // the SimpleMovieLister has a dependency on the MovieFinder
+    private MovieFinder movieFinder;
+
+    // a setter method so that the Spring container can inject a MovieFinder
+    public void setMovieFinder(MovieFinder movieFinder) {
+        this.movieFinder = movieFinder;
+    }
+
+    // business logic that actually uses the injected MovieFinder is omitted...
+}
+```
+
+`ApplicationContext`는 생성자 기반/세터 기반 의존성 주입을 지원한다. 생성자 주입 후 세터 주입을 해야하는 경우도 지원한다. 어떤 형식에서 다른 형식으로 프로퍼티를 변환하는 `PropertyEditor` 인스턴스와 함께 사용해서 `BeanDefinition`의 형식으로 의존성을 설정해야 한다. 그러나 대부분의 스프링 사용자는 이런 클래스들을 직접 다루기보단 XML 빈 정의, (`@Controller`, `@Component` 등의 어노테이션이 달린) 컴포넌트 등을 다루거나 자바 기반의 `@Configuration` 클래스의 `@Bean` 메서드를 다룰 것이다. 이런 소스는 내부적으로 `BeanDefinition` 인스턴스로 변환되고 전체 스프링 IoC 컨테이너 인스턴스를 로드하는데 사용한다.
+
+> ##### 생성자 기반 의존성 주입과 세터 기반 의존성 주입?
+> 생성자 주입과 세터 주입을 적절하게 섞어 사용할 수 있기 때문에, 생성자를 사용해서 필수적인 의존성을 주입하고 세터 메서드나 설정 메서드로 선택적인 의존성을 주입하는 방법은 적절하다. 세터 메서드에 `@Required` 어노테이션을 사용해서 프로퍼티를 필수적으로 의존받아야 함을 나타낼 수 있다. 그러나 생성자 주입이 더욱 선호된다.  
+>
+> 스프링 팀은 일반적으로 생성자 주입을 지지한다. 이는 애플리케이션 컴포넌트를 불변 객체로 구현할 수 있게 하고 필수적인 의존성을 `null`이 아니게 할 수 있다. 게다가 생성자 주입 컴포넌트는 항상 (호출하는) 클라이언트 코드에게 완전히 초기화된 객체를 반환한다. 부수적으로, 너무 많은 생성자 인자는 나쁜 코드 냄새이고, 클래스가 너무 많은 책임을 가지고 있다는걸 암시한다. 그래서 적절한 관심사의 구분으로 더 나은 코드로 리팩토링해야 한다.  
+>
+> 세터 주입은 주로 선택적 인자에 한해 사용해야 한다. 이런 인자는 클래스가 적절한 기본 값을 가지고 있어야 한다. 반면에 not-null 확인은 의존성 있는 모든 코드에서 반드시 수행되어야 한다. 세터 주입의 한 가지 장점은 세터 메서드가 클래스의 객체를 차후에 재설정하거나 재 주입 가능하게 한다는 것이다. 그러므로 [JMX MBeans](https://docs.spring.io/spring-framework/docs/5.2.3.RELEASE/spring-framework-reference/integration.html#jmx)를 통한 관리는 세터 주입의 강력한 사용 사례이다.  
+>
+> 특정 클래스에 가장 적합한 의존성 주입 방법을 사용해야 한다. 가끔 소스를 가지고 있지 않은 써드파디 클래스를 다뤄야 할 때, 선택을 해야한다. 예를 들어, 만약 써드파티 클래스가 세터 메서드를 노출하지 않으면, 오로지 생성자 주입만이 사용 가능할 것이다.
+
+##### 의존성 주입의 예
+
+다음 예제는 세터 의존성 주입을 위한 XML 기반의 설정 메타데이터이다. 스프링 XML 설정 파일의 일부분이 다음과 같다.:
+
+```xml
+<bean id="exampleBean" class="examples.ExampleBean">
+    <!-- setter injection using the nested ref element -->
+    <property name="beanOne">
+        <ref bean="anotherExampleBean"/>
+    </property>
+
+    <!-- setter injection using the neater ref attribute -->
+    <property name="beanTwo" ref="yetAnotherBean"/>
+    <property name="integerProperty" value="1"/>
+</bean>
+
+<bean id="anotherExampleBean" class="examples.AnotherBean"/>
+<bean id="yetAnotherBean" class="examples.YetAnotherBean"/>
+```
+
+다음은 연관된 `ExampleBean` 클래스이다.:
+
+```java
+public class ExampleBean {
+
+    private AnotherBean beanOne;
+
+    private YetAnotherBean beanTwo;
+
+    private int i;
+
+    public void setBeanOne(AnotherBean beanOne) {
+        this.beanOne = beanOne;
+    }
+
+    public void setBeanTwo(YetAnotherBean beanTwo) {
+        this.beanTwo = beanTwo;
+    }
+
+    public void setIntegerProperty(int i) {
+        this.i = i;
+    }
+}
+```
+
+앞선 예제에서, XML 파일의 특정한 프로퍼티에 대응하여 세터를 선언했다. 다음 예는 생성자 기반 의존성 주입을 사용한다.:
+
+```xml
+<bean id="exampleBean" class="examples.ExampleBean">
+    <!-- constructor injection using the nested ref element -->
+    <constructor-arg>
+        <ref bean="anotherExampleBean"/>
+    </constructor-arg>
+
+    <!-- constructor injection using the neater ref attribute -->
+    <constructor-arg ref="yetAnotherBean"/>
+
+    <constructor-arg type="int" value="1"/>
+</bean>
+
+<bean id="anotherExampleBean" class="examples.AnotherBean"/>
+<bean id="yetAnotherBean" class="examples.YetAnotherBean"/>
+```
+
+다음 예는 연관된 `ExampleBean` 클래스이다.:
+
+```java
+public class ExampleBean {
+
+    private AnotherBean beanOne;
+
+    private YetAnotherBean beanTwo;
+
+    private int i;
+
+    public ExampleBean(
+        AnotherBean anotherBean, YetAnotherBean yetAnotherBean, int i) {
+        this.beanOne = anotherBean;
+        this.beanTwo = yetAnotherBean;
+        this.i = i;
+    }
+}
+```
+
+빈 정의에 명시된 생성자 인자는 `ExampleBean`의 생성자의 인자로 사용된다.
+
+이제 생성자를 사용하는 대신 객체의 인스턴스를 반환하는 `static` 팩토리 메서드를 호출하는 예제를 다룬다.:
+
+```xml
+<bean id="exampleBean" class="examples.ExampleBean" factory-method="createInstance">
+    <constructor-arg ref="anotherExampleBean"/>
+    <constructor-arg ref="yetAnotherBean"/>
+    <constructor-arg value="1"/>
+</bean>
+
+<bean id="anotherExampleBean" class="examples.AnotherBean"/>
+<bean id="yetAnotherBean" class="examples.YetAnotherBean"/>
+```
+
+다음 예는 `ExampleBean` 클래스이다.:
+
+```java
+public class ExampleBean {
+
+    // a private constructor
+    private ExampleBean(...) {
+        ...
+    }
+
+    // a static factory method; the arguments to this method can be
+    // considered the dependencies of the bean that is returned,
+    // regardless of how those arguments are actually used.
+    public static ExampleBean createInstance (
+        AnotherBean anotherBean, YetAnotherBean yetAnotherBean, int i) {
+
+        ExampleBean eb = new ExampleBean (...);
+        // some other operations...
+        return eb;
+    }
+}
+```
+
+`static` 팩토리 메서드의 인자는 `<constructor-arg/>` 요소에 의해 공급된다. 정확히는 생성자가 실제로 사용된 것과 동일하다. 팩토리 메서드에 의해 반환된 클래스 타입은 `static` 팩토리 메서드를 포함하는 클래스의 타입과 동일할 필요는 없다. (논-스태틱) 인스턴스 팩토리 메서드는 본질적으로 동일한 방식으로 사용할 수 있다. 그래서 여기선 이에 대해 다루진 않는다.
+
+#### 1.4.2. 상세한 의존성과 설정
 
 > Work In Process
 
