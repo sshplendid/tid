@@ -918,7 +918,7 @@ public class ExampleBean {
 
 Map의 Key/Value 값, 혹은 Set 값은 다음 요소 중 무엇이라도 가능하다.:
 
-```
+```plain
 bean | ref | idref | list | set | map | props | value | null
 ```
 
