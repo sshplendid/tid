@@ -739,9 +739,275 @@ public class ExampleBean {
 
 `static` 팩토리 메서드의 인자는 `<constructor-arg/>` 요소에 의해 공급된다. 정확히는 생성자가 실제로 사용된 것과 동일하다. 팩토리 메서드에 의해 반환된 클래스 타입은 `static` 팩토리 메서드를 포함하는 클래스의 타입과 동일할 필요는 없다. (논-스태틱) 인스턴스 팩토리 메서드는 본질적으로 동일한 방식으로 사용할 수 있다. 그래서 여기선 이에 대해 다루진 않는다.
 
-#### 1.4.2. 상세한 의존성과 설정
+#### 1.4.2. 의존성과 설정의 상세내용
+
+이전 섹션에서 언급한 것 처럼, 빈 프로퍼티와 생성자 인자를 다른 빈(협력자)의 참조로 사용하거나, 인라인으로 정의된 값으로 사용할 수 있다. 스프링의 XML 기반 설정 메타데이터는 `<property/>` 와 `<constructor-arg/>` 요소를 제공한다.
+
+##### 값 (Primitive, String 등)
+
+`<property/>` 요소의 `value` 속성은 사람이 읽을 수 있는 문자열 값으로써 프로퍼티 혹은 생성자 인자를 명시하게 한다. 스프링의 [변환 서비스(conversion service)](https://docs.spring.io/spring-framework/docs/5.2.3.RELEASE/spring-framework-reference/core.html#core-convert-ConversionService-API)는 `String` 타입의 값을 실제 속성이나 인자의 타입의 값으로 변환하는데 사용한다. 다음은 다양한 값을 설정하는 예제이다.:
+
+```xml
+<bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    <!-- results in a setDriverClassName(String) call -->
+    <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+    <property name="url" value="jdbc:mysql://localhost:3306/mydb"/>
+    <property name="username" value="root"/>
+    <property name="password" value="masterkaoli"/>
+</bean>
+```
+
+다음은 [p-네임스페이스]()를 사용해서 더욱 간단한 XML 설정하는 예제이다.:
+
+```xml
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource"
+        destroy-method="close"
+        p:driverClassName="com.mysql.jdbc.Driver"
+        p:url="jdbc:mysql://localhost:3306/mydb"
+        p:username="root"
+        p:password="masterkaoli"/>
+
+</beans>
+```
+
+이전 XML은 더욱 간단하다. 그러나 IDE의 자동 완성 기능을 사용하지 않는 한, 오타가 설계 시점이 아닌 런타임 시점에 발견된다. IDE의 어시스턴스 기능을 강력히 권고한다.
+
+다음과 같이 `java.util.Properties` 인스턴스를 설정할 수 있다.:
+
+```xml
+<bean id="mappings"
+    class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+
+    <!-- typed as a java.util.Properties -->
+    <property name="properties">
+        <value>
+            jdbc.driver.className=com.mysql.jdbc.Driver
+            jdbc.url=jdbc:mysql://localhost:3306/mydb
+        </value>
+    </property>
+</bean>
+```
+
+스프링 컨테이너는 `<value/>` 요소의 텍스트를 자바 빈 `PropertyEditor` 방식을 사용하는 `java.util.Properties` 인스턴스로 변환한다. 이는 유용한 축약어로, 스프링 팀이 중첩된 `<value/>` 요소 사용보다 선호하는 몇 안되는 방법 중 하나이다.
+
+###### `idref` 요소
+
+`idref` 요소는 다른 빈의 `id` 문자열 값을 `<constructor-arg/>` 혹은 `<property/>` 요소로 전달하는 오류방지 방법이다. 다음 예제는 사용하는 방법에 대해 보여준다.:
+
+```xml
+<bean id="theTargetBean" class="..."/>
+
+<bean id="theClientBean" class="...">
+    <property name="targetName">
+        <idref bean="theTargetBean"/>
+    </property>
+</bean>
+```
+
+앞선 빈 정의에서 스니핏은 다음 스니핏과 완전히 동등하다.:
+
+```xml
+<bean id="theTargetBean" class="..." />
+
+<bean id="client" class="...">
+    <property name="targetName" value="theTargetBean"/>
+</bean>
+```
+
+전자는 후자보다 선호되는데, `idref` 태그를 사용함으로써 컨테이너는 배포 시점에 참조된 빈이 실제로 존재하는지 검증한다. 후자의 경우, `client` 빈의 `targetName` 프로퍼티를 전달하면서 어떤 검증도 수행하지 않는다. 오타는 `client` 빈을 생성할 때 발견된다. 만약 `client` 빈이 [프로토타입](https://docs.spring.io/spring-framework/docs/5.2.3.RELEASE/spring-framework-reference/core.html#beans-factory-scopes) 빈인 경우, 오타와 야기되는 예외는 컨테이너가 배포되고 한참 지난 후에 발견된다.
+
+> `idref` 요소의 `local` 속성은 4.0 beans XSD에서 더이상 지원되지 않는다. 4.0 명세로 업그레이드할 때 `idref local` 참조를 `idref bean`으로 변경하라.
+
+스프링 2.0 버전 이전에서 `<idref/>` 요소가 가져오는 값들은 `ProxyFactoryBean` 빈 정의 안의 [AOP 인터셉터](https://docs.spring.io/spring-framework/docs/5.2.3.RELEASE/spring-framework-reference/core.html#aop-pfb-1) 설정에 위치한다. 인터셉터 이름을 명시할 때 `<idref/>` 요소를 사용하는 것은 인터셉터 ID를 잘못쓰는 것을 방지하게 한다.
+
+##### 다른 빈 (협력자) 참조
+
+`ref` 요소는 `<constructor-arg/>`와 `<property/>` 정의 요소 내 마지막 요소이다. 빈의 특정 프로퍼티에 컨테이너가 관리하는 다른 빈(협력자)의 참조값을 설정한다. 이 참조된 빈은 프로퍼티로 설정한 빈이 의존한다. 그리고 이는 프로퍼티 값으로 설정하기 전에 필요할 때 초기화된다. (만약 협력자가 싱글턴 빈이라면, 컨테이너에 의해 이미 초기화됐을 것이다.) 모든 참조는 결국 다른 객체의 참조이다. 범위와 검증은 `bean`, `local`, `parent` 요소를 통해 어떤 객체의 ID 혹은 이름을 명시하냐에 따라 결정된다.
+
+`<ref/>` 태그의 `bean` 요소를 통해 타겟 빈을 명시하는 것은 일반적인 형식이고 동일한 XML 파일에 있지 않더라도 동일 컨테이너나 부모 컨테이너의 어떤 참조된 빈이라도 생성할 수 있게 허용한다. `bean` 속성의 값은 타겟 빈의 `id` 속성이나 `name` 속성과 동일하다. 다음 예제는 `ref` 요소를 어떻게 사용하는지 보여준다.:
+
+```xml
+<ref bean="someBean"/>
+```
+
+`parent` 속성을 통해서 타겟 빈을 명시하는 것은 현재 컨테이너의 부모 컨테이너에 있는 빈의 참조를 생성한다. `parent` 속성의 값은 타겟 빈의 `id` 속성이나 `name` 속성의 값 중 하나와 같다. 타겟 빈은 부모 컨테이너에 있어야 한다. 컨테이너의 계층이 있고 부모 컨테이너에 존재하는 빈을 동일한 이름의 프록시로 감싸고 싶다면 주로 이런 빈 참조 변형을 사용해야 한다. 다음 리스트 쌍은 `parent` 속성을 사용하는 방법을 보여준다.:
+
+```xml
+<!-- in the parent context -->
+<bean id="accountService" class="com.something.SimpleAccountService">
+    <!-- insert dependencies as required as here -->
+</bean>
+```
+
+```xml
+<!-- in the child (descendant) context -->
+<bean id="accountService" <!-- bean name is the same as the parent bean -->
+    class="org.springframework.aop.framework.ProxyFactoryBean">
+    <property name="target">
+        <ref parent="accountService"/> <!-- notice how we refer to the parent bean -->
+    </property>
+    <!-- insert other configuration and dependencies as required here -->
+</bean>
+```
+
+> `idref` 요소의 `local` 속성은 4.0 beans XSD에서 더이상 지원되지 않는다. 4.0 명세로 업그레이드할 때 `idref local` 참조를 `idref bean`으로 변경하라.
+
+##### 내부 빈
+
+`<property/>` 혹은 `<constructor-arg/>` 요소 내 `<bean/>` 요소는 다음ㄱ뫄 같이 내부 빈을 정의한다.:
+
+```xml
+<bean id="outer" class="...">
+    <!-- instead of using a reference to a target bean, simply define the target bean inline -->
+    <property name="target">
+        <bean class="com.example.Person"> <!-- this is the inner bean -->
+            <property name="name" value="Fiona Apple"/>
+            <property name="age" value="25"/>
+        </bean>
+    </property>
+</bean>
+```
+
+내부 빈 정의는 ID나 이름가 필요없다. 만약 명시한다면, 컨테이너는 식별자로써 그 값을 사용하지 않는다. 컨테이너는 `scope` 플래그도 생성 과정에서 무시한다. 왜냐하면 내부 빈은 항상 익명이고 오로지 외부 빈과 함께 생성하기 때문이다. 내부 빈에 독립적으로 접근하거나, 이를 포함하는 (외부) 빈 외에 협력자로 주입하는 것은 불가능하다.
+
+코너 케이스로, 임의의 범위 - 예를들어 싱글턴 빈을 포함한 요청 범위(request-scoped)의 내부 빈 - 로부터의 소멸 콜백(destruction callback)을 받는 것도 가능하다. 내부 빈 인스턴스의 생성은 그 빈이 포함한 빈과 동일하다. 그러나 소멸 콜백은 요청 범위의 라이프사이클 안에서 참여하게 한다. 이는 일반적인 시나리오는 아니고, 내부 빈은 일반적으로 포함하는 빈의 범위를 단순하게 공유한다.
+
+##### 컬렉션
+
+`<list/>`, `<set/>`, `<map/>` 그리고 `<props/>` 요소들은 각각 프로퍼티와 인자로써 Java의 `Collection` 타입 - `List`, `Set`, `Map`, `Properties` - 을 설정한다. 다음 예는 이 것들을 사용하는 방법을 보여준다.:
+
+```xml
+<bean id="moreComplexObject" class="example.ComplexObject">
+    <!-- results in a setAdminEmails(java.util.Properties) call -->
+    <property name="adminEmails">
+        <props>
+            <prop key="administrator">administrator@example.org</prop>
+            <prop key="support">support@example.org</prop>
+            <prop key="development">development@example.org</prop>
+        </props>
+    </property>
+    <!-- results in a setSomeList(java.util.List) call -->
+    <property name="someList">
+        <list>
+            <value>a list element followed by a reference</value>
+            <ref bean="myDataSource" />
+        </list>
+    </property>
+    <!-- results in a setSomeMap(java.util.Map) call -->
+    <property name="someMap">
+        <map>
+            <entry key="an entry" value="just some string"/>
+            <entry key ="a ref" value-ref="myDataSource"/>
+        </map>
+    </property>
+    <!-- results in a setSomeSet(java.util.Set) call -->
+    <property name="someSet">
+        <set>
+            <value>just some string</value>
+            <ref bean="myDataSource" />
+        </set>
+    </property>
+</bean>
+```
+
+Map의 Key/Value 값, 혹은 Set 값은 다음 요소 중 무엇이라도 가능하다.:
+
+```
+bean | ref | idref | list | set | map | props | value | null
+```
+
+###### 컬렉션 병합
+
+스프링 컨테이너는 컬렉션 병합을 지원한다. 애플리케이션 개발자는 부모 요소인 `<list/>`, `<set/>`, `<map/>` 혹은 `<props/>` 를 정의하고 자식 요소 `<list/>`, `<set/>`, `<map/>` 그리고 `<props/>` 등을 부모 컬렉션으로부터 상속받고 값을 덮어쓸 수 있다. 이는 자식 컬렉션의 값이 부모 컬렉션과 자식 컬렉션의 병합 결과가 되는 것이다. 부모 컬렉션의 특정 값을 자식 요소가 덮어쓸 수 있다.
+
+병합에 대한 이 섹션은 부모-자식 빈 방식에 대해 다룬다. 부모-자식 빈 정의에 대해 낯선 독자는 계속 읽기 전에 [관련 섹션](https://docs.spring.io/spring-framework/docs/5.2.3.RELEASE/spring-framework-reference/core.html#beans-child-bean-definitions)에 대해 먼저 읽어보길 권한다.
+
+다음 예제는 컬렉션 병합을 구현한다.:
+
+```xml
+<beans>
+    <bean id="parent" abstract="true" class="example.ComplexObject">
+        <property name="adminEmails">
+            <props>
+                <prop key="administrator">administrator@example.com</prop>
+                <prop key="support">support@example.com</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="child" parent="parent">
+        <property name="adminEmails">
+            <!-- the merge is specified on the child collection definition -->
+            <props merge="true">
+                <prop key="sales">sales@example.com</prop>
+                <prop key="support">support@example.co.uk</prop>
+            </props>
+        </property>
+    </bean>
+<beans>
+```
+
+`adminEmails` 프로퍼티에 `<props/>` 요소에 `merge=true` 속성이 사용된 것을 유심히 봐라. `child` 빈을 생성할 때, 인스턴스는 `adminEmails`라는 `Properties` 컬렉션을 가지고 있다. 이는 자식과 부모의 `adminMails`의 병합 결과를 가지고 있다. 다음 리스트는 그 결과를 나타낸다.:
+
+```properties
+administrator=administrator@example.com
+sales=sales@example.com
+support=support@example.co.uk
+```
+
+자식 `Properties` 컬렉션의 값은 부모 `<props/>` 로부터 모든 요소를 상속받아 설정한다. 그리고 자식 컬렉션의 값의 `support` 프로퍼티 값은 부모 컬렉션의 값을 덮어쓰게 된다.
+
+이 병합 행위는 `<list/>`, `<set/>`, `<map/>` 컬렉션 타입들에서 유사하게 지원한다. `<list/>`의 특정한 상황에서, 리스트 컬렉션 타입과 관련된 의미(값이 정렬된 컬렉션과 같은 개념)의 경우 유지된다. 부모 값은 모든 자식 리스트의 값을 앞선다. `Map`, `Set`, `Properties` 컬렉션 타입의 경우, 순서가 존재하지 않는다. 그러므로, 순서라는 의미는 컨테이너가 내부적으로 사용하는 이 타입들의 구현체에선 사실상 없다.
+
+###### 컬렉션 병합의 제한
+
+다른 컬렉션 타입간의 병합은 할 수 없다. 만약 시도한다면, 적절한 예외가 발생할 것이다. `merge` 속성은 자식 정의에 명시해야 한다. 부모 컬렉션 정의에 `merge` 속성을 명시하는 것은 불필요하고 기대하는 병합 결과가 나타나지 않을 것이다.
+
+###### 강타입 컬렉션
+
+Java 5에서 제네릭 타입의 도입으로, 컬렉션의 타입을 제한할 수 있다. 이는 `String` 타입으로 구성된 컬렉션을 선언할 수 있다는 것이다. 만약 스프링을 사용할 때 타입이 명시된 컬렉션을 빈의 의존성으로 주입하면, 스프링 타입 변환 지원 기능의 도움을 얻을 수 있다. 다음 자바 클래스와 빈 정의는 사용 방법을 보여준다.:
+
+```java
+public class SomeClass {
+
+    private Map<String, Float> accounts;
+
+    public void setAccounts(Map<String, Float> accounts) {
+        this.accounts = accounts;
+    }
+}
+```
+
+```xml
+<beans>
+    <bean id="something" class="x.y.SomeClass">
+        <property name="accounts">
+            <map>
+                <entry key="one" value="9.99"/>
+                <entry key="two" value="2.75"/>
+                <entry key="six" value="3.99"/>
+            </map>
+        </property>
+    </bean>
+</beans>
+```
+
+`something` 빈의 `accounts` 속성이 주입받을 준비가 됐을 때, `Map<String, Float>` 타입의 요소에 대한 제네릭 정보가 리플렉션에 의해 사용 가능해진다. 그러므로 스프링의 타입 변환 기능은 `Float` 타입이 되어야 할 다양한 값 요소와 문자열 값들 (`9.99`, `2.75` 등)을 실제 `Float` 타입으로 변환되어야 함을 인식한다.
+
+##### Null과 빈 문자열 값
 
 > Work In Process
+
+##### p-네임스페이스 XML 축약어
+##### c-네임스페이스 XML 축약어
+##### 복합 속성 이름
+
+
 
 ### 1.5. 빈 범위 
 ### 1.6. 빈 생태계 커스터마이징
