@@ -86,3 +86,4 @@
   - [MTU](./general/mtu.md)
   - [VIM 치트시트](./general/vim-cheatsheet.md)
   - [일렉트론 앱 패키징](./lang/nodejs/packaging-with-electron-packager.md)
+  - [일렉트론 앱 패키징](./macos/misc.md)
