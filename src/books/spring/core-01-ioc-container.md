@@ -1001,13 +1001,154 @@ public class SomeClass {
 
 ##### Null과 빈 문자열 값
 
-> Work In Process
+스프링은 비어있는 인자를 빈 문자열 `""`처럼 다룬다. 다음 스니핏은 `email` 프로퍼티에 빈 문자열 ("")를 설정하는 예제이다.:
+
+```xml
+<bean class="ExampleBean">
+    <property name="email" value=""/>
+</bean>
+```
+
+이전 예제는 다음 자바 코드와 동일하다.:
+
+```java
+exampleBean.setEmail("");
+```
+
+`<null/>` 요소는 `null` 값을 다룬다. 다음 예제가 이를 보여준다.:
+
+```xml
+<bean class="ExampleBean">
+    <property name="email">
+        <null/>
+    </property>
+</bean>
+```
+
+앞선 설정은 다음 자바 코드와 동등하다.:
+
+```java
+exampleBean.setEmail(null);
+```
 
 ##### p-네임스페이스 XML 축약어
+
+p-네임스페이스는 빈 요소의 속성을 협력하는 빈 프로퍼티를 기술하는 용도로 사용하게 한다.
+
+스프링은 XML 스키마 정의 기반의 [네임스페이스](https://docs.spring.io/spring-framework/docs/5.2.3.RELEASE/spring-framework-reference/core.html#xsd-schemas)로 확장성을 가진 설정 포맷을 지원한다. 이 챕터의 `bean` 설정 포맷은 XML 스키마 문서로 정의된다. 그러나 p-네임스페이스는 XSD 파일로 정의되지 않고 오직 스프링 코어에만 존재한다.
+
+다음 예제는 두 가지 XML 스니핏을 보여준다. 첫 번째는 표준 XML 형식을 사용하고 두 번째는 p-네임스페이스를 사용한다. 두 경우의 결과는 같다.:
+
+```xml
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean name="classic" class="com.example.ExampleBean">
+        <property name="email" value="someone@somewhere.com"/>
+    </bean>
+
+    <bean name="p-namespace" class="com.example.ExampleBean"
+        p:email="someone@somewhere.com"/>
+</beans>
+```
+
+예제는 `email`이라는 p-네임스페이스의 속성을 빈 정의로 나타낸다. 이는 스프링에게 프로퍼티를 선언하라고 명령하는 것이다. 앞서 말한대로, p-네임스페이스는 스키마 정의에 없기 때문에, 속성의 이름을 프로퍼티 이름으로 설정해야 한다.
+
+다음 예제는 다른 빈을 참조하는 두 가지 이상의 빈 정의를 포함한다.:
+
+```xml
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean name="john-classic" class="com.example.Person">
+        <property name="name" value="John Doe"/>
+        <property name="spouse" ref="jane"/>
+    </bean>
+
+    <bean name="john-modern"
+        class="com.example.Person"
+        p:name="John Doe"
+        p:spouse-ref="jane"/>
+
+    <bean name="jane" class="com.example.Person">
+        <property name="name" value="Jane Doe"/>
+    </bean>
+</beans>
+```
+
+이 예제는 p-네임스페이스를 사용하는 프로퍼티 값 뿐만이 아니라 프로퍼티 참조를 선언하는 특별한 형식도 사용한다. 첫 번째 빈 정의가 `<property name="spouse" ref="jane" />` 코드를 사용해서 `john` 빈이 `jane` 빈에 대한 참조를 생성한 반면에, 두 번째 빈 정의는 `p:spouse-ref="jane"` 을 속성으로 사용해서 동일한 작업을 수행한다. 이 경우에 `-ref` 부분은 직접 값을 주입하는게 아니라 다른 빈에 대한 참조를 가리키는 반면에, `spouse` 는 프로퍼티의 이름이다.
+
+> p-네임스페이스는 표준 XML 형식만큼 유연하지 않다. 한 예로, 프로퍼티 참조를 선언하는 형식은 `Ref`로 끝나는 이름을 가진 프로퍼티와 충돌한다. 반면에 표준 XML 포맷은 그렇지 않다. 우린 팀 멤버와 커뮤니케이션 한뒤 조심스럽게 접근하여 모든 방법을 동시에 사용하는 XML 문서 작성을 피할 것을 추천한다.
+
 ##### c-네임스페이스 XML 축약어
-##### 복합 속성 이름
+
+p-네임스페이스 XML 축약어와 유사하게, c-네임스페이스는 스프링 3.1부터 도입되어, 중첩된 `constructor-arg` 요소 대신 생성자 인자를 인라인 속성으로 설정하는 것을 허용한다.
+
+다음 예제는 `c:` 네임스페이스를 사용해서 [생성자 기반 의존성 주입](#생성자-기반-의존성-주입)과 동일한 작업을 수행한다.:
+
+```xml
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:c="http://www.springframework.org/schema/c"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="beanTwo" class="x.y.ThingTwo"/>
+    <bean id="beanThree" class="x.y.ThingThree"/>
+
+    <!-- traditional declaration with optional argument names -->
+    <bean id="beanOne" class="x.y.ThingOne">
+        <constructor-arg name="thingTwo" ref="beanTwo"/>
+        <constructor-arg name="thingThree" ref="beanThree"/>
+        <constructor-arg name="email" value="something@somewhere.com"/>
+    </bean>
+
+    <!-- c-namespace declaration with argument names -->
+    <bean id="beanOne" class="x.y.ThingOne" c:thingTwo-ref="beanTwo"
+        c:thingThree-ref="beanThree" c:email="something@somewhere.com"/>
+
+</beans>
+```
+
+`c:` 네임스페이스는 생성자 인자를 이름으로 설정하는데 `p:` 네임스페이스와 동일한 규칙을 사용한다. 유사하게 XSD 스키마가 정의되어 있지 않지만 XML 파일에 선언되어야 한다. (스프링 코어 내부에 존재한다.)
+
+생성자 인자의 이름이 허용되지 않는 드문 케이스에서, 인자의 순서를 사용할 수 있다.:
+
+```xml
+<!-- c-namespace index declaration -->
+<bean id="beanOne" class="x.y.ThingOne" c:_0-ref="beanTwo" c:_1-ref="beanThree"
+    c:_2="something@somewhere.com"/>
+```
+
+> XML 문법에 따라, 인덱스 표기는 `_`를 먼저 써야 한다. XML 속성은 숫자로 시작할 수 없기 때문이다(몇몇 IDE에선 이를 허용함). 상응하는 익덱스 표기는 `<constructor-arg>` 요소에서도 사용할 순 있으나 일반적인 방법으로 충분하다.
+
+실제로 생성자 처리 방식은 인자를 매칭하는데 꽤 효율적이어서, 정말 필요하지 않으면 이름 표기법을 사용하는 것이 좋다.
 
 
+##### 복합 프로퍼티 이름
+
+빈 프로퍼티를 설정할 때, 마지막 프로퍼티 이름을 제외한 경로 값이 `null`이 아닌 모든 컴포넌트에 대해 복합되거나 중첩판 프로퍼티 이름을 사용할 수 있다. 다음 빈 정의를 고려하라.:
+
+```xml
+<bean id="something" class="things.ThingOne">
+    <property name="fred.bob.sammy" value="123" />
+</bean>
+```
+
+`something` 빈은 `bob` 프로퍼티를 가진 `fred` 프로퍼티를 가지고 있다. `bob`은 값이 `123`인 `sammy` 프로퍼티를 가지고 있다. 이 작업에서 `fred`와 `bob` 프로퍼티가 null이 아니어야 한다. 아니면 `NullPointerException`이 발생한다.
+
+#### 1.4.3. `depends-on` 사용하기
+
+> Work In Process
+#### 1.4.4. 지연 초기화 빈 (Lazy-initialized Beans)
+#### 1.4.5. 협력자 자동주입 (Autowiring Collaborators)
+#### 1.4.6. 메서드 주입 (Method Injection)
 
 ### 1.5. 빈 범위 
 ### 1.6. 빈 생태계 커스터마이징
