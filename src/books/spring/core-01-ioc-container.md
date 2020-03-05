@@ -1236,9 +1236,199 @@ XML 기반 설정 메타데이터를 사용할 때([의존성 주입](#1.4.1.-�
 
 #### 1.4.6. 메서드 주입 (Method Injection)
 
-> Work In Process
+대개의 애플리케이션 시나리오에서, 대부분의 빈들은 싱글턴이다. 싱글턴 빈이 다른 싱글턴 빈이나 싱글턴이 아닌 빈들과 협력해야 할 때, 보통 다른 빈의 프로퍼티로 의존성을 다룰 것이다. 빈 라이프사이클이 상이할 때 문제가 발생할 것이다. 싱글턴 빈 A가 각 메서드를 호출할 때마다 프로토타입 빈 B를 사용한다고 가정하자. 컨테이너는 싱글턴 빈 A를 1회 생성한다. 그러므로 프로퍼티를 설정할 기회는 오로지 한 번이다. 컨테이너는 필요할 때 마다 새로운 빈 인스턴스 B를 제공할 수 없다.
+
+솔루션은 어떤 제어 역전을 선행하는 것이다. `ApplicationContext` 인터페이스를 구현하고 `getBean("B")` 코드로 빈 인스턴스 B가 필요할 때마다 컨테이너에게 요청해서 빈 인스턴스 A를 만들 수 있다. 다음 예제는 이런 접근을 보여준다.:
+
+```java
+// a class that uses a stateful Command-style class to perform some processing
+package fiona.apple;
+
+// Spring-API imports
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+
+public class CommandManager implements ApplicationContextAware {
+
+    private ApplicationContext applicationContext;
+
+    public Object process(Map commandState) {
+        // grab a new instance of the appropriate Command
+        Command command = createCommand();
+        // set the state on the (hopefully brand new) Command instance
+        command.setState(commandState);
+        return command.execute();
+    }
+
+    protected Command createCommand() {
+        // notice the Spring API dependency!
+        return this.applicationContext.getBean("command", Command.class);
+    }
+
+    public void setApplicationContext(
+            ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
+    }
+}
+```
+
+앞선 예제는 바람직하지 않다, 왜냐하면 비즈니스 코드가 스프링 프레임워크를 인지하고 결합되어 있기 때문이다. 스프링 IoC 컨테이너의 기능인 메서드 주입은 이런 상황을 깔끔하게 정리한다.
+
+> 메서드 주입의 동기에 대해 알고 싶다면 [이 블로그](https://spring.io/blog/2004/08/06/method-injection/)를 참고하라.
+
+##### 탐색 메서드 주입 (Lookup Method Injection)
+
+탐색 메서드 주입은 메서드를 컨테이너가 관리하는 빈의 메서드를 다른 빈을 이름으로 탐색해서 반환하게 하는 컨테이너의 기능이다. 일반적으로 탐색은 프로토타입 빈도 포함한다. 스프링 프레임워크는 CGLIB 라이브러리의 바이트 코드 생성 기능을 사용해서 메서드 주입을 구현한다. 동적으로 메서드를 오버라이드하는 서브클래스를 생성한다.
+
+> * 동적으로 서브클래스를 생성하는 작업을 할 때, `final` 클래스, `final` 메서드는 오버라이드 할 수 없다.
+> * `abstract` 메서드를 가진 클래스의 단위테스트는 클래스 자신의 서브클래스를 생성하고 `abstract` 메서드에 대한 stub을 구현해야 한다.
+> * 구체 메서드는 구체 클래스 탐색을 위한 컴포넌트 스캔을 위해 필요하다.
+> * 추가적인 제한사항으로 탐색 메서드가 팩토리 메서드에서 동작하지 않으며, 특히 `@Bean` 메서드에서 작동하지 않는다. 왜냐하면 이 경우에 컨테이너는 인스턴스를 생성할 책임이 없어서 런타임 시점에 서브클래스를 생성할 수 없다.
+
+`CommandManager` 클래스의 경우, 스프링 컨테이너는 동적으로 `createCommand()` 메서드를 오버라이드해서 구현한다. `CommandManager` 클래스는 스프링 의존성이 없다.:
+
+```java
+package fiona.apple;
+
+// no more Spring imports!
+
+public abstract class CommandManager {
+
+    public Object process(Object commandState) {
+        // grab a new instance of the appropriate Command interface
+        Command command = createCommand();
+        // set the state on the (hopefully brand new) Command instance
+        command.setState(commandState);
+        return command.execute();
+    }
+
+    // okay... but where is the implementation of this method?
+    protected abstract Command createCommand();
+}
+```
+
+주입될 메서드를 포함하는 클라이언트 클래스 (이 경우엔 `CommandManager` 클래스) 는 다음과 같은 형식의 시그니쳐가 필요하다.
+
+```plain
+<public|protected> [abstract] <return-type> theMethodName(no-arguments);
+```
+
+만약 추상 메서드라면, 동적으로 생성된 서브클래스가 메서드를 구현한다. 아니면, 원래 클래스에 정의된 구체 메서드를 덮어쓴다. 다음 예를 고려해라.:
+
+```xml
+<!-- a stateful bean deployed as a prototype (non-singleton) -->
+<bean id="myCommand" class="fiona.apple.AsyncCommand" scope="prototype">
+    <!-- inject dependencies here as required -->
+</bean>
+
+<!-- commandProcessor uses statefulCommandHelper -->
+<bean id="commandManager" class="fiona.apple.CommandManager">
+    <lookup-method name="createCommand" bean="myCommand"/>
+</bean>
+```
+
+`commandManager`로 식별되는 빈은 `myCommand` 빈이 필요 할 때마다 `createCommand()` 메서드를 호출한다. 실제로 필요한 경우 `myCommand` 빈을 프로토타입으로 다뤄야한다. 만약 싱글턴이라면, 매번 동일한 인스턴스인 `myCommand` 빈이 반환될 것이다.
+
+어노테이션 기반 컴포넌트 모델의 경우, 다음 예제와 같이 `@Lookup` 어노테이션을 통해 탐색 메서드를 선언할 수 있다.:
+
+```java
+public abstract class CommandManager {
+
+    public Object process(Object commandState) {
+        Command command = createCommand();
+        command.setState(commandState);
+        return command.execute();
+    }
+
+    @Lookup("myCommand")
+    protected abstract Command createCommand();
+}
+```
+
+관용적으로, 탐색 메서드의 반환 타입으로 타겟 빈을 식별할 수 있다. 
+
+```java
+public abstract class CommandManager {
+
+    public Object process(Object commandState) {
+        MyCommand command = createCommand();
+        command.setState(commandState);
+        return command.execute();
+    }
+
+    @Lookup
+    protected abstract MyCommand createCommand();
+}
+```
+
+추상 클래스가 기본적으로 무시되는 스프링 컴포넌트 스캔 규칙에 호환되려면, 일반적으로 어노테이션 탐색 메서드는 구체 스텁 구현을 통해 선언해야 한다. 이 제한은 명시적으로 등록되었거나 명시적으로 클래스 등록된 빈 클래스엔 적용하지 않는다.
+
+상이한 범위가 적용된 타겟 빈에 접근하는 다른 방법으로 `ObjectFactory`/`Provider` 주입 포인트가 있다. [Scoped Beans as Dependencies](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/core.html#beans-factory-scopes-other-injection) 부분을 참고하라.  
+`org.springframework.beans.factory.config` 패키지의 `ServiceLocatorFactoryBean`도 유용하다.
+
+##### 임의의 메서드 교체 (Arbitrary Method Replacement)
+
+탐색 메서드 주입보다 덜 유용한 방법으로 빈의 또다른 메서드 구현을 통한 임의의 메서드 교체가 있다. 실제로 이 기능이 필요하지 않으면 나머지 부분을 건너뛰어도 된다.
+
+XML 기반 설정 메타데이터에서, `replaced-method` 요소를 사용해서 배치된 빈에 존재하는 메서드 구현을 다른 것으로 교체할 수 있다. 오버라이드하려는 `computeValue` 메서드를 가진 다음 클래스를 살펴보아라.:
+
+```java
+public class MyValueCalculator {
+
+    public String computeValue(String input) {
+        // some real code...
+    }
+
+    // some other methods...
+}
+```
+
+`org.springframework.beans.factory.support.MethodReplacer` 인터페이스를 구현한 클래스는 새 메서드 정의를 제공한다. 다음 예를 보자.:
+
+```java
+/**
+ * meant to be used to override the existing computeValue(String)
+ * implementation in MyValueCalculator
+ */
+public class ReplacementComputeValue implements MethodReplacer {
+
+    public Object reimplement(Object o, Method m, Object[] args) throws Throwable {
+        // get the input value, work with it, and return a computed result
+        String input = (String) args[0];
+        ...
+        return ...;
+    }
+}
+```
+
+원래 클래스를 배포하고 메서드 오버라이드를 명시하는 빈 정의 예제는 다음과 같다.:
+
+```xml
+<bean id="myValueCalculator" class="x.y.z.MyValueCalculator">
+    <!-- arbitrary method replacement -->
+    <replaced-method name="computeValue" replacer="replacementComputeValue">
+        <arg-type>String</arg-type>
+    </replaced-method>
+</bean>
+
+<bean id="replacementComputeValue" class="a.b.c.ReplacementComputeValue"/>
+```
+
+하나 이상의 `<arg-type/>` 요소를 `<replaced-method/>` 요소 내에 사용해서 오버라이드하려는 메서드의 시그니쳐를 지정할 수 있다. 인자에 대한 시그니쳐는 클래스 내에 존재하는 오직 메서드가 오버로드되어 여러 경우가 존재할 때만 필요하다. 편의상 인자의 타입 문자열은 적절한 타입 명의 부분문자열이 될 수 있다. 예를 들어 `java.lang.String`은 다음과 일치한다.:
+
+```plain
+java.lang.String
+String
+Str
+```
+
+인자의 수는 가끔 개별 가능한 선택을 구별하기에 충분하기 때문에, 이 축약어는 타이핑을 줄일 수 있다.
 
 ### 1.5. 빈 범위 
+
+> Work In Process
+
 ### 1.6. 빈 생태계 커스터마이징
 ### 1.7. 빈 정의 상속
 ### 1.8. 컨테이너 확장 지점
