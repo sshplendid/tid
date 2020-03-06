@@ -1467,6 +1467,24 @@ Str
 
 ##### 1.5.2. 프로토타입 범위
 
+싱글턴이 아닌 프로토타입 범위는 특정 빈에 대한 매 요청마다 새로운 빈 인스턴스를 생성한다. 빈이 다른 빈에 주입되거나 `getBean()` 메서드로 컨테이너에게 호출해서 빈을 요청한다. 규칙에 따라, 상태를 가진(stateful) 빈은 프로토타입 범위를 사용해야 하고, 상태가 없는(stateless) 빈은 싱글턴 범위를 사용해야 한다.
+
+다음 다이어그램은 스프링 프로토타입 범위를 나타낸다.:
+
+![prototype](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/images/prototype.png)
+
+(Data Access Object(DAO)는 보통 프로토타입으로 구성되지 않는다. 왜냐하면 DAO는 특정 상태를 가지고 있지 않기 때문이다.)
+
+다음 예는 XML에서 프로토타입 빈을 정의한다.:
+
+```xml
+<bean id="accountService" class="com.something.DefaultAccountService" scope="prototype"/>
+```
+
+다른 범위와 대조적으로, 스프링은 프로토타입 빈의 모든 라이프사이클을 관리하지 않는다. 컨테이너는 프로토타입 객체를 인스턴스화하고, 구성한다. 그리고 빈을 클라이언트에게 건낸다. 그리고 이 과정에서 아무런 기록이 없다. 그러므로 모든 범위의 객체에서 초기화 라이프사이클 콜백 메서드가 호출됨에도, 프로토타입의 경우 소멸(destsruction) 콜백이 호출되지 않는다. 클라이언트 코드는 프로토타입 객체에 대해 스스로 정리해야 하고, 객체가 소유한 자원을 해제해야 한다. 스프링 컨테이너가 프로토타입 빈을 해제하려면 [bean post-processor](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/core.html#beans-factory-extension-bpp)를 사용해라.  이는 정리해야 할 빈의 참조를 가지고 있다.
+
+어떤 점에서 스프링 컨테이너 프로토타입 빈의 역할은 자바 `new` 연산자를 대체하는 것이다.모든 생명주기는 클라이언트가 관리해야 한다. (스프링 컨테이너 빈의 생명주기는 [생명주기 콜백](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/core.html#beans-factory-lifecycle)을 참고하라.)
+
 > Work In Process
 
 ##### 1.5.3. 프로토타입 빈을 의존하는 싱글턴 빈
