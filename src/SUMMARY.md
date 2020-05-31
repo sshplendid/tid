@@ -76,6 +76,8 @@
 - [구체수학](./books/concrete-math/index.md)
   - [1장: 재귀적인 문제들](./books/concrete-math/part1-recursive.md)
 - [오브젝트](./books/object2019/intro.md)
+  - [01_객체, 설계](./books/object2019/chapter_01.md)
+  - [02_객체지향 프로그래밍](./books/object2019/chapter_02.md)
 - [기록](./log/index.md)
   - [2019년](./log/2019.md)
   - [2019년 16주차](./log/2019-W16.md)
