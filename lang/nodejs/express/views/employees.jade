@@ -1,0 +1,13 @@
+html
+  head
+    title Employees
+  body
+    h1 직원 리스트
+    table
+      tr
+        td Name
+        td ID
+      -for(var i = 0; i < employees.length; i++)
+        tr
+          td= employees[i].USER_NAME
+          td= employees[i].USER_ID

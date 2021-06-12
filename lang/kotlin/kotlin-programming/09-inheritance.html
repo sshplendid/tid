@@ -1,0 +1,287 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>상속 - Shawn is Learning</title>
+                
+
+        <!-- Custom HTML head -->
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+                <link rel="icon" href="../../../favicon.svg">
+                        <link rel="shortcut icon" href="../../../favicon.png">
+                <link rel="stylesheet" href="../../../css/variables.css">
+        <link rel="stylesheet" href="../../../css/general.css">
+        <link rel="stylesheet" href="../../../css/chrome.css">
+                <link rel="stylesheet" href="../../../css/print.css" media="print">
+        
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../../FontAwesome/css/font-awesome.css">
+                <link rel="stylesheet" href="../../../fonts/fonts.css">
+        
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../../highlight.css">
+        <link rel="stylesheet" href="../../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+                <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+            </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../../prelude.html">Shawn is learning</a></li><li class="chapter-item expanded "><a href="../../../cloud-aws/INTRO.html"><strong aria-hidden="true">1.</strong> AWS Cloud</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../cloud-aws/IAM.html"><strong aria-hidden="true">1.1.</strong> IAM</a></li><li class="chapter-item expanded "><a href="../../../cloud-aws/VPC.html"><strong aria-hidden="true">1.2.</strong> VPC</a></li><li class="chapter-item expanded "><a href="../../../cloud-aws/EC2.html"><strong aria-hidden="true">1.3.</strong> EC2</a></li><li class="chapter-item expanded "><a href="../../../cloud-aws/ELB.html"><strong aria-hidden="true">1.4.</strong> ELB</a></li><li class="chapter-item expanded "><a href="../../../cloud-aws/DynamoDB.html"><strong aria-hidden="true">1.5.</strong> DynamoDB</a></li><li class="chapter-item expanded "><a href="../../../cloud-aws/cert-developer-asso.html"><strong aria-hidden="true">1.6.</strong> 자격증 공부</a></li></ol></li><li class="chapter-item expanded "><a href="../../../books/spring/overview.html"><strong aria-hidden="true">2.</strong> Spring Reference</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../books/spring/core-01-ioc-container.html"><strong aria-hidden="true">2.1.</strong> Core - 1. IoC Container</a></li></ol></li><li class="chapter-item expanded "><a href="../../../os/index.html"><strong aria-hidden="true">3.</strong> 운영 체제</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../os/kernel.html"><strong aria-hidden="true">3.1.</strong> 커널</a></li><li class="chapter-item expanded "><a href="../../../os/posix.html"><strong aria-hidden="true">3.2.</strong> POSIX</a></li><li class="chapter-item expanded "><a href="../../../os/shell.html"><strong aria-hidden="true">3.3.</strong> 셸</a></li><li class="chapter-item expanded "><a href="../../../os/link.html"><strong aria-hidden="true">3.4.</strong> 링크</a></li><li class="chapter-item expanded "><a href="../../../os/shell-commands.html"><strong aria-hidden="true">3.5.</strong> 셸 명령어 목록</a></li><li class="chapter-item expanded "><a href="../../../os/aix-monitoring-commands.html"><strong aria-hidden="true">3.6.</strong> AIX 모니터링 명령어</a></li><li class="chapter-item expanded "><a href="../../../os/win-cmd-set-env-var.html"><strong aria-hidden="true">3.7.</strong> Windows 커맨드라인에서 환경변수 설정</a></li><li class="chapter-item expanded "><a href="../../../os/hostid.html"><strong aria-hidden="true">3.8.</strong> hostid</a></li></ol></li><li class="chapter-item expanded "><a href="../../../devops/docker/get-started-index.html"><strong aria-hidden="true">4.</strong> Docker 시작하기</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../devops/docker/get-started-part1.html"><strong aria-hidden="true">4.1.</strong> 소개 및 설치</a></li><li class="chapter-item expanded "><a href="../../../devops/docker/get-started-part2.html"><strong aria-hidden="true">4.2.</strong> 컨테이너</a></li><li class="chapter-item expanded "><a href="../../../devops/docker/get-started-part3.html"><strong aria-hidden="true">4.3.</strong> 서비스</a></li><li class="chapter-item expanded "><a href="../../../devops/docker/get-started-part4.html"><strong aria-hidden="true">4.4.</strong> 스웜</a></li><li class="chapter-item expanded "><a href="../../../devops/docker/note-01-bash-and-volume.html"><strong aria-hidden="true">4.5.</strong> hands on - bash &amp; volume 마운트</a></li><li class="chapter-item expanded "><a href="../../../devops/docker/note-02-dev-requirements.html"><strong aria-hidden="true">4.6.</strong> hands on - 개발환경 세팅</a></li></ol></li><li class="chapter-item expanded "><a href="../../../lang/index.html"><strong aria-hidden="true">5.</strong> 프로그래밍 언어</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../lang/java/index.html"><strong aria-hidden="true">5.1.</strong> Java</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../lang/java/comparable-vs-comparator.html"><strong aria-hidden="true">5.1.1.</strong> Comparable과 Compartor</a></li><li class="chapter-item expanded "><a href="../../../lang/java/difference-between-Log-vs-Logger.html"><strong aria-hidden="true">5.1.2.</strong> Log와 Logger</a></li><li class="chapter-item expanded "><a href="../../../lang/java/javadump-diagnosis.html"><strong aria-hidden="true">5.1.3.</strong> Dump 분석</a></li><li class="chapter-item expanded "><a href="../../../lang/java/jmeter.html"><strong aria-hidden="true">5.1.4.</strong> J Meter</a></li></ol></li><li class="chapter-item expanded "><a href="../../../lang/js/index.html"><strong aria-hidden="true">5.2.</strong> JavaScript</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../lang/js/this.html"><strong aria-hidden="true">5.2.1.</strong> JavaScript의 this</a></li><li class="chapter-item expanded "><a href="../../../lang/js/class.html"><strong aria-hidden="true">5.2.2.</strong> Class</a></li><li class="chapter-item expanded "><a href="../../../lang/js/hoisting.html"><strong aria-hidden="true">5.2.3.</strong> Hoisting</a></li><li class="chapter-item expanded "><a href="../../../lang/js/iife.html"><strong aria-hidden="true">5.2.4.</strong> 즉시실행함수(IIFE)</a></li><li class="chapter-item expanded "><a href="../../../lang/js/promise.html"><strong aria-hidden="true">5.2.5.</strong> 프로미스</a></li><li class="chapter-item expanded "><a href="../../../lang/js/strict-mode.html"><strong aria-hidden="true">5.2.6.</strong> Strict mode</a></li><li class="chapter-item expanded "><a href="../../../lang/js/tagged-template-literals.html"><strong aria-hidden="true">5.2.7.</strong> 템플릿 리터럴</a></li></ol></li><li class="chapter-item expanded "><a href="../../../lang/rust/index.html"><strong aria-hidden="true">5.3.</strong> Rust</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../lang/rust/how-to-install-rust.html"><strong aria-hidden="true">5.3.1.</strong> Rust 개발도구 설치하기</a></li><li class="chapter-item expanded "><a href="../../../log/mdbook-guide.html"><strong aria-hidden="true">5.3.2.</strong> mdbook 가이드</a></li></ol></li><li class="chapter-item expanded "><a href="../../../lang/kotlin/kotlin-programming/00-introduction.html"><strong aria-hidden="true">5.4.</strong> Kotlin programming</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../lang/kotlin/kotlin-programming/03-basic.html"><strong aria-hidden="true">5.4.1.</strong> 기본 작성방법</a></li><li class="chapter-item expanded "><a href="../../../lang/kotlin/kotlin-programming/04-variable-and-function.html"><strong aria-hidden="true">5.4.2.</strong> 변수와 함수</a></li><li class="chapter-item expanded "><a href="../../../lang/kotlin/kotlin-programming/05-types.html"><strong aria-hidden="true">5.4.3.</strong> 데이터 타입</a></li><li class="chapter-item expanded "><a href="../../../lang/kotlin/kotlin-programming/06-condition.html"><strong aria-hidden="true">5.4.4.</strong> 조건문</a></li><li class="chapter-item expanded "><a href="../../../lang/kotlin/kotlin-programming/07-class.html"><strong aria-hidden="true">5.4.5.</strong> 클래스</a></li><li class="chapter-item expanded "><a href="../../../lang/kotlin/kotlin-programming/08-property.html"><strong aria-hidden="true">5.4.6.</strong> 프로퍼티</a></li><li class="chapter-item expanded "><a href="../../../lang/kotlin/kotlin-programming/09-inheritance.html" class="active"><strong aria-hidden="true">5.4.7.</strong> 상속</a></li><li class="chapter-item expanded "><a href="../../../lang/kotlin/kotlin-programming/10-abstract-class.html"><strong aria-hidden="true">5.4.8.</strong> 추상클래스</a></li><li class="chapter-item expanded "><a href="../../../lang/kotlin/kotlin-programming/11-other-classes.html"><strong aria-hidden="true">5.4.9.</strong> 다른 클래스들</a></li><li class="chapter-item expanded "><a href="../../../lang/kotlin/kotlin-programming/12-functional.html"><strong aria-hidden="true">5.4.10.</strong> 함수형 프로그래밍과 람다</a></li><li class="chapter-item expanded "><a href="../../../lang/kotlin/kotlin-programming/13-high-order-function.html"><strong aria-hidden="true">5.4.11.</strong> 고차함수</a></li><li class="chapter-item expanded "><a href="../../../lang/kotlin/kotlin-programming/14-collections.html"><strong aria-hidden="true">5.4.12.</strong> 컬렉션</a></li><li class="chapter-item expanded "><a href="../../../lang/kotlin/kotlin-programming/15-null-safety-and-exception.html"><strong aria-hidden="true">5.4.13.</strong> Null 안정성과 예외</a></li><li class="chapter-item expanded "><a href="../../../lang/kotlin/kotlin-programming/16-class-extension.html"><strong aria-hidden="true">5.4.14.</strong> 클래스 확장</a></li><li class="chapter-item expanded "><a href="../../../lang/kotlin/kotlin-programming/17-generic.html"><strong aria-hidden="true">5.4.15.</strong> 제네릭</a></li><li class="chapter-item expanded "><a href="../../../lang/kotlin/kotlin-programming/18-reflection.html"><strong aria-hidden="true">5.4.16.</strong> 리플렉션</a></li><li class="chapter-item expanded "><a href="../../../lang/kotlin/kotlin-programming/19-technics.html"><strong aria-hidden="true">5.4.17.</strong> 다양한 기법</a></li><li class="chapter-item expanded "><a href="../../../lang/kotlin/kotlin-programming/50-calling-kotlin-from-java.html"><strong aria-hidden="true">5.4.18.</strong> Java에서 코틀린 사용하기</a></li><li class="chapter-item expanded "><a href="../../../lang/kotlin/kotlin-programming/40-calling-java-from-kotlin.html"><strong aria-hidden="true">5.4.19.</strong> 코틀린에서 자바 사용하기</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../../design-pattern/index.html"><strong aria-hidden="true">6.</strong> 디자인 패턴</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../design-pattern/inversion-of-control.html"><strong aria-hidden="true">6.1.</strong> 제어 역전 (IoC)</a></li><li class="chapter-item expanded "><a href="../../../design-pattern/mvc-spring.html"><strong aria-hidden="true">6.2.</strong> MVC &amp; Spring MVC</a></li></ol></li><li class="chapter-item expanded "><a href="../../../db/index.html"><strong aria-hidden="true">7.</strong> DB</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../db/oracle/index.html"><strong aria-hidden="true">7.1.</strong> Oracle</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../db/oracle/oracle-flashback.html"><strong aria-hidden="true">7.1.1.</strong> Flashback을 이용한 데이터 복원</a></li><li class="chapter-item expanded "><a href="../../../db/oracle/block.html"><strong aria-hidden="true">7.1.2.</strong> Block</a></li><li class="chapter-item expanded "><a href="../../../db/oracle/high-water-mark.html"><strong aria-hidden="true">7.1.3.</strong> HWM</a></li></ol></li><li class="chapter-item expanded "><a href="../../../db/redis/tutorial.html"><strong aria-hidden="true">7.2.</strong> REDIS tutorial</a></li></ol></li><li class="chapter-item expanded "><a href="../../../books/concrete-math/index.html"><strong aria-hidden="true">8.</strong> 구체수학</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../books/concrete-math/part1-recursive.html"><strong aria-hidden="true">8.1.</strong> 1장: 재귀적인 문제들</a></li></ol></li><li class="chapter-item expanded "><a href="../../../books/object2019/intro.html"><strong aria-hidden="true">9.</strong> 오브젝트</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../books/object2019/chapter_01.html"><strong aria-hidden="true">9.1.</strong> 01_객체, 설계</a></li><li class="chapter-item expanded "><a href="../../../books/object2019/chapter_02.html"><strong aria-hidden="true">9.2.</strong> 02_객체지향 프로그래밍</a></li><li class="chapter-item expanded "><a href="../../../books/object2019/chapter_03.html"><strong aria-hidden="true">9.3.</strong> 03_역할, 책임, 협력</a></li></ol></li><li class="chapter-item expanded "><a href="../../../log/index.html"><strong aria-hidden="true">10.</strong> 기록</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../log/2019.html"><strong aria-hidden="true">10.1.</strong> 2019년</a></li><li class="chapter-item expanded "><a href="../../../log/2019-W16.html"><strong aria-hidden="true">10.2.</strong> 2019년 16주차</a></li><li class="chapter-item expanded "><a href="../../../log/2019-04-17-aws-summit.html"><strong aria-hidden="true">10.3.</strong> AWS Summit Seoul 2019</a></li><li class="chapter-item expanded "><a href="../../../log/2019-11-18-test-on-ie.html"><strong aria-hidden="true">10.4.</strong> IE 10 이하 테스트</a></li></ol></li><li class="chapter-item expanded "><a href="../../../uncategorized.html"><strong aria-hidden="true">11.</strong> 미분류</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../general/vim-change-encoding-type.html"><strong aria-hidden="true">11.1.</strong> VIM 인코딩 타입 변경하기</a></li><li class="chapter-item expanded "><a href="../../../general/mtu.html"><strong aria-hidden="true">11.2.</strong> MTU</a></li><li class="chapter-item expanded "><a href="../../../general/vim-cheatsheet.html"><strong aria-hidden="true">11.3.</strong> VIM 치트시트</a></li><li class="chapter-item expanded "><a href="../../../lang/nodejs/packaging-with-electron-packager.html"><strong aria-hidden="true">11.4.</strong> 일렉트론 앱 패키징</a></li><li class="chapter-item expanded "><a href="../../../macos/misc.html"><strong aria-hidden="true">11.5.</strong> 일렉트론 앱 패키징</a></li></ol></li></ol>            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                                                <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                                            </div>
+
+                    <h1 class="menu-title">Shawn is Learning</h1>
+
+                    <div class="right-buttons">
+                                                <a href="../../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                                                                        
+                    </div>
+                </div>
+
+                                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="상속"><a class="header" href="#상속">상속</a></h1>
+<h2 id="any-클래스"><a class="header" href="#any-클래스"><code>Any</code> 클래스</a></h2>
+<ul>
+<li>코틀린의 최상위클래스</li>
+<li>모든 코틀린의 클래스는 Any의 서브클래스이다.</li>
+</ul>
+<h2 id="상속을-통한-클래스-정의"><a class="header" href="#상속을-통한-클래스-정의">상속을 통한 클래스 정의</a></h2>
+<ul>
+<li>코틀린의 모든 클래스는 기본적으로 <code>final</code></li>
+<li><code>open</code> 예약어로 선언한 클래스만 상속 가능하다</li>
+<li><code>extends</code> 예약어가 없음, 콜론(<code>:</code>)으로 상속관계를 표현</li>
+</ul>
+<pre><code class="language-kotlin">class Rect: Shape() {
+    var width: Int = 0
+        set(value) {
+            if(value &lt; 0) field = 0
+            else field = value
+        }
+    var height: Int = 0
+        set(value) {
+            if(value &lt; 0) field = 0
+            else field = value
+        }
+}
+</code></pre>
+<h2 id="오버라이드"><a class="header" href="#오버라이드">오버라이드</a></h2>
+<h3 id="함수"><a class="header" href="#함수">함수</a></h3>
+<ul>
+<li>함수를 선언하면 기본적으로 final</li>
+<li>함수 오버라이드를 허용하려면 <code>open</code>으로 명시</li>
+<li><code>override</code> 예약어로 상위 함수 재정의한 것을 명시
+<ul>
+<li><code>override</code>된 함수는 자동으로 <code>open</code> 상태이다</li>
+</ul>
+</li>
+</ul>
+<h3 id="프로퍼티"><a class="header" href="#프로퍼티">프로퍼티</a></h3>
+<ul>
+<li>프로퍼티는 기본적으로 <code>final</code></li>
+<li>상위 클래스의 프로퍼티와 이름, 타입이 동일함</li>
+<li>규칙
+<ul>
+<li>상위 <code>val</code>로 선언된 프로퍼티 -&gt; 하위에서 <code>val</code>, <code>var</code> 재정의 가능</li>
+<li>상위 <code>var</code> 선언 프로퍼티는 -&gt; 하위에서 <code>var</code> 재정의 가능, <code>val</code> 불가</li>
+<li>상위 Nullable 선언 -&gt; 하위 Non-nullable로 재정의 가능</li>
+<li>상위 Non-nullable 선언 -&gt; 하위 Nullable 재정의 불가</li>
+</ul>
+</li>
+</ul>
+<h3 id="생성자"><a class="header" href="#생성자">생성자</a></h3>
+<ul>
+<li>주 생성자가 선언되어 있다면 보조 생성자에선 주 생성자와 연결하기 위한 <code>this()</code> 구문이 추가되어야 함</li>
+<li>객체 생성시, 어떤 식으로든 상위 클래스의 생성자가 호출되어야 함</li>
+<li>생성자 수행흐름
+<ol>
+<li><code>this()</code> or <code>super()</code></li>
+<li><code>init</code> 블록 실행</li>
+<li>생성자 블록 실행</li>
+</ol>
+</li>
+</ul>
+<h2 id="캐스팅"><a class="header" href="#캐스팅">캐스팅</a></h2>
+<ul>
+<li>기초 데이터 타입은 자동 형변환 안되고 함수에 의해서 변환 가능</li>
+</ul>
+<h3 id="스마트-캐스팅"><a class="header" href="#스마트-캐스팅">스마트 캐스팅</a></h3>
+<ul>
+<li><code>is</code> 예약어 이용 시: is 연산 결과가 true이면 타입 변환</li>
+<li>하위 -&gt; 상위 타입으로: 암시적 캐스팅</li>
+<li><code>as</code>를 이용한 캐스팅: 상위 -&gt; 하위로 변환할 때</li>
+</ul>
+<h2 id="접근제한자"><a class="header" href="#접근제한자">접근제한자</a></h2>
+<ul>
+<li><code>public</code>, <code>internal</code>, <code>protected</code>, <code>private</code></li>
+<li><code>public</code>: 접근제한자 명시가 없으면 기본으로 적용</li>
+<li><code>protected</code>: top-level에서 사용 불가</li>
+<li><code>private</code>: 동일 <strong>file</strong> 내에서만 사용 가능</li>
+<li><code>internal</code>: 동일 모듈 내에서 사용 가능</li>
+</ul>
+<h3 id="프로퍼티-접근제한자"><a class="header" href="#프로퍼티-접근제한자">프로퍼티 접근제한자</a></h3>
+<ul>
+<li><code>get()</code>: 프로퍼티 접근 제한자와 항상 동일하게 적용</li>
+<li><code>set()</code>: 프로퍼티 접근제한자보다 범위를 넓혀서 설정할 수 없다.</li>
+</ul>
+<h3 id="상속과-접근제한"><a class="header" href="#상속과-접근제한">상속과 접근제한</a></h3>
+<ul>
+<li><code>open</code>과 <code>private</code>은 같이 사용할 수 없음</li>
+<li>하위 클래스에서 상위 멤버를 <code>override</code> 할 때 접근범위를 줄일 수 없음</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                                                    <a rel="prev" href="../../../lang/kotlin/kotlin-programming/08-property.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+                                                    <a rel="next" href="../../../lang/kotlin/kotlin-programming/10-abstract-class.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                                    <a rel="prev" href="../../../lang/kotlin/kotlin-programming/08-property.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+                                    <a rel="next" href="../../../lang/kotlin/kotlin-programming/10-abstract-class.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                            </nav>
+
+        </div>
+
+        
+        
+        
+                <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+        
+                <script src="../../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+        <script src="../../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        
+    </body>
+</html>

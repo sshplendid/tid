@@ -1,0 +1,465 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>DynamoDB - Shawn is Learning</title>
+                
+
+        <!-- Custom HTML head -->
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+                <link rel="icon" href="../favicon.svg">
+                        <link rel="shortcut icon" href="../favicon.png">
+                <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+                <link rel="stylesheet" href="../css/print.css" media="print">
+        
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+                <link rel="stylesheet" href="../fonts/fonts.css">
+        
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+                <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+            </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../prelude.html">Shawn is learning</a></li><li class="chapter-item expanded "><a href="../cloud-aws/INTRO.html"><strong aria-hidden="true">1.</strong> AWS Cloud</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../cloud-aws/IAM.html"><strong aria-hidden="true">1.1.</strong> IAM</a></li><li class="chapter-item expanded "><a href="../cloud-aws/VPC.html"><strong aria-hidden="true">1.2.</strong> VPC</a></li><li class="chapter-item expanded "><a href="../cloud-aws/EC2.html"><strong aria-hidden="true">1.3.</strong> EC2</a></li><li class="chapter-item expanded "><a href="../cloud-aws/ELB.html"><strong aria-hidden="true">1.4.</strong> ELB</a></li><li class="chapter-item expanded "><a href="../cloud-aws/DynamoDB.html" class="active"><strong aria-hidden="true">1.5.</strong> DynamoDB</a></li><li class="chapter-item expanded "><a href="../cloud-aws/cert-developer-asso.html"><strong aria-hidden="true">1.6.</strong> 자격증 공부</a></li></ol></li><li class="chapter-item expanded "><a href="../books/spring/overview.html"><strong aria-hidden="true">2.</strong> Spring Reference</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../books/spring/core-01-ioc-container.html"><strong aria-hidden="true">2.1.</strong> Core - 1. IoC Container</a></li></ol></li><li class="chapter-item expanded "><a href="../os/index.html"><strong aria-hidden="true">3.</strong> 운영 체제</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../os/kernel.html"><strong aria-hidden="true">3.1.</strong> 커널</a></li><li class="chapter-item expanded "><a href="../os/posix.html"><strong aria-hidden="true">3.2.</strong> POSIX</a></li><li class="chapter-item expanded "><a href="../os/shell.html"><strong aria-hidden="true">3.3.</strong> 셸</a></li><li class="chapter-item expanded "><a href="../os/link.html"><strong aria-hidden="true">3.4.</strong> 링크</a></li><li class="chapter-item expanded "><a href="../os/shell-commands.html"><strong aria-hidden="true">3.5.</strong> 셸 명령어 목록</a></li><li class="chapter-item expanded "><a href="../os/aix-monitoring-commands.html"><strong aria-hidden="true">3.6.</strong> AIX 모니터링 명령어</a></li><li class="chapter-item expanded "><a href="../os/win-cmd-set-env-var.html"><strong aria-hidden="true">3.7.</strong> Windows 커맨드라인에서 환경변수 설정</a></li><li class="chapter-item expanded "><a href="../os/hostid.html"><strong aria-hidden="true">3.8.</strong> hostid</a></li></ol></li><li class="chapter-item expanded "><a href="../devops/docker/get-started-index.html"><strong aria-hidden="true">4.</strong> Docker 시작하기</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../devops/docker/get-started-part1.html"><strong aria-hidden="true">4.1.</strong> 소개 및 설치</a></li><li class="chapter-item expanded "><a href="../devops/docker/get-started-part2.html"><strong aria-hidden="true">4.2.</strong> 컨테이너</a></li><li class="chapter-item expanded "><a href="../devops/docker/get-started-part3.html"><strong aria-hidden="true">4.3.</strong> 서비스</a></li><li class="chapter-item expanded "><a href="../devops/docker/get-started-part4.html"><strong aria-hidden="true">4.4.</strong> 스웜</a></li><li class="chapter-item expanded "><a href="../devops/docker/note-01-bash-and-volume.html"><strong aria-hidden="true">4.5.</strong> hands on - bash &amp; volume 마운트</a></li><li class="chapter-item expanded "><a href="../devops/docker/note-02-dev-requirements.html"><strong aria-hidden="true">4.6.</strong> hands on - 개발환경 세팅</a></li></ol></li><li class="chapter-item expanded "><a href="../lang/index.html"><strong aria-hidden="true">5.</strong> 프로그래밍 언어</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../lang/java/index.html"><strong aria-hidden="true">5.1.</strong> Java</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../lang/java/comparable-vs-comparator.html"><strong aria-hidden="true">5.1.1.</strong> Comparable과 Compartor</a></li><li class="chapter-item expanded "><a href="../lang/java/difference-between-Log-vs-Logger.html"><strong aria-hidden="true">5.1.2.</strong> Log와 Logger</a></li><li class="chapter-item expanded "><a href="../lang/java/javadump-diagnosis.html"><strong aria-hidden="true">5.1.3.</strong> Dump 분석</a></li><li class="chapter-item expanded "><a href="../lang/java/jmeter.html"><strong aria-hidden="true">5.1.4.</strong> J Meter</a></li></ol></li><li class="chapter-item expanded "><a href="../lang/js/index.html"><strong aria-hidden="true">5.2.</strong> JavaScript</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../lang/js/this.html"><strong aria-hidden="true">5.2.1.</strong> JavaScript의 this</a></li><li class="chapter-item expanded "><a href="../lang/js/class.html"><strong aria-hidden="true">5.2.2.</strong> Class</a></li><li class="chapter-item expanded "><a href="../lang/js/hoisting.html"><strong aria-hidden="true">5.2.3.</strong> Hoisting</a></li><li class="chapter-item expanded "><a href="../lang/js/iife.html"><strong aria-hidden="true">5.2.4.</strong> 즉시실행함수(IIFE)</a></li><li class="chapter-item expanded "><a href="../lang/js/promise.html"><strong aria-hidden="true">5.2.5.</strong> 프로미스</a></li><li class="chapter-item expanded "><a href="../lang/js/strict-mode.html"><strong aria-hidden="true">5.2.6.</strong> Strict mode</a></li><li class="chapter-item expanded "><a href="../lang/js/tagged-template-literals.html"><strong aria-hidden="true">5.2.7.</strong> 템플릿 리터럴</a></li></ol></li><li class="chapter-item expanded "><a href="../lang/rust/index.html"><strong aria-hidden="true">5.3.</strong> Rust</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../lang/rust/how-to-install-rust.html"><strong aria-hidden="true">5.3.1.</strong> Rust 개발도구 설치하기</a></li><li class="chapter-item expanded "><a href="../log/mdbook-guide.html"><strong aria-hidden="true">5.3.2.</strong> mdbook 가이드</a></li></ol></li><li class="chapter-item expanded "><a href="../lang/kotlin/kotlin-programming/00-introduction.html"><strong aria-hidden="true">5.4.</strong> Kotlin programming</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../lang/kotlin/kotlin-programming/03-basic.html"><strong aria-hidden="true">5.4.1.</strong> 기본 작성방법</a></li><li class="chapter-item expanded "><a href="../lang/kotlin/kotlin-programming/04-variable-and-function.html"><strong aria-hidden="true">5.4.2.</strong> 변수와 함수</a></li><li class="chapter-item expanded "><a href="../lang/kotlin/kotlin-programming/05-types.html"><strong aria-hidden="true">5.4.3.</strong> 데이터 타입</a></li><li class="chapter-item expanded "><a href="../lang/kotlin/kotlin-programming/06-condition.html"><strong aria-hidden="true">5.4.4.</strong> 조건문</a></li><li class="chapter-item expanded "><a href="../lang/kotlin/kotlin-programming/07-class.html"><strong aria-hidden="true">5.4.5.</strong> 클래스</a></li><li class="chapter-item expanded "><a href="../lang/kotlin/kotlin-programming/08-property.html"><strong aria-hidden="true">5.4.6.</strong> 프로퍼티</a></li><li class="chapter-item expanded "><a href="../lang/kotlin/kotlin-programming/09-inheritance.html"><strong aria-hidden="true">5.4.7.</strong> 상속</a></li><li class="chapter-item expanded "><a href="../lang/kotlin/kotlin-programming/10-abstract-class.html"><strong aria-hidden="true">5.4.8.</strong> 추상클래스</a></li><li class="chapter-item expanded "><a href="../lang/kotlin/kotlin-programming/11-other-classes.html"><strong aria-hidden="true">5.4.9.</strong> 다른 클래스들</a></li><li class="chapter-item expanded "><a href="../lang/kotlin/kotlin-programming/12-functional.html"><strong aria-hidden="true">5.4.10.</strong> 함수형 프로그래밍과 람다</a></li><li class="chapter-item expanded "><a href="../lang/kotlin/kotlin-programming/13-high-order-function.html"><strong aria-hidden="true">5.4.11.</strong> 고차함수</a></li><li class="chapter-item expanded "><a href="../lang/kotlin/kotlin-programming/14-collections.html"><strong aria-hidden="true">5.4.12.</strong> 컬렉션</a></li><li class="chapter-item expanded "><a href="../lang/kotlin/kotlin-programming/15-null-safety-and-exception.html"><strong aria-hidden="true">5.4.13.</strong> Null 안정성과 예외</a></li><li class="chapter-item expanded "><a href="../lang/kotlin/kotlin-programming/16-class-extension.html"><strong aria-hidden="true">5.4.14.</strong> 클래스 확장</a></li><li class="chapter-item expanded "><a href="../lang/kotlin/kotlin-programming/17-generic.html"><strong aria-hidden="true">5.4.15.</strong> 제네릭</a></li><li class="chapter-item expanded "><a href="../lang/kotlin/kotlin-programming/18-reflection.html"><strong aria-hidden="true">5.4.16.</strong> 리플렉션</a></li><li class="chapter-item expanded "><a href="../lang/kotlin/kotlin-programming/19-technics.html"><strong aria-hidden="true">5.4.17.</strong> 다양한 기법</a></li><li class="chapter-item expanded "><a href="../lang/kotlin/kotlin-programming/50-calling-kotlin-from-java.html"><strong aria-hidden="true">5.4.18.</strong> Java에서 코틀린 사용하기</a></li><li class="chapter-item expanded "><a href="../lang/kotlin/kotlin-programming/40-calling-java-from-kotlin.html"><strong aria-hidden="true">5.4.19.</strong> 코틀린에서 자바 사용하기</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../design-pattern/index.html"><strong aria-hidden="true">6.</strong> 디자인 패턴</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../design-pattern/inversion-of-control.html"><strong aria-hidden="true">6.1.</strong> 제어 역전 (IoC)</a></li><li class="chapter-item expanded "><a href="../design-pattern/mvc-spring.html"><strong aria-hidden="true">6.2.</strong> MVC &amp; Spring MVC</a></li></ol></li><li class="chapter-item expanded "><a href="../db/index.html"><strong aria-hidden="true">7.</strong> DB</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../db/oracle/index.html"><strong aria-hidden="true">7.1.</strong> Oracle</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../db/oracle/oracle-flashback.html"><strong aria-hidden="true">7.1.1.</strong> Flashback을 이용한 데이터 복원</a></li><li class="chapter-item expanded "><a href="../db/oracle/block.html"><strong aria-hidden="true">7.1.2.</strong> Block</a></li><li class="chapter-item expanded "><a href="../db/oracle/high-water-mark.html"><strong aria-hidden="true">7.1.3.</strong> HWM</a></li></ol></li><li class="chapter-item expanded "><a href="../db/redis/tutorial.html"><strong aria-hidden="true">7.2.</strong> REDIS tutorial</a></li></ol></li><li class="chapter-item expanded "><a href="../books/concrete-math/index.html"><strong aria-hidden="true">8.</strong> 구체수학</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../books/concrete-math/part1-recursive.html"><strong aria-hidden="true">8.1.</strong> 1장: 재귀적인 문제들</a></li></ol></li><li class="chapter-item expanded "><a href="../books/object2019/intro.html"><strong aria-hidden="true">9.</strong> 오브젝트</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../books/object2019/chapter_01.html"><strong aria-hidden="true">9.1.</strong> 01_객체, 설계</a></li><li class="chapter-item expanded "><a href="../books/object2019/chapter_02.html"><strong aria-hidden="true">9.2.</strong> 02_객체지향 프로그래밍</a></li><li class="chapter-item expanded "><a href="../books/object2019/chapter_03.html"><strong aria-hidden="true">9.3.</strong> 03_역할, 책임, 협력</a></li></ol></li><li class="chapter-item expanded "><a href="../log/index.html"><strong aria-hidden="true">10.</strong> 기록</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../log/2019.html"><strong aria-hidden="true">10.1.</strong> 2019년</a></li><li class="chapter-item expanded "><a href="../log/2019-W16.html"><strong aria-hidden="true">10.2.</strong> 2019년 16주차</a></li><li class="chapter-item expanded "><a href="../log/2019-04-17-aws-summit.html"><strong aria-hidden="true">10.3.</strong> AWS Summit Seoul 2019</a></li><li class="chapter-item expanded "><a href="../log/2019-11-18-test-on-ie.html"><strong aria-hidden="true">10.4.</strong> IE 10 이하 테스트</a></li></ol></li><li class="chapter-item expanded "><a href="../uncategorized.html"><strong aria-hidden="true">11.</strong> 미분류</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../general/vim-change-encoding-type.html"><strong aria-hidden="true">11.1.</strong> VIM 인코딩 타입 변경하기</a></li><li class="chapter-item expanded "><a href="../general/mtu.html"><strong aria-hidden="true">11.2.</strong> MTU</a></li><li class="chapter-item expanded "><a href="../general/vim-cheatsheet.html"><strong aria-hidden="true">11.3.</strong> VIM 치트시트</a></li><li class="chapter-item expanded "><a href="../lang/nodejs/packaging-with-electron-packager.html"><strong aria-hidden="true">11.4.</strong> 일렉트론 앱 패키징</a></li><li class="chapter-item expanded "><a href="../macos/misc.html"><strong aria-hidden="true">11.5.</strong> 일렉트론 앱 패키징</a></li></ol></li></ol>            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                                                <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                                            </div>
+
+                    <h1 class="menu-title">Shawn is Learning</h1>
+
+                    <div class="right-buttons">
+                                                <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                                                                        
+                    </div>
+                </div>
+
+                                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="dynamodb"><a class="header" href="#dynamodb">DynamoDB</a></h1>
+<h2 id="개요"><a class="header" href="#개요">개요</a></h2>
+<p>DynamoDB는?</p>
+<ul>
+<li>NoSQL 데이터베이스 서비스</li>
+<li>AWS에서 서비스</li>
+<li><a href="https://docs.aws.amazon.com/ko_kr/amazondynamodb/latest/developerguide/EncryptionAtRest.html">유휴시 암호화 제공</a></li>
+<li>AWS management console을 통해 사용량 측정 가능
+<ul>
+<li>프로비저닝 가능</li>
+</ul>
+</li>
+<li><a href="https://docs.aws.amazon.com/ko_kr/amazondynamodb/latest/developerguide/BackupRestore.html">온디맨드 백업기능</a> 제공</li>
+<li><a href="https://docs.aws.amazon.com/ko_kr/amazondynamodb/latest/developerguide/PointInTimeRecovery_Howitworks.html">특정 시점으로 복구</a> 가능: 최근 35일 중 원하는 시점으로 복구</li>
+<li>데이터에 TTL(Time To Live) 설정 가능</li>
+<li>고가용성 및 내구성
+<ul>
+<li>테이블의 데이털르 충분한 수의 서버로 자동 분산 -&gt; 일관되게 빠른 성능 보장</li>
+<li>모든 데이터가 SSD에 저장되고 여러 리전에 걸쳐 복제 -&gt; 고가용성 및 내구성 보장</li>
+<li><a href="https://docs.aws.amazon.com/ko_kr/amazondynamodb/latest/developerguide/GlobalTables.html">전역 테이블</a>을 사용하여 여러 리전간에 테이블 동기화 가능</li>
+</ul>
+</li>
+</ul>
+<h2 id="특징"><a class="header" href="#특징">특징</a></h2>
+<h3 id="읽기-일관성-consistency-read"><a class="header" href="#읽기-일관성-consistency-read">읽기 일관성 (Consistency Read)</a></h3>
+<p>다이나모DB는 데이터를 읽을 때 최근에 변경내역이 반영되지 않을 수 있다. 아래 작업이 순차적으로 일어날 경우, 3번 작업에서 이름이 홍길동으로 나올 수도 있다.</p>
+<ol>
+<li>데이터를 쓴다. <code>{&quot;Key&quot;: 1, &quot;이름&quot;: &quot;홍길동&quot;}</code></li>
+<li>데이터를 변경한다. <code>{&quot;Key&quot;: 1, &quot;이름&quot;: &quot;홍두깨&quot;}</code></li>
+<li>Key: 1인 항목을 조회한다. -&gt; <code>{&quot;Key&quot;: 1, &quot;이름&quot;: ?}</code></li>
+</ol>
+<p>이를 최종적 읽기 일관성 (Eventually Consistency Read)라고 한다.</p>
+<h4 id="강력한-읽기-일관성-strongly-consistency-read"><a class="header" href="#강력한-읽기-일관성-strongly-consistency-read">강력한 읽기 일관성 (Strongly Consistency Read)</a></h4>
+<ul>
+<li>이전 쓰기작업의 업데이트를 모두 반영하여 조회하고 싶은 경우, 강력한 읽기 일관성을 사용한다.</li>
+<li>DynamoDB 읽기 API는 기본적으로 최종적 읽기 일관성을 사용한다. 강력한 읽기 일관성을 사용하고 싶으면 ConsistencyRead 파라미터를 true로 설정한다. 이 경우 읽기 요청단위가 달라진다. (읽기/쓰기 용량모드 참고)</li>
+<li>GSI는 강력한 읽기 일관성을 지원하지 않는다.</li>
+</ul>
+<h3 id="읽기-쓰기-용량모드"><a class="header" href="#읽기-쓰기-용량모드">읽기 쓰기 용량모드</a></h3>
+<ul>
+<li>읽기 요청 유닛 1개는 강력한 읽기 일관성으로 4kb 데이터를 읽을 수 있다.
+<ul>
+<li>최종적 읽기 일관성을 사용할 경우 0.5 유닛을 소비한다.</li>
+<li>8kb 데이터를 읽을 경우, 강력한 읽기 일관성 모드에서 유닛 2개, 최종적 읽기 일관성 모드에서 유닛 1개를 소비한다.</li>
+</ul>
+</li>
+<li>쓰기 요청 유닛 1개는 1kb 데이터를 쓸 수 있다.</li>
+</ul>
+<h3 id="파티션-및-데이터-배포"><a class="header" href="#파티션-및-데이터-배포">파티션 및 데이터 배포</a></h3>
+<ul>
+<li>DynamoDB는 테이블을 생성할 때 충분한 수의 파티션을 할당한다.
+<ul>
+<li>파티션의 한도가 초과하여 테이블의 처리량을 늘려야 할때 파티션을 늘린다.</li>
+<li>추가적인 스토리지 공간이 필요햔 경우 파티션을 늘린다.</li>
+</ul>
+</li>
+<li>데이터를 쓸 때, 파티션 키값으로 해시값을 구해서 데이터를 저장할 파티션을 결정한다.</li>
+<li>정렬키가 있는 경우, 파티션 키 값으로 데이터를 저장한 파티션을 찾은 다음, 정렬 키 값을 이용하여 순차적으로 데이터를 스캔한다.</li>
+</ul>
+<h2 id="작동방식-핵심-구성요소"><a class="header" href="#작동방식-핵심-구성요소">작동방식: 핵심 구성요소</a></h2>
+<ul>
+<li><a href="https://docs.aws.amazon.com/ko_kr/amazondynamodb/latest/developerguide/Limits.html">다이나모DB 기능 제한</a>에 대해서 알아보기</li>
+</ul>
+<h3 id="테이블-항목-및-속성"><a class="header" href="#테이블-항목-및-속성">테이블, 항목 및 속성</a></h3>
+<ul>
+<li>테이블: 데이터의 집합, RDBMS의 테이블과 같다.</li>
+<li>항목: 테이블은 0개 이상의 항목이 존재한다. RDBMS의 tuple, record</li>
+<li>속성: 각 항목은 1개 이상의 속성을 가진다. RDBMS의 field, column</li>
+</ul>
+<p><img src="https://docs.aws.amazon.com/ko_kr/amazondynamodb/latest/developerguide/images/HowItWorksPeople.png" alt="예제-1" /></p>
+<p>위 People 테이블에서</p>
+<ul>
+<li>테이블은 3건의 항목을 가지고 있다.</li>
+<li>첫 번째 항목은 4건의 속성을 가지고 있다.</li>
+<li><em>People</em> 테이블은 기본 키 <em>PersonId</em>를 가진다.</li>
+<li>속성에 대해서
+<ul>
+<li>테이블은 스키마가 없다. 속성을 미리 정의할 필요가 없다.</li>
+<li>대부분의 항목은 <em>스칼라</em> 형식이다. -&gt; 스칼라 형식은 하나의 값만 가질 수 있음. 문자열, 숫자 등의 형식을 말함.</li>
+<li>일부 항목은 내포 속성(<em>Address</em> 속성)를 가진다. 다이나모DB는 32레벨까지 내포 속성을 지원한다. -&gt; Map과 유사함</li>
+</ul>
+</li>
+</ul>
+<h3 id="키"><a class="header" href="#키">키</a></h3>
+<p>테이블을 생성할 때 기본 키 지정은 필수이다. 기본 키는 각 항목을 나타내는 고유 식별자이다. 복수 건의 항목이 동일한 기본 키를 가질 수 없다.<br />
+다이나모DB는 두 가지 기본 키를 지원한다.</p>
+<p>기본 키는 <em>스칼라</em> 타입이여야 한다. 즉, 키는 문자열, 숫자 혹은 이진수 데이터만 가질 수 있다.</p>
+<h4 id="파티션-키-해시-속성"><a class="header" href="#파티션-키-해시-속성">파티션 키 (해시 속성)</a></h4>
+<ul>
+<li>하나의 속성으로 구성되는 기본 키</li>
+<li>파티션 키를 해시함수의 입력을 사용함 =&gt; 파티션 키에 따라 물리적 스토리지(파티션)이 결정됨</li>
+<li>파티션 키로만 구성된 테이블에서 각 항목이 동일한 파티션 키를 가질 수 없음.</li>
+<li>파티션 키로 항목 액세스가 가능함</li>
+</ul>
+<h4 id="정렬-키-범위-속성"><a class="header" href="#정렬-키-범위-속성">정렬 키 (범위 속성)</a></h4>
+<ul>
+<li>파티션 키와 함께 정렬 키를 사용할 경우, 각 항목은 동일한 파티션 키를 가질 수 있다. 단, 정렬 키는 달라야 한다.</li>
+<li>정렬 키는 유연한 쿼리를 지원한다.</li>
+<li>정렬 키의 쿼리 방식은 <a href="#%EC%A0%95%EB%A0%AC_%ED%82%A4_%EC%A1%B0%EA%B1%B4_%ED%91%9C%ED%98%84%EC%8B%9D">정렬 키 조건 표현식</a>을 참고한다.</li>
+</ul>
+<h3 id="보조-인덱스"><a class="header" href="#보조-인덱스">보조 인덱스</a></h3>
+<p>테이블은 하나 이상의 보조인덱스를 생성할 수 있다.
+보조 인덱스의 대체 키를 사용하여 쿼리를 할 수 있다.
+모든 인덱스는 테이블에 속해있다. 이를 <strong>기본 테이블</strong>이라 한다.
+다이나모DB는 인덱스를 자동으로 유지한다. 즉, 기본 테이블의 항목이 변경되면 인덱스의 해당 항목도 변경된다.
+인덱스를 생성할 때 기본 테이블에서 인덱스로 복사하거나 <em>프로젝션</em>할 속성을 지정한다. 기본 키 속성은 무조건 프로젝션된다.</p>
+<h3 id="다이나모-스트림"><a class="header" href="#다이나모-스트림">다이나모 스트림</a></h3>
+<ul>
+<li>스트림은 다니아모DB 데이터의 변경 이벤트를 캡쳐한다.</li>
+<li>캡쳐한 이벤트는 스트림 레코드에서 볼 수 있다.</li>
+<li>스트림 레코드는 테이블 이름, 타임스탬프, 메타 데이터 등을 가지고 있다.</li>
+<li>스트림 레코드의 수명은 24시간이다.</li>
+<li>스트림과 람다를 이용해서 트리거를 생성할 수 있다.</li>
+</ul>
+<h2 id="cli"><a class="header" href="#cli">CLI</a></h2>
+<h3 id="테이블-생성"><a class="header" href="#테이블-생성">테이블 생성</a></h3>
+<pre><code class="language-bash">aws dynamodb create-table \
+    --table-name Member \
+    --attribute-definitions \
+        AttributeName=name,AttributeType=S \
+        AttributeName=age,AttributeType=N \
+    --key-schema \
+        AttributeName=name,KeyType=HASH \
+        AttributeName=age,KeyType=RANGE \
+    --provisioned-throughput \
+        ReadCapacityUnits=1,WriteCapacityUnits=1 \
+    --endpoint-url http://localhost:8000
+</code></pre>
+<p>생성 결과</p>
+<pre><code class="language-bash">{
+    &quot;TableDescription&quot;: {
+        &quot;AttributeDefinitions&quot;: [
+            {
+                &quot;AttributeName&quot;: &quot;name&quot;,
+                &quot;AttributeType&quot;: &quot;S&quot;
+            },
+            {
+                &quot;AttributeName&quot;: &quot;age&quot;,
+                &quot;AttributeType&quot;: &quot;N&quot;
+            }
+        ],
+        &quot;TableName&quot;: &quot;Member&quot;,
+        &quot;KeySchema&quot;: [
+            {
+                &quot;AttributeName&quot;: &quot;name&quot;,
+                &quot;KeyType&quot;: &quot;HASH&quot;
+            },
+            {
+                &quot;AttributeName&quot;: &quot;age&quot;,
+                &quot;KeyType&quot;: &quot;RANGE&quot;
+            }
+        ],
+        &quot;TableStatus&quot;: &quot;ACTIVE&quot;,
+        &quot;CreationDateTime&quot;: 1561194380.277,
+        &quot;ProvisionedThroughput&quot;: {
+            &quot;LastIncreaseDateTime&quot;: 0.0,
+            &quot;LastDecreaseDateTime&quot;: 0.0,
+            &quot;NumberOfDecreasesToday&quot;: 0,
+            &quot;ReadCapacityUnits&quot;: 1,
+            &quot;WriteCapacityUnits&quot;: 1
+        },
+        &quot;TableSizeBytes&quot;: 0,
+        &quot;ItemCount&quot;: 0,
+        &quot;TableArn&quot;: &quot;arn:aws:dynamodb:ddblocal:000000000000:table/Member&quot;,
+        &quot;BillingModeSummary&quot;: {
+            &quot;BillingMode&quot;: &quot;PROVISIONED&quot;,
+            &quot;LastUpdateToPayPerRequestDateTime&quot;: 0.0
+        }
+    }
+}
+</code></pre>
+<h3 id="데이터-쓰기"><a class="header" href="#데이터-쓰기">데이터 쓰기</a></h3>
+<p>테이블의 항목을 추가한다. 테이블 생성할 때 없는 속성도 추가 가능하다.
+만약 동일한 키가 존재하는 경우, 데이터를 덮어쓴다.</p>
+<pre><code class="language-bash">aws dynamodb put-item --endpoint-url http://localhost:8000 \
+--table-name Member  \
+--item \
+    '{&quot;name&quot;: {&quot;S&quot;: &quot;홍길동&quot;}, &quot;age&quot;: {&quot;N&quot;: &quot;20&quot;}, &quot;email&quot;: {&quot;S&quot;: &quot;hong@gil.dong&quot;}, &quot;phoneNumber&quot;: {&quot;S&quot;: &quot;0102224444&quot;}}'
+
+aws dynamodb put-item --endpoint-url http://localhost:8000 \
+--table-name Member  \
+--item \
+    '{&quot;name&quot;: {&quot;S&quot;: &quot;김갑수&quot;}, &quot;age&quot;: {&quot;N&quot;: &quot;30&quot;}, &quot;email&quot;: {&quot;S&quot;: &quot;kapsu@kim.com&quot;}, &quot;phoneNumber&quot;: {&quot;S&quot;: &quot;01012341234&quot;}}'
+
+aws dynamodb --endpoint-url http://localhost:8000 \
+&gt; put-item --table-name Member \
+&gt; --item '{
+            &quot;name&quot;: {
+                &quot;S&quot;: &quot;홍길동&quot;
+            },
+            &quot;myOrder&quot;: {
+                &quot;N&quot;: &quot;1&quot;
+            },
+            &quot;phoneNumber&quot;: {
+                &quot;S&quot;: &quot;01012341234&quot;
+            },
+            &quot;age&quot;: {
+                &quot;N&quot;: &quot;30&quot;
+            },
+            &quot;email&quot;: {
+                &quot;S&quot;: &quot;gildong@daum.com&quot;
+            }
+        }'
+</code></pre>
+<h3 id="데이터-읽기"><a class="header" href="#데이터-읽기">데이터 읽기</a></h3>
+<p>항목 단 건을 기본 키로 조회한다. 만약 파티션 키와 정렬 키 조합의 테이블이라면 두 키 모두 파라미터에 넣어줘야 한다.</p>
+<pre><code class="language-bash">aws dynamodb get-item --endpoint-url http://localhost:8000 \
+--table-name Member \
+--key '{&quot;name&quot;: {&quot;S&quot;: &quot;홍길동&quot;}, &quot;age&quot;: {&quot;N&quot;: &quot;20&quot;}}'
+
+{
+    &quot;Item&quot;: {
+        &quot;name&quot;: {
+            &quot;S&quot;: &quot;홍길동&quot;
+        },
+        &quot;phoneNumber&quot;: {
+            &quot;S&quot;: &quot;0102224444&quot;
+        },
+        &quot;age&quot;: {
+            &quot;N&quot;: &quot;20&quot;
+        },
+        &quot;email&quot;: {
+            &quot;S&quot;: &quot;hong@gil.dong&quot;
+        }
+    }
+}
+</code></pre>
+<p>만약 강력한 읽기 일관성(Strongly Consistency Read)을 사용하려면 <code>--consistent-read</code> 옵션을 추가한다.</p>
+<h3 id="데이터-수정하기"><a class="header" href="#데이터-수정하기">데이터 수정하기</a></h3>
+<pre><code class="language-bash">aws dynamodb update-item --endpoint-url http://localhost:8000 \
+    --table-name Member \
+    --key '{&quot;name&quot;: {&quot;S&quot;: &quot;홍길동&quot;}, &quot;age&quot;: {&quot;N&quot;: &quot;20&quot;}}' \
+    --update-expression &quot;SET age = :newage, email = :newemail ADD myOrder :o&quot; \
+    --expression-attribute-values '{&quot;:newage&quot;:{&quot;N&quot;:&quot;21&quot;}, &quot;:newemail&quot;: {&quot;S&quot;: &quot;gildong@hong.com&quot;}, &quot;:o&quot;: {&quot;N&quot;: &quot;1&quot;} }' \
+    --return-values ALL_NEW
+</code></pre>
+<h3 id="데이터-쿼리"><a class="header" href="#데이터-쿼리">데이터 쿼리</a></h3>
+<h4 id="키-조건-표현식"><a class="header" href="#키-조건-표현식">키 조건 표현식</a></h4>
+<ul>
+<li>파티션 키는 등식 조건으로 지정해야 한다.</li>
+<li>정렬 키는 아래의 비교연산자를 사용할 수 있다.</li>
+</ul>
+<table><thead><tr><th align="center">표현식</th><th align="center">의미</th></tr></thead><tbody>
+<tr><td align="center">a = b</td><td align="center">속성 a가 값 b와 같을 때 true</td></tr>
+<tr><td align="center">a &lt; b</td><td align="center">속성 a가 값 b보다 작을 때 true</td></tr>
+<tr><td align="center">a &lt;= b</td><td align="center">속성 a가 값 b보다 작거나 같을 때 true</td></tr>
+<tr><td align="center">a &gt; b</td><td align="center">속성 a가 값 b 클 때 true</td></tr>
+<tr><td align="center">a &gt;= b</td><td align="center">속성 a가 값 b보다 크거나 같을 때 true</td></tr>
+<tr><td align="center">a between b and c</td><td align="center">속성 a가 값 b보다 크거나 같고 c보다 작을 때 true</td></tr>
+<tr><td align="center">begins_with(a, substr)</td><td align="center">속성 a가 substr로 시작할 때 true</td></tr>
+</tbody></table>
+<pre><code class="language-bash">aws dynamodb --endpoint-url http://localhost:8000 \
+query --table-name Member \
+--key-condition-expression &quot;#nm= :qname and age= :age&quot; \
+--expression-attribute-names '{&quot;#nm&quot;:&quot;name&quot;}' \
+--expression-attribute-values  '{&quot;:qname&quot;:{&quot;S&quot;:&quot;홍길동&quot;}, &quot;:age&quot;: {&quot;N&quot;: &quot;20&quot;}}'
+
+aws dynamodb --endpoint-url http://localhost:8000 \
+query --table-name Member \
+--key-condition-expression &quot;#nm= :qname and age&gt;= :age&quot; \
+--projection-expression &quot;#nm, phoneNumber&quot;  --expression-attribute-names '{&quot;#nm&quot;:&quot;name&quot;}' \
+--expression-attribute-values  '{&quot;:qname&quot;:{&quot;S&quot;:&quot;홍길동&quot;}, &quot;:age&quot;: {&quot;N&quot;: &quot;20&quot;}}'
+</code></pre>
+<ul>
+<li>위 명령에서 <code>name</code>은 DynamoDB 예약어이기 때문에 <code>#nm</code>으로 대체했다.</li>
+<li>projection-expression 파라미터로 원하는 속성만 조회할 수 있다.</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                                                    <a rel="prev" href="../cloud-aws/ELB.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+                                                    <a rel="next" href="../cloud-aws/cert-developer-asso.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                                    <a rel="prev" href="../cloud-aws/ELB.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+                                    <a rel="next" href="../cloud-aws/cert-developer-asso.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                            </nav>
+
+        </div>
+
+        
+        
+        
+                <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+        
+                <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        
+    </body>
+</html>

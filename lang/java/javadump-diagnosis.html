@@ -1,0 +1,353 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Dump 분석 - Shawn is Learning</title>
+                
+
+        <!-- Custom HTML head -->
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+                <link rel="icon" href="../../favicon.svg">
+                        <link rel="shortcut icon" href="../../favicon.png">
+                <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+                <link rel="stylesheet" href="../../css/print.css" media="print">
+        
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+                <link rel="stylesheet" href="../../fonts/fonts.css">
+        
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+                <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+            </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../prelude.html">Shawn is learning</a></li><li class="chapter-item expanded "><a href="../../cloud-aws/INTRO.html"><strong aria-hidden="true">1.</strong> AWS Cloud</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../cloud-aws/IAM.html"><strong aria-hidden="true">1.1.</strong> IAM</a></li><li class="chapter-item expanded "><a href="../../cloud-aws/VPC.html"><strong aria-hidden="true">1.2.</strong> VPC</a></li><li class="chapter-item expanded "><a href="../../cloud-aws/EC2.html"><strong aria-hidden="true">1.3.</strong> EC2</a></li><li class="chapter-item expanded "><a href="../../cloud-aws/ELB.html"><strong aria-hidden="true">1.4.</strong> ELB</a></li><li class="chapter-item expanded "><a href="../../cloud-aws/DynamoDB.html"><strong aria-hidden="true">1.5.</strong> DynamoDB</a></li><li class="chapter-item expanded "><a href="../../cloud-aws/cert-developer-asso.html"><strong aria-hidden="true">1.6.</strong> 자격증 공부</a></li></ol></li><li class="chapter-item expanded "><a href="../../books/spring/overview.html"><strong aria-hidden="true">2.</strong> Spring Reference</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../books/spring/core-01-ioc-container.html"><strong aria-hidden="true">2.1.</strong> Core - 1. IoC Container</a></li></ol></li><li class="chapter-item expanded "><a href="../../os/index.html"><strong aria-hidden="true">3.</strong> 운영 체제</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../os/kernel.html"><strong aria-hidden="true">3.1.</strong> 커널</a></li><li class="chapter-item expanded "><a href="../../os/posix.html"><strong aria-hidden="true">3.2.</strong> POSIX</a></li><li class="chapter-item expanded "><a href="../../os/shell.html"><strong aria-hidden="true">3.3.</strong> 셸</a></li><li class="chapter-item expanded "><a href="../../os/link.html"><strong aria-hidden="true">3.4.</strong> 링크</a></li><li class="chapter-item expanded "><a href="../../os/shell-commands.html"><strong aria-hidden="true">3.5.</strong> 셸 명령어 목록</a></li><li class="chapter-item expanded "><a href="../../os/aix-monitoring-commands.html"><strong aria-hidden="true">3.6.</strong> AIX 모니터링 명령어</a></li><li class="chapter-item expanded "><a href="../../os/win-cmd-set-env-var.html"><strong aria-hidden="true">3.7.</strong> Windows 커맨드라인에서 환경변수 설정</a></li><li class="chapter-item expanded "><a href="../../os/hostid.html"><strong aria-hidden="true">3.8.</strong> hostid</a></li></ol></li><li class="chapter-item expanded "><a href="../../devops/docker/get-started-index.html"><strong aria-hidden="true">4.</strong> Docker 시작하기</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../devops/docker/get-started-part1.html"><strong aria-hidden="true">4.1.</strong> 소개 및 설치</a></li><li class="chapter-item expanded "><a href="../../devops/docker/get-started-part2.html"><strong aria-hidden="true">4.2.</strong> 컨테이너</a></li><li class="chapter-item expanded "><a href="../../devops/docker/get-started-part3.html"><strong aria-hidden="true">4.3.</strong> 서비스</a></li><li class="chapter-item expanded "><a href="../../devops/docker/get-started-part4.html"><strong aria-hidden="true">4.4.</strong> 스웜</a></li><li class="chapter-item expanded "><a href="../../devops/docker/note-01-bash-and-volume.html"><strong aria-hidden="true">4.5.</strong> hands on - bash &amp; volume 마운트</a></li><li class="chapter-item expanded "><a href="../../devops/docker/note-02-dev-requirements.html"><strong aria-hidden="true">4.6.</strong> hands on - 개발환경 세팅</a></li></ol></li><li class="chapter-item expanded "><a href="../../lang/index.html"><strong aria-hidden="true">5.</strong> 프로그래밍 언어</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../lang/java/index.html"><strong aria-hidden="true">5.1.</strong> Java</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../lang/java/comparable-vs-comparator.html"><strong aria-hidden="true">5.1.1.</strong> Comparable과 Compartor</a></li><li class="chapter-item expanded "><a href="../../lang/java/difference-between-Log-vs-Logger.html"><strong aria-hidden="true">5.1.2.</strong> Log와 Logger</a></li><li class="chapter-item expanded "><a href="../../lang/java/javadump-diagnosis.html" class="active"><strong aria-hidden="true">5.1.3.</strong> Dump 분석</a></li><li class="chapter-item expanded "><a href="../../lang/java/jmeter.html"><strong aria-hidden="true">5.1.4.</strong> J Meter</a></li></ol></li><li class="chapter-item expanded "><a href="../../lang/js/index.html"><strong aria-hidden="true">5.2.</strong> JavaScript</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../lang/js/this.html"><strong aria-hidden="true">5.2.1.</strong> JavaScript의 this</a></li><li class="chapter-item expanded "><a href="../../lang/js/class.html"><strong aria-hidden="true">5.2.2.</strong> Class</a></li><li class="chapter-item expanded "><a href="../../lang/js/hoisting.html"><strong aria-hidden="true">5.2.3.</strong> Hoisting</a></li><li class="chapter-item expanded "><a href="../../lang/js/iife.html"><strong aria-hidden="true">5.2.4.</strong> 즉시실행함수(IIFE)</a></li><li class="chapter-item expanded "><a href="../../lang/js/promise.html"><strong aria-hidden="true">5.2.5.</strong> 프로미스</a></li><li class="chapter-item expanded "><a href="../../lang/js/strict-mode.html"><strong aria-hidden="true">5.2.6.</strong> Strict mode</a></li><li class="chapter-item expanded "><a href="../../lang/js/tagged-template-literals.html"><strong aria-hidden="true">5.2.7.</strong> 템플릿 리터럴</a></li></ol></li><li class="chapter-item expanded "><a href="../../lang/rust/index.html"><strong aria-hidden="true">5.3.</strong> Rust</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../lang/rust/how-to-install-rust.html"><strong aria-hidden="true">5.3.1.</strong> Rust 개발도구 설치하기</a></li><li class="chapter-item expanded "><a href="../../log/mdbook-guide.html"><strong aria-hidden="true">5.3.2.</strong> mdbook 가이드</a></li></ol></li><li class="chapter-item expanded "><a href="../../lang/kotlin/kotlin-programming/00-introduction.html"><strong aria-hidden="true">5.4.</strong> Kotlin programming</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../lang/kotlin/kotlin-programming/03-basic.html"><strong aria-hidden="true">5.4.1.</strong> 기본 작성방법</a></li><li class="chapter-item expanded "><a href="../../lang/kotlin/kotlin-programming/04-variable-and-function.html"><strong aria-hidden="true">5.4.2.</strong> 변수와 함수</a></li><li class="chapter-item expanded "><a href="../../lang/kotlin/kotlin-programming/05-types.html"><strong aria-hidden="true">5.4.3.</strong> 데이터 타입</a></li><li class="chapter-item expanded "><a href="../../lang/kotlin/kotlin-programming/06-condition.html"><strong aria-hidden="true">5.4.4.</strong> 조건문</a></li><li class="chapter-item expanded "><a href="../../lang/kotlin/kotlin-programming/07-class.html"><strong aria-hidden="true">5.4.5.</strong> 클래스</a></li><li class="chapter-item expanded "><a href="../../lang/kotlin/kotlin-programming/08-property.html"><strong aria-hidden="true">5.4.6.</strong> 프로퍼티</a></li><li class="chapter-item expanded "><a href="../../lang/kotlin/kotlin-programming/09-inheritance.html"><strong aria-hidden="true">5.4.7.</strong> 상속</a></li><li class="chapter-item expanded "><a href="../../lang/kotlin/kotlin-programming/10-abstract-class.html"><strong aria-hidden="true">5.4.8.</strong> 추상클래스</a></li><li class="chapter-item expanded "><a href="../../lang/kotlin/kotlin-programming/11-other-classes.html"><strong aria-hidden="true">5.4.9.</strong> 다른 클래스들</a></li><li class="chapter-item expanded "><a href="../../lang/kotlin/kotlin-programming/12-functional.html"><strong aria-hidden="true">5.4.10.</strong> 함수형 프로그래밍과 람다</a></li><li class="chapter-item expanded "><a href="../../lang/kotlin/kotlin-programming/13-high-order-function.html"><strong aria-hidden="true">5.4.11.</strong> 고차함수</a></li><li class="chapter-item expanded "><a href="../../lang/kotlin/kotlin-programming/14-collections.html"><strong aria-hidden="true">5.4.12.</strong> 컬렉션</a></li><li class="chapter-item expanded "><a href="../../lang/kotlin/kotlin-programming/15-null-safety-and-exception.html"><strong aria-hidden="true">5.4.13.</strong> Null 안정성과 예외</a></li><li class="chapter-item expanded "><a href="../../lang/kotlin/kotlin-programming/16-class-extension.html"><strong aria-hidden="true">5.4.14.</strong> 클래스 확장</a></li><li class="chapter-item expanded "><a href="../../lang/kotlin/kotlin-programming/17-generic.html"><strong aria-hidden="true">5.4.15.</strong> 제네릭</a></li><li class="chapter-item expanded "><a href="../../lang/kotlin/kotlin-programming/18-reflection.html"><strong aria-hidden="true">5.4.16.</strong> 리플렉션</a></li><li class="chapter-item expanded "><a href="../../lang/kotlin/kotlin-programming/19-technics.html"><strong aria-hidden="true">5.4.17.</strong> 다양한 기법</a></li><li class="chapter-item expanded "><a href="../../lang/kotlin/kotlin-programming/50-calling-kotlin-from-java.html"><strong aria-hidden="true">5.4.18.</strong> Java에서 코틀린 사용하기</a></li><li class="chapter-item expanded "><a href="../../lang/kotlin/kotlin-programming/40-calling-java-from-kotlin.html"><strong aria-hidden="true">5.4.19.</strong> 코틀린에서 자바 사용하기</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../design-pattern/index.html"><strong aria-hidden="true">6.</strong> 디자인 패턴</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../design-pattern/inversion-of-control.html"><strong aria-hidden="true">6.1.</strong> 제어 역전 (IoC)</a></li><li class="chapter-item expanded "><a href="../../design-pattern/mvc-spring.html"><strong aria-hidden="true">6.2.</strong> MVC &amp; Spring MVC</a></li></ol></li><li class="chapter-item expanded "><a href="../../db/index.html"><strong aria-hidden="true">7.</strong> DB</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../db/oracle/index.html"><strong aria-hidden="true">7.1.</strong> Oracle</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../db/oracle/oracle-flashback.html"><strong aria-hidden="true">7.1.1.</strong> Flashback을 이용한 데이터 복원</a></li><li class="chapter-item expanded "><a href="../../db/oracle/block.html"><strong aria-hidden="true">7.1.2.</strong> Block</a></li><li class="chapter-item expanded "><a href="../../db/oracle/high-water-mark.html"><strong aria-hidden="true">7.1.3.</strong> HWM</a></li></ol></li><li class="chapter-item expanded "><a href="../../db/redis/tutorial.html"><strong aria-hidden="true">7.2.</strong> REDIS tutorial</a></li></ol></li><li class="chapter-item expanded "><a href="../../books/concrete-math/index.html"><strong aria-hidden="true">8.</strong> 구체수학</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../books/concrete-math/part1-recursive.html"><strong aria-hidden="true">8.1.</strong> 1장: 재귀적인 문제들</a></li></ol></li><li class="chapter-item expanded "><a href="../../books/object2019/intro.html"><strong aria-hidden="true">9.</strong> 오브젝트</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../books/object2019/chapter_01.html"><strong aria-hidden="true">9.1.</strong> 01_객체, 설계</a></li><li class="chapter-item expanded "><a href="../../books/object2019/chapter_02.html"><strong aria-hidden="true">9.2.</strong> 02_객체지향 프로그래밍</a></li><li class="chapter-item expanded "><a href="../../books/object2019/chapter_03.html"><strong aria-hidden="true">9.3.</strong> 03_역할, 책임, 협력</a></li></ol></li><li class="chapter-item expanded "><a href="../../log/index.html"><strong aria-hidden="true">10.</strong> 기록</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../log/2019.html"><strong aria-hidden="true">10.1.</strong> 2019년</a></li><li class="chapter-item expanded "><a href="../../log/2019-W16.html"><strong aria-hidden="true">10.2.</strong> 2019년 16주차</a></li><li class="chapter-item expanded "><a href="../../log/2019-04-17-aws-summit.html"><strong aria-hidden="true">10.3.</strong> AWS Summit Seoul 2019</a></li><li class="chapter-item expanded "><a href="../../log/2019-11-18-test-on-ie.html"><strong aria-hidden="true">10.4.</strong> IE 10 이하 테스트</a></li></ol></li><li class="chapter-item expanded "><a href="../../uncategorized.html"><strong aria-hidden="true">11.</strong> 미분류</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../general/vim-change-encoding-type.html"><strong aria-hidden="true">11.1.</strong> VIM 인코딩 타입 변경하기</a></li><li class="chapter-item expanded "><a href="../../general/mtu.html"><strong aria-hidden="true">11.2.</strong> MTU</a></li><li class="chapter-item expanded "><a href="../../general/vim-cheatsheet.html"><strong aria-hidden="true">11.3.</strong> VIM 치트시트</a></li><li class="chapter-item expanded "><a href="../../lang/nodejs/packaging-with-electron-packager.html"><strong aria-hidden="true">11.4.</strong> 일렉트론 앱 패키징</a></li><li class="chapter-item expanded "><a href="../../macos/misc.html"><strong aria-hidden="true">11.5.</strong> 일렉트론 앱 패키징</a></li></ol></li></ol>            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                                                <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                                            </div>
+
+                    <h1 class="menu-title">Shawn is Learning</h1>
+
+                    <div class="right-buttons">
+                                                <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                                                                        
+                    </div>
+                </div>
+
+                                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="ibm---java-dump-분석"><a class="header" href="#ibm---java-dump-분석">IBM - Java Dump 분석</a></h1>
+<p>아래 IBM 문서를 보고 Javadump를 살펴보았다.
+<a href="https://www.ibm.com/support/knowledgecenter/ko/SSYKE2_7.0.0/com.ibm.java.win.70.doc/diag/tools/javadump_interpret.html">IBM - Javadump 해석</a>
+<a href="http://d2.naver.com/helloworld/10963">Naver D2 - 스레드 덤프 분석하기</a></p>
+<h2 id="덤프의-종류"><a class="header" href="#덤프의-종류">덤프의 종류</a></h2>
+<p>Heap Dump, Java Dump, Thread Dump, java core 등의 파일은 Java 어플리케이션의 비정상적인 상황(OOM, Hang, ...)에서 생성되는 파일이다. 이 파일들은 장애 발생 당시의 JVM 정보를 가지고 있다.</p>
+<ul>
+<li>Javadump: Java core 혹은 Thread dump라고 불린다. OOM같은 상황에서 JVM이 의도치않게 종료된 경우 예약된 키 조합(ex. Windows: <code>Ctrl + Break</code>, Unix: <code>kill -3 &lt;pid&gt;</code>)으로 생성된다. 혹은 어플리케이션 내부에서 <code>com.ibm.jvm.Dump.JavaDump</code> API를 사용해서 생성할 수도 있다. </li>
+<li>Heapdump: 예기치않게 JVM이 종료된 경우 사용자의 요청 혹은 <code>Xdump:heap</code> 옵션을 사용해서 힙 덤프 생성시점을 제어할 수 있다. </li>
+</ul>
+<h3 id="덤프가-생성되지-않을-때"><a class="header" href="#덤프가-생성되지-않을-때">덤프가 생성되지 않을 때</a></h3>
+<p>일부 상황에선 덤프가 생성되지 않을 수도 있다. 이땐 시스템 덤프를 확인해보자. 자세한 내용은 아래 문서 참고<br />
+<a href="https://www.ibm.com/support/knowledgecenter/ko/SSYKE2_7.0.0/com.ibm.java.aix.70.doc/diag/tools/scenarioswheredumpsmightnotbeproduced.html">덤프가 생성되지 않는 경우의 시나리오</a></p>
+<h2 id="그래서-javadump는"><a class="header" href="#그래서-javadump는">그래서 javadump는?</a></h2>
+<p>Javadump는 JVM / Java 어플리케이션 실행 중의 특정 시점에서 캡쳐된 진단정보가 포함된 파일이다. 이 파일엔 운영 체제, 어플리케이션 환경, 스레드, 스택, 메모리 등의 정보가 포함된다. 파일은 텍스트 형식으로 사용자가 읽을 수 있으며 Java Object 컨텐츠나 데이터는 포함되지 않는다.</p>
+<ul>
+<li>스레드 ID와 플래그를 포함한 스레드 이름</li>
+<li>개수와 플래그를 포함하는 클래스 로더 이름</li>
+<li>클래스 및 메소드 이름</li>
+<li>일부 Heap 주소</li>
+</ul>
+<p>어플리케이션을 시작할 때 <code>-Xdump:java:</code> 플래그를 사용해서 파일 생성을 제어할 수 있다. 파일 이름은 <code>javacore.&lt;date&gt;.&lt;time&gt;.&lt;pid&gt;.&lt;sequence number&gt;.txt</code>로 네이밍된다. Javacore는 시스템 덤프에서 생성하는 <strong>코어 파일</strong> 과는 다르다.</p>
+<h3 id="덤프파일-생성방법"><a class="header" href="#덤프파일-생성방법">덤프파일 생성방법</a></h3>
+<ul>
+<li>Java 옵션 사용: <code>XDump:java</code> 옵션을 사용해서 덤프 생성을 제어할 수 있다.</li>
+</ul>
+<h4 id="오류-조건에-의해-생성된-javadump"><a class="header" href="#오류-조건에-의해-생성된-javadump">오류 조건에 의해 생성된 JavaDump</a></h4>
+<p>아래 조건과 일치하는 상황이 발생하면 Javadump는 자동으로 생성된다.</p>
+<ul>
+<li>복구할 수 없는 기본 예외: JVM이 중지되는 예외상황이다. JVM은 시스템 덤프를 생성하고 스냅 추적파일 및 Javadump를 생성한 후에 프로세스를 종료한다. <strong>Java 예외상황이 아니다.</strong></li>
+<li>JVM 메모리 부족: <code>OOME</code>같은 메모리 부족 상황에서 자동 생성된다.</li>
+</ul>
+<h4 id="요청에-의한-생성"><a class="header" href="#요청에-의한-생성">요청에 의한 생성</a></h4>
+<p>사용자의 요청 혹은 API 호출로 덤프가 생성되는 경우이다.</p>
+<ul>
+<li>Command Line에서 JVM에 신호를 송신: <code>kill -3 &lt;pid&gt;</code>를 사용해서 Java 프로세스에 덤프 생성 신호를 보낼 수 있다. 이 경우 JVM은 덤프파일을 생성하고 계속 실행된다.</li>
+<li><code>com.ibm.jvm.Dump.JavaDump</code> API 사용: 이 API를 호출하면 덤프파일이 생성된다. 동일하게 JVM은 계속 실행된다.</li>
+<li><strong>WAS Utility</strong> 에 의한 생성: Weblogic과 같은 Middleware 환경에서 미들웨어 유틸리티를 사용해서 덤프를 생성 가능하다.</li>
+</ul>
+<h2 id="덤프-해석"><a class="header" href="#덤프-해석">덤프 해석</a></h2>
+<h3 id="javadump-태그"><a class="header" href="#javadump-태그">Javadump 태그</a></h3>
+<p>Dump 파일은 아래와 같이 섹션(<code>SECTION</code>)으로 구분되어 있다.</p>
+<pre><code class="language-log">0SECTION       TITLE subcomponent dump routine
+NULL           ===============================
+1TISIGINFO     Dump Event &quot;systhrow&quot; (00040000) Detail &quot;java/lang/OutOfMemoryError&quot; received 
+1TIDATETIME    Date:                 2017/10/26 at 14:39:07
+1TIFILENAME    Javacore filename:    /USER/javacore.20171026.143904.33947784.0001.txt
+1TIREQFLAGS    Request Flags: 0x81 (exclusive+preempt)
+1TIPREPSTATE   Prep State: 0x104 (exclusive_vm_access+)
+NULL           ------------------------------------------------------------------------
+</code></pre>
+<p>일반적인 태그는 아래와 같은 규칙을 가지고 있다.</p>
+<ul>
+<li>태그는 최대 15자이다.(빈 부분은 공백으로 채움)</li>
+<li>첫 번째 숫자는 태그 레벨을 나타낸다. 이 숫자는 항상 순서대로 오더링되진 않는다.(2 뒤에 4, 혹은 3 뒤에 1이 나올 수 있다.)</li>
+<li>태그의 두 번째와 세 번째 문자는 덤프 섹션을 식별한다. 아래는 주요 섹션을 나타내고 그 외에도 다른 섹션이 존재한다.
+<ul>
+<li>CI: 명령행 인터프리터</li>
+<li>CL: 클래스 로더</li>
+<li>LK: LOCK</li>
+<li>ST: 스토리지(메모리 관리)</li>
+<li>TI: 제목</li>
+<li>XE: 실행 엔진</li>
+</ul>
+</li>
+<li>나머지는 고유 문자열이다.</li>
+<li>모든 섹션은 <code>0SECTION</code> 태그로 헤드가 지정된다.</li>
+<li><code>NULL</code> 태그는 가독성을 위한 태그이다. 정보를 구분하는 용도로 사용한다.</li>
+</ul>
+<h3 id="title-gpinfo-envinfo-섹션"><a class="header" href="#title-gpinfo-envinfo-섹션">TITLE, GPINFO, ENVINFO 섹션</a></h3>
+<h4 id="title"><a class="header" href="#title">TITLE</a></h4>
+<p>Javadump 파일이 생성된 이벤트 및 기본정보를 나타낸다. 위의 로그가 TITLE 부분이고 <code>OutOfMemoryErorr</code>에 의한 이벤트 발생임을 알 수 있다.</p>
+<h4 id="gpfino"><a class="header" href="#gpfino">GPFINO</a></h4>
+<p><a href="https://en.wikipedia.org/wiki/General_protection_fault">GPF</a>로 인해 dump가 생성되었는지 여부에 따라 컨텐츠가 달라지지만 운영체제에 대한 정보가 일부 표시된다. GPF로 인해 생성된 경우 GPF정보가 제공된다.</p>
+<pre><code class="language-log">0SECTION       GPINFO subcomponent dump routine
+NULL           ================================
+2XHOSLEVEL     OS Level         : AIX 6.1
+2XHCPUS        Processors -
+3XHCPUARCH       Architecture   : ppc64
+3XHNUMCPUS       How Many       : 8
+3XHNUMASUP       NUMA is either not supported or has been disabled by user
+NULL           
+1XHERROR2      Register dump section only produced for SIGSEGV, SIGILL or SIGFPE.
+NULL           
+NULL           ------------------------------------------------------------------------
+</code></pre>
+<h4 id="envinfo"><a class="header" href="#envinfo">ENVINFO</a></h4>
+<p>실패한 JRE 레벨에 대한 정보와 JVM 프로세스 및 환경을 호출한 명령에 대한 세부사항을 나타낸다.</p>
+<p>아래 로그를 보면 AIX6.1, JRE 1.6 환경에서 어플리케이션을 실행했고 실행할 때의 자바 옵션, 클래스패스도 확인할 수 있다.</p>
+<pre><code class="language-log">0SECTION       ENVINFO subcomponent dump routine
+NULL           =================================
+1CIJAVAVERSION JRE 1.6.0 AIX ppc64-64 build jvmap6460sr10fp1-20120202_101568 (pap6460sr10fp1-20120321_01(SR10 FP1))
+1CIVMVERSION   VM build 20120202_101568
+1CIJITVERSION  r9_20111107_21307ifx1
+1CIGCVERSION   GC - 20120202_AA
+1CIJITMODES    JIT enabled, AOT enabled, FSD disabled, HCR disabled
+1CIRUNNINGAS   Running as a standalone JVM
+1CICMDLINE     /usr/java6_64/bin/java -DDOMAIN_NAME= -DSERVER_NAME=server1 -Xms2048m -Xmx2048m -Xgcpolicy:gencon -verbosegc -Dweblogic.Name=server1 -Djava.security.policy=/wlserver_10.3/server/lib/weblogic.policy -Dweblogic.ProductionModeEnabled=true -Dweblogic.security.SSL.trustedCAKeyStore=/weblogic/wlserver_10.3/server/lib/cacerts -da -Dplatform.home=/weblogic/wlserver_10.3 -Dwls.home=/weblogic/wlserver_10.3/server -Dweblogic.home=/weblogic/wlserver_10.3/server -Dweblogic.management.discover=false -Dweblogic.management.server=t3://12.30.51.107:6060 -Dwlw.iterativeDev=false -Dwlw.testConsole=false -Dwlw.logErrorsToConsole=false -Dweblogic.ext.dirs=/weblogic/patch_wls1036/profiles/default/sysext_manifest_classpath weblogic.Server
+1CIJAVAHOMEDIR Java Home Dir:   /usr/java6_64/jre
+1CIJAVADLLDIR  Java DLL Dir:    /usr/java6_64/jre/bin
+2CIUSERARG               -DDOMAIN_NAME=
+2CIUSERARG               -DSERVER_NAME=server1
+2CIUSERARG               -Xms2048m
+2CIUSERARG               -Xmx2048m
+....
+</code></pre>
+<h3 id="스토리지-관리meminfo"><a class="header" href="#스토리지-관리meminfo">스토리지 관리(MEMINFO)</a></h3>
+<p>MEMINFO 섹션은 Memory에 대한 정보를 제공한다. 제일 먼저 아래 정보를 보면 당시 메모리 사용 현황에 대해서 나온다. 4GB 할당된 상태에서 사용가능한 메모리는 약 44MB 정도였다. </p>
+<pre><code class="language-log">0SECTION       MEMINFO subcomponent dump routine
+NULL           =================================
+1STHEAPFREE    Bytes of Heap Space Free: 2CA0EF0 
+1STHEAPALLOC   Bytes of Heap Space Allocated: 80000000 
+</code></pre>
+<p>아래 덤프는 내부 메모리 섹션(SEGTYPE)이다. 클래스 메모리, JIT 코드 캐시 및 JIT 데이터 캐시등을 포함한다.</p>
+<ul>
+<li>segment: 세그먼트 제어 데이터 구조의 주소</li>
+<li>start: 세그먼트의 시작 주소</li>
+<li>alloc: 현재 할당 주소</li>
+<li>end: 세그먼트의 끝 주소</li>
+<li>type: 세그먼트 특성을 설명하는 내부 비트 필드</li>
+<li>size: 세그먼트의 크기, 아래엔 <code>bytes</code>로 표시</li>
+</ul>
+<pre><code class="language-log">1STSEGTYPE     Internal Memory
+NULL           segment          start            alloc            end               type     bytes
+1STSEGMENT     00000100207A0C18 000001002C74D948 000001002C74D948 000001002C75D948  01000040 10000
+...
+1STSEGTYPE     Object Memory
+NULL           segment          start            alloc            end               type     bytes
+1STSEGMENT     0000010012A345F8 0700000000000000 0700000060000000 0700000060000000  00000009 60000000
+NULL           
+1STSEGTYPE     Class Memory
+NULL           segment          start            alloc            end               type     bytes
+1STSEGMENT     00000100153C9A78 0000010016306FD0 00000100163072C0 00000100163072C0  00010040 300
+...
+NULL           
+1STSEGTYPE     JIT Code Cache
+NULL           segment          start            alloc            end               type     bytes
+1STSEGMENT     00000100139CBF98 000001002ACC3E48 000001002B4C3E48 000001002B4C3E48  00000068 800000
+1STSEGMENT     00000100139CBED8 0000010013A143E8 00000100142143E8 00000100142143E8  00000068 800000
+NULL           
+1STSEGTYPE     JIT Data Cache
+NULL           segment          start            alloc            end               type     bytes
+1STSEGMENT     00000100139CC198 000001001424BF08 000001001486A1C0 0000010014A4BF08  00000048 800000
+NULL           
+1STGCHTYPE     GC History  
+3STHSTTYPE     05:39:04:720827501 GMT j9mm.100 -   J9AllocateObject() returning NULL! 48 bytes requested for object of class 0000010014C5A010 from memory space 'Generational' id=0000010012A357D8 
+3STHSTTYPE     05:39:04:719925874 GMT j9mm.101 -   J9AllocateIndexableObject() returning NULL! 232 bytes requested for object of class 0000010014C599F0 from memory space 'Generational' id=0000010012A357D8 
+3STHSTTYPE     05:39:04:719924530 GMT j9mm.84 -   Forcing J9AllocateIndexableObject() to fail due to excessive GC 
+3STHSTTYPE     05:39:04:719594780 GMT j9mm.101 -   J9AllocateIndexableObject() returning NULL! 48 bytes requested for object of class 0000010018DCC370 from memory space 'Generational' id=0000010012A357D8 
+...
+</code></pre>
+<h3 id="locks"><a class="header" href="#locks">LOCKS</a></h3>
+<h3 id="threads"><a class="header" href="#threads">THREADS</a></h3>
+<h3 id="shared-classes"><a class="header" href="#shared-classes">SHARED CLASSES</a></h3>
+<h3 id="classes"><a class="header" href="#classes">CLASSES</a></h3>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                                                    <a rel="prev" href="../../lang/java/difference-between-Log-vs-Logger.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+                                                    <a rel="next" href="../../lang/java/jmeter.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                                    <a rel="prev" href="../../lang/java/difference-between-Log-vs-Logger.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+                                    <a rel="next" href="../../lang/java/jmeter.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                            </nav>
+
+        </div>
+
+        
+        
+        
+                <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+        
+                <script src="../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+        <script src="../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        
+    </body>
+</html>
